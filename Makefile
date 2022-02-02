@@ -4,7 +4,8 @@ FLAGS		= #-Wextra -Wall -Werror -g
 INCLUDES 	= includes/
 HDR			= ${INCLUDES}mini_shell.h
 SRC_DIR		= src/
-SRC_FILES 	= main.c
+SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
+				utils/exit.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}
 
@@ -14,7 +15,7 @@ OBJ			= ${SRC:.c=.o}
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-				$(CC) $(FLAGS) -o $@ $^
+				$(CC) $(FLAGS) -o $@ $^ -lreadline
 
 clean:
 				rm -f ${OBJ}
