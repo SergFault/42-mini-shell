@@ -3,6 +3,8 @@
 //
 #include "../includes/mini_shell.h"
 
+char **g_env;
+
 void print_env(char **env)
 {
 	while (*env)
@@ -19,18 +21,23 @@ void print_prompt(){
 int main(int argc, char **argv, char **env)
 {
 	char *input;
+	char **commands;
 
 	hook_signals();
+	parse_environment(env);
 	while(1)
 	{
 		input = readline(PROMPT);
-		if (!input){
+		if (!input)
+			break ;
+		if (consider_empty(input))
+		{
 			free(input);
-			ft_exit();
+			continue ;
 		}
-		free(input);
 		add_history(input);
-			printf("%s\n", input);
+		commands = ft_split(input, ';');
+		launch_commands(commands);
 		free(input);
 //		printf("\n");
 //		print_env(env);
@@ -38,4 +45,5 @@ int main(int argc, char **argv, char **env)
 //		print_env(env);
 //	launch_commands();
 	}
+	return (0);
 }

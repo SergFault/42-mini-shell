@@ -5,7 +5,12 @@ INCLUDES 	= includes/
 HDR			= ${INCLUDES}mini_shell.h
 SRC_DIR		= src/
 SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
-				utils/exit.c
+				utils/exit.c utils/ft_split.c utils/str_dup.c \
+				utils/char_arr_size.c  utils/ft_strlen.c \
+				utils/ft_split_spaces.c \
+				utils/ft_strlcpy.c utils/consider_empty.c\
+				process_parsing/parse.c \
+				process_launching/launch_commands.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}
 
