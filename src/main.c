@@ -19,15 +19,16 @@ void print_prompt(){
 int main(int argc, char **argv, char **env)
 {
 	char *input;
-	struct sigaction actions[3];
 
-	hook_signals(actions);
+	hook_signals();
 	while(1)
 	{
 		input = readline(PROMPT);
 		if (!input){
+			free(input);
 			ft_exit();
 		}
+		free(input);
 		add_history(input);
 			printf("%s\n", input);
 		free(input);

@@ -23,7 +23,7 @@ int parse(void);
 int launch_commands();
 
 /* signals */
-int hook_signals(struct sigaction *actions);
+int hook_signals();
 void ft_exit();
 
 #endif

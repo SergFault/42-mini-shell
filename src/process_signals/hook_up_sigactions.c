@@ -3,24 +3,29 @@
 
 #include "../../includes/mini_shell.h"
 
-void interrupt_handler()
+void sig_handler(int sig_no)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (sig_no == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+
+	if (sig_no == SIGTERM){
+		ft_exit(0);
+	}
+
+	if (sig_no == SIGQUIT)
+	{
+		ft_exit(0);
+	}
 }
 
-int hook_signals(struct sigaction *actions)
+int hook_signals()
 {
-
-	actions[0].sa_handler = ft_exit;
-	sigaction(SIGQUIT, actions, NULL);
-	actions[1].sa_handler = interrupt_handler;
-	sigaction(SIGINT, actions + 1, NULL);
-	actions[2].sa_handler = ft_exit;
-	sigaction(SIGTERM, actions + 2, NULL);
-
+	signal(SIGINT, sig_handler);
 	return (1);
 
 }

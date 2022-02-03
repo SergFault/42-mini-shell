@@ -1,6 +1,6 @@
 NAME		= mini_shell
 CC			= clang
-FLAGS		= #-Wextra -Wall -Werror -g
+FLAGS		= -g #-Wextra -Wall -Werror
 INCLUDES 	= includes/
 HDR			= ${INCLUDES}mini_shell.h
 SRC_DIR		= src/

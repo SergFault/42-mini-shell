@@ -1,1 +1,4 @@
 /.idea
+*.o
+mini_shell
+valgrind-out.txt
