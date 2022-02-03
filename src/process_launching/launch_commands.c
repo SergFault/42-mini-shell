@@ -34,7 +34,7 @@ int launch_commands(char **raw_commands){
 	counter = -1;
 	while (raw_commands && raw_commands[++counter])
 	{
-		if (is_built_in(raw_commands[0]))
+		if (is_built_in(*raw_commands))
 		{
 //			launch_built_in(0);
 		} else{
