@@ -1,6 +1,4 @@
-//
-// Created by sergey on 01.02.2022.
-//
+
 #include "../includes/mini_shell.h"
 
 char **g_env;
