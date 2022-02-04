@@ -9,7 +9,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/char_arr_size.c  utils/ft_strlen.c \
 				utils/ft_split_spaces.c \
 				utils/ft_strlcpy.c utils/consider_empty.c\
-				utils/ft_strnstr.c \
+				utils/ft_strnstr.c utils/ft_strchr.c \
 				process_parsing/parse.c \
 				process_launching/launch_commands.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \

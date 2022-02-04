@@ -41,6 +41,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int launch_commands(char **raw_commands);
 char	**ft_split_spaces(char const *s);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
+char	*ft_strchr(const char *s, int c);
 
 /*builtins*/
 

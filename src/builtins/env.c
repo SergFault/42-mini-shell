@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:23:39 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/04 11:00:46 by eshana           ###   ########.fr       */
+/*   Updated: 2022/02/04 11:01:42 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	ft_env(void)
 	i = 0;
 	while (g_env[i])
 	{
-		printf("%s\n", g_env[i]);
+		if (ft_strchr(g_env[i], '='))
+			printf("%s\n", g_env[i]);
 		i++;
 	}
 	exit(0);
