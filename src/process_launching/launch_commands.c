@@ -8,6 +8,8 @@ static int	is_built_in(const char *cmd)
 {
 	if (ft_strnstr(cmd, "pwd", 3))
 		return (1);
+	if (ft_strnstr(cmd, "env", 3))
+		return (1);
 	return (0);
 }
 
@@ -20,7 +22,11 @@ int launch_built_in(char *raw_command, char *const args[])
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_pwd();
+		if (ft_strnstr(cmd[0], "pwd", 3))
+			ft_pwd();
+		if (ft_strnstr(cmd[0], "env", 3))
+			ft_env();
+		exit(0);
 		//execve(cmd[0], cmd, g_env);
 	}
 	if (pid == -1){
@@ -60,8 +66,7 @@ int launch_commands(char **raw_commands){
 	{
 		if (is_built_in(*raw_commands))
 		{
-			if (ft_strnstr(*raw_commands, "pwd", 3))
-				launch_built_in(ft_strdup(raw_commands[0]), raw_commands);
+			launch_built_in(ft_strdup(raw_commands[0]), raw_commands);
 
 //			launch_built_in(0);
 		} else{

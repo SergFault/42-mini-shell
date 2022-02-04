@@ -46,5 +46,6 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 int		ft_cd(char *dest);
 int		ft_pwd(void);
+int		ft_env(void);
 
 #endif
