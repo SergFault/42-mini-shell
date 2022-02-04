@@ -23,5 +23,5 @@ int	ft_env(void)
 			printf("%s\n", g_env[i]);
 		i++;
 	}
-	exit(0);
+	return (0);
 }

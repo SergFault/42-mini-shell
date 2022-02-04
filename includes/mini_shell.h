@@ -31,7 +31,6 @@ extern char **g_env;
 
 /* signals */
 int hook_signals();
-void ft_exit();
 
 /* common utils */
 char	**ft_split(char const *s, char c);
@@ -56,5 +55,6 @@ int	assemble_path(char *bin_name, char **paths, char **assembled_path);
 int		ft_cd(char *dest);
 int		ft_pwd(void);
 int		ft_env(void);
+void	ft_exit();
 
 #endif

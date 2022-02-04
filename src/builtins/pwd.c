@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:54 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/04 10:32:44 by eshana           ###   ########.fr       */
+/*   Updated: 2022/02/04 21:37:32 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_pwd(void)
 	if (str)
 	{
 		printf("%s\n", str + 4);
-		exit(0);
+		return (0);
 	}
 	printf("fail\n");
-	exit(1);
+	return (1);
 }
