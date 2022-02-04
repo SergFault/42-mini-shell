@@ -15,18 +15,12 @@
 int	ft_pwd(void)
 {
 	char	*str;
-	size_t	i;
 
-	i = 0;
-	while (g_env[i])
+	str = get_env_var(g_env, "PWD=");
+	if (str)
 	{
-		str = ft_strnstr(g_env[i], "PWD=", 4);
-		if (str)
-		{
-			printf("%s\n", str + 4);
-			exit(0);
-		}
-		i++;
+		printf("%s\n", str + 4);
+		exit(0);
 	}
 	printf("fail\n");
 	exit(1);

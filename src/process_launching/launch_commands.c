@@ -38,16 +38,45 @@ int launch_built_in(char *raw_command, char *const args[])
 	return (0);
 }
 
+int check_bin_path(char *path){
+	if (access(path, X_OK) == 0)
+	{
+		return (BIN_SUCCEED);
+	}
+	return (BIN_PERM_ERR);
+}
+
+char *get_path(char *raw_cmd){
+	char *path_env;
+	char *full_path;
+	char **x_paths;
+	int status;
+
+	path_env = get_env_var(g_env, "PATH=");
+	x_paths = ft_split(path_env, ':');
+	status = assemble_path(raw_cmd, x_paths, &full_path);
+	if (status == BIN_SUCCEED)
+		return (full_path);
+	if (status == BIN_PERM_ERR)
+		printf("%s: Permission denied\n", raw_cmd);
+	if (status == BIN_NOT_FOUND)
+		printf("%s: Command not found\n", raw_cmd);
+	exit(1);
+}
+
 int launch_bin(char *raw_command, char *const args[])
 {
 	pid_t pid;
 	char **cmd;
+	char *bin_path;
 
 	cmd = ft_split_spaces(raw_command);
 	pid = fork();
 	if (pid == 0)
 	{
-		execve(cmd[0], cmd, g_env);
+		bin_path = get_path(cmd[0]);
+//		printf(bin_path);
+		execve(bin_path, cmd, g_env);
 	}
 	if (pid == -1){
 		printf("Fork process error.\n");
@@ -70,7 +99,7 @@ int launch_commands(char **raw_commands){
 
 //			launch_built_in(0);
 		} else{
-			launch_bin(ft_strdup(raw_commands[0]), raw_commands);
+			launch_bin(raw_commands[0], raw_commands);
 		}
 	}
 	return (0);
