@@ -15,18 +15,14 @@ static int is_built_in(const char *cmd)
 	return (0);
 }
 
-int launch_built_in(char *raw_command, char *const args[])
+int launch_built_in(t_list *command)
 {
-	pid_t pid;
-	char **cmd;
-
-	cmd = ft_split_spaces(raw_command);
-
-	if (ft_strnstr(cmd[0], "pwd", 3))
+	char *cmd_str =  get_word(get_cmd(command)->element)->val;
+	if (ft_strnstr(cmd_str, "pwd", strlen("pwd")))
 		ft_pwd();
-	if (ft_strnstr(cmd[0], "env", 3))
+	if (ft_strnstr(cmd_str, "env", strlen("env")))
 		ft_env();
-	if (ft_strnstr(cmd[0], "exit", 4))
+	if (ft_strnstr(cmd_str, "exit", strlen("exit")))
 		ft_exit();
 	return (0);
 }
@@ -56,38 +52,38 @@ char *get_path(char *raw_cmd)
 		printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
 		printf("%s: Command not found\n", raw_cmd);
-	exit(1);
+	exit(1);	int pos = -1;
 }
 
-int launch_bin(char *raw_command, char *const args[])
-{
-	pid_t pid;
-	char **cmd;
-	char *bin_path;
-
-	cmd = ft_split_spaces(raw_command);
-	if (is_built_in(cmd[0]))
-	{
-		launch_built_in(cmd[0], cmd);
-	} else
-	{
-		pid = fork();
-		if (pid == 0)
-		{
-			bin_path = get_path(cmd[0]);
-//		printf(bin_path);
-			execve(bin_path, cmd, g_env);
-		}
-		if (pid == -1)
-		{
-			printf("Fork process error.\n");
-			return (-1);
-		}
-		wait(&pid);
-	}
-//		free(cmd);
-	return (0);
-}
+//int launch_bin(char *raw_command, char *const args[])
+//{
+//	pid_t pid;
+//	char **cmd;
+//	char *bin_path;
+//
+//	cmd = ft_split_spaces(raw_command);
+//	if (is_built_in(cmd[0]))
+//	{
+//		launch_built_in(cmd[0], cmd);
+//	} else
+//	{
+//		pid = fork();
+//		if (pid == 0)
+//		{
+//			bin_path = get_path(cmd[0]);
+////		printf(bin_path);
+//			execve(bin_path, cmd, g_env);
+//		}
+//		if (pid == -1)
+//		{
+//			printf("Fork process error.\n");
+//			return (-1);
+//		}
+//		wait(&pid);
+//	}
+////		free(cmd);
+//	return (0);
+//}
 
 char **get_args(t_list *command){
 
@@ -108,7 +104,7 @@ char **get_args(t_list *command){
 	iter = get_cmd(command)->element;
 	pos = -1;
 	while (iter){
-//		if (get_word(iter)->t == ARG)
+		if (get_word(iter)->t == ARG)
 			args[++pos] = get_word(iter)->val;
 		iter = iter->next;
 	}
@@ -119,13 +115,17 @@ char **get_args(t_list *command){
 int ft_exe(t_list *command){
 
 	char **args = get_args(command);
-	int pos = -1;
-//	while(*args[++pos]){
-//		printf("%s\n", *args);
-//	}
-	execve(get_path(get_word(get_cmd(command)->element)->val) ,
-		   args, g_env);
-	free(args);
+
+	char *cmd_str = get_word(get_cmd(command)->element)->val;
+	if (is_built_in(cmd_str)){
+		launch_built_in(command);
+	}
+	else
+	{
+		execve(get_path(get_word(get_cmd(command)->element)->val),
+			   args, g_env);
+		free(args);
+	}
 	return (0);
 }
 
