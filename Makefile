@@ -16,7 +16,10 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				process_launching/x_bin_checker.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \
 				builtins/env.c builtins/export.c builtins/unset.c \
-				builtins/exit.c
+				builtins/exit.c \
+				list_utils/ft_lstadd_front.c list_utils/ft_lstadd_back.c \
+				list_utils/ft_lstnew.c list_utils/getters.c \
+				list_utils/ft_lstsize.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}
 

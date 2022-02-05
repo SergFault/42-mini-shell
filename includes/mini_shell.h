@@ -22,6 +22,36 @@
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2
 
+enum type{
+	NONE, //default set
+	ARG, //word
+	FILE_IN_OP, //word == '<'
+	HERE_DOC_OP, // word == '<<'
+	FILE_OUT_OP, //word == '>'
+	FILE_OUT_APPEND_OP, //word == '>>'
+	IN_FILE, // word following '<'
+	LIM, // word following '<<'
+	OUT_FILE, // word following '>'
+	FILE_OUT_APPEND // word following '>>'
+};
+
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+	struct s_list	*prev;
+}				t_list;
+
+typedef struct s_pipeline{
+	char *cmd_line;
+	t_list *element;
+} t_pipeline;
+
+typedef struct s_word{
+	char *val;
+	enum type t;
+} t_word;
+
 int parse(void);
 int launch_commands();
 
@@ -40,7 +70,7 @@ int		char_arr_size(char **char_arr);
 int		parse_environment(char **env);
 size_t		ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-int launch_commands(char **raw_commands);
+int 	launch_commands(t_list **commands);
 char	**ft_split_spaces(char const *s);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
@@ -51,10 +81,22 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
 
 /*builtins*/
-
 int		ft_cd(char *dest);
 int		ft_pwd(void);
 int		ft_env(void);
 void	ft_exit();
+
+/* parse */
+t_list *parse_input(char *input);
+
+/* list utils */
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstadd_front(t_list **lst, t_list *new);
+t_list	*ft_lstnew(void *content);
+int		ft_lstsize(t_list *lst);
+
+/* dao */
+t_pipeline *get_pipe(t_list *lst);
+t_word		*get_word(t_list *lst);
 
 #endif

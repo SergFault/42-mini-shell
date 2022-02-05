@@ -4,39 +4,42 @@
 
 #include "../../includes/mini_shell.h"
 
-/* single quotes, quotes, escape char*/
-//process_escape_characters(){
-//
-//}
+t_list *parse_elements();
 
-/* check input mistakes */
-//process_errors(){
-//
-//}
+char **parse_1(char *input){
+	return ft_split(input, '|');
+}
 
-/* set environment to command. Example: $pwd = /etc */
-//set_env(){
-//
-//}
+t_list *parse_elements(char *cmd_line)
+{
+	t_list *elements;
+	elements = NULL;
+	char ** words;
+	int pos;
+	t_word *word;
 
-/* find binary file at $PATH */
-//find_binary(){
-//
-//}
+	pos = -1;
+	words = ft_split(cmd_line, ' ');
+	while(words[++pos]){
+		word = (t_word *) malloc(sizeof (t_word));
+		word->val = words[pos];
+		word->t = ARG;
+		ft_lstadd_back(&elements, ft_lstnew(word));
+	}
+	return elements;
+}
 
-/* decompose commands */
-//commands_decomposition(){
-//
-//}
 
-//int parse(){
-//	process_escape_characters();
-//	process_errors();
-//	set_env();
-//	find_binary();
-//	commands_decomposition();
-//	return 0;
-//}
+int   parse_2(t_list *pipe_lst){
+
+	while(pipe_lst)
+	{
+		get_pipe(pipe_lst)->element = parse_elements(get_pipe(pipe_lst)->cmd_line); //todo make proper parsing
+		pipe_lst = pipe_lst->next;
+	}
+	return (0);
+}
+
 
 int parse_environment(char **env){
 	int count;
@@ -50,4 +53,23 @@ int parse_environment(char **env){
 		pos++;
 	}
 	return (0);
+}
+
+t_list *parse_input(char *input){
+	t_list *command_lst;
+	t_pipeline *p_line;
+	char **lines;
+	int pos;
+	command_lst = NULL;
+	lines = parse_1(input); //todo make proper parsing considering quotes
+	pos = -1;
+	while (lines[++pos])
+	{
+		p_line = malloc(sizeof(t_pipeline));
+		p_line->cmd_line = lines[pos];
+		p_line->element = NULL;
+		ft_lstadd_back(&command_lst, ft_lstnew(p_line));
+	}
+	parse_2(command_lst); //todo make proper parsing considering quotes
+	return command_lst;
 }

@@ -19,7 +19,7 @@ void print_prompt(){
 int main(int argc, char **argv, char **env)
 {
 	char *input;
-	char **commands;
+	t_list *commands;
 
 	hook_signals();
 	parse_environment(env);
@@ -34,14 +34,9 @@ int main(int argc, char **argv, char **env)
 			continue ;
 		}
 		add_history(input);
-		commands = ft_split(input, ';');
-		launch_commands(commands);
+		commands = parse_input(input);
+		launch_commands(&commands);
 		free(input);
-//		printf("\n");
-//		print_env(env);
-//		chdir("..");
-//		print_env(env);
-//	launch_commands();
 	}
 	return (0);
 }

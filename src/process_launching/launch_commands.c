@@ -89,15 +89,108 @@ int launch_bin(char *raw_command, char *const args[])
 	return (0);
 }
 
-int launch_commands(char **raw_commands)
-{
+char **get_args(t_list *command){
 
-	int counter;
-	counter = -1;
-	while (raw_commands && raw_commands[++counter])
+	t_list *iter;
+	char **args;
+	iter = get_pipe(command)->element;
+	int args_count;
+	int pos;
+
+	args_count = 0;
+	while (iter)
 	{
-		launch_bin(raw_commands[0], raw_commands);
+		if (get_word(iter)->t == ARG)
+			args_count++;
+		iter = iter->next;
 	}
+	args = (char **)malloc(sizeof(char *) * (args_count + 1));
+	iter = get_pipe(command)->element;
+	pos = -1;
+	while (iter){
+//		if (get_word(iter)->t == ARG)
+			args[++pos] = get_word(iter)->val;
+		iter = iter->next;
+	}
+	args[++pos] = NULL;
+	return args;
+}
+
+int ft_exe(t_list *command){
+
+	char **args = get_args(command);
+	int pos = -1;
+//	while(*args[++pos]){
+//		printf("%s\n", *args);
+//	}
+	execve(get_path(get_word(get_pipe(command)->element)->val) ,
+		   args, g_env);
+	free(args);
+	return (0);
+}
+
+int launch_piped(t_list *command_lst){
+	int std_in;
+	int std_out;
+	int fd[2];
+	int pid;
+	int pid1;
+
+	std_in = dup(0);
+	std_out = dup(1);
+
+	while (command_lst->next)
+	{
+		pipe(fd);
+		pid = fork();
+		if (!pid) /* child */
+		{
+			dup2(fd[0], 0);
+			close(fd[0]);
+			close(fd[1]);
+			ft_exe(command_lst->next);
+		} else /* parent */
+		{
+			dup2(fd[1], 1);
+			close(fd[0]);
+			close(fd[1]);
+			pid1 = fork();
+			if (!pid1)
+			{
+				ft_exe(command_lst);
+			}
+			wait(0);
+			break;
+		}
+		command_lst = command_lst->next;
+	}
+	dup2(std_in, 0);
+	dup2(std_out, 1);
+	if (pid)
+		wait(0);
+	return (0);
+}
+
+int launch_simple(t_list *command_lst){
+	int pid;
+
+	pid = fork();
+	if(!pid){
+		ft_exe(command_lst);
+	}
+	wait(0);
+}
+
+int launch_commands(t_list **commands)
+{
+	t_list *command_lst = *commands;
+	if (ft_lstsize(command_lst) > 1){
+		launch_piped(command_lst);
+	} else
+	{
+		launch_simple(command_lst);
+	}
+
 	return (0);
 }
 
