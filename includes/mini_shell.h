@@ -42,10 +42,10 @@ typedef struct s_list
 	struct s_list	*prev;
 }				t_list;
 
-typedef struct s_pipeline{
+typedef struct s_command{
 	char *cmd_line;
 	t_list *element;
-} t_pipeline;
+} t_command;
 
 typedef struct s_word{
 	char *val;
@@ -96,7 +96,7 @@ t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 
 /* dao */
-t_pipeline *get_pipe(t_list *lst);
+t_command *get_cmd(t_list *lst);
 t_word		*get_word(t_list *lst);
 
 #endif

@@ -93,7 +93,7 @@ char **get_args(t_list *command){
 
 	t_list *iter;
 	char **args;
-	iter = get_pipe(command)->element;
+	iter = get_cmd(command)->element;
 	int args_count;
 	int pos;
 
@@ -105,7 +105,7 @@ char **get_args(t_list *command){
 		iter = iter->next;
 	}
 	args = (char **)malloc(sizeof(char *) * (args_count + 1));
-	iter = get_pipe(command)->element;
+	iter = get_cmd(command)->element;
 	pos = -1;
 	while (iter){
 //		if (get_word(iter)->t == ARG)
@@ -123,7 +123,7 @@ int ft_exe(t_list *command){
 //	while(*args[++pos]){
 //		printf("%s\n", *args);
 //	}
-	execve(get_path(get_word(get_pipe(command)->element)->val) ,
+	execve(get_path(get_word(get_cmd(command)->element)->val) ,
 		   args, g_env);
 	free(args);
 	return (0);
@@ -179,6 +179,7 @@ int launch_simple(t_list *command_lst){
 		ft_exe(command_lst);
 	}
 	wait(0);
+	return (0);
 }
 
 int launch_commands(t_list **commands)

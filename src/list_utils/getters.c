@@ -1,7 +1,7 @@
 
 #include "../../includes/mini_shell.h"
 
-t_pipeline *get_pipe(t_list *lst){
+t_command *get_cmd(t_list *lst){
 	return lst->content;
 }
 

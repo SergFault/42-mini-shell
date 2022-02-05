@@ -34,7 +34,7 @@ int   parse_2(t_list *pipe_lst){
 
 	while(pipe_lst)
 	{
-		get_pipe(pipe_lst)->element = parse_elements(get_pipe(pipe_lst)->cmd_line); //todo make proper parsing
+		get_cmd(pipe_lst)->element = parse_elements(get_cmd(pipe_lst)->cmd_line); //todo make proper parsing
 		pipe_lst = pipe_lst->next;
 	}
 	return (0);
@@ -57,7 +57,7 @@ int parse_environment(char **env){
 
 t_list *parse_input(char *input){
 	t_list *command_lst;
-	t_pipeline *p_line;
+	t_command *p_line;
 	char **lines;
 	int pos;
 	command_lst = NULL;
@@ -65,7 +65,7 @@ t_list *parse_input(char *input){
 	pos = -1;
 	while (lines[++pos])
 	{
-		p_line = malloc(sizeof(t_pipeline));
+		p_line = malloc(sizeof(t_command));
 		p_line->cmd_line = lines[pos];
 		p_line->element = NULL;
 		ft_lstadd_back(&command_lst, ft_lstnew(p_line));
