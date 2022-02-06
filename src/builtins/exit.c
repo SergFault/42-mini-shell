@@ -80,7 +80,10 @@ int	ft_exit(char **params)
 	if (size && ft_is_numeric(params[0]))
 	{
 		if (ft_str_size(params) > 1)
+		{
+			printf("exit\n");
 			return (1);//error: too many arguments
+		}
 		else
 			ret = ft_atoi(params[0]);
 	}
@@ -90,5 +93,6 @@ int	ft_exit(char **params)
 		ret = 2;
 	}
 	printf("exit\n");
+	//free all memory
 	exit(ret);
 }
