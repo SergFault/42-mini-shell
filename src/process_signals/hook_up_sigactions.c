@@ -14,12 +14,12 @@ void sig_handler(int sig_no)
 	}
 
 	if (sig_no == SIGTERM){
-		ft_exit(0);
+		ft_exit(0, NULL);
 	}
 
 	if (sig_no == SIGQUIT)
 	{
-		ft_exit(0);
+		ft_exit(0, NULL);
 	}
 }
 

@@ -43,7 +43,6 @@ re:			fclean all
 
 val:		$(NAME)
 			valgrind \
-			--gen-suppressions=all \
 			--suppressions=.valgrind-supression \
 			--leak-check=full \
 			--show-leak-kinds=all \

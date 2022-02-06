@@ -15,7 +15,7 @@ static int is_built_in(const char *cmd)
 	return (0);
 }
 
-int launch_built_in(t_list *command)
+int launch_built_in(t_list *command, t_list *cmd_list)
 {
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", strlen("pwd")))
@@ -23,7 +23,7 @@ int launch_built_in(t_list *command)
 	if (ft_strnstr(cmd_str, "env", strlen("env")))
 		ft_env();
 	if (ft_strnstr(cmd_str, "exit", strlen("exit")))
-		ft_exit(get_args(command));
+		ft_exit(get_args(command), cmd_list);
 	return (0);
 }
 
@@ -56,7 +56,7 @@ char *get_path(char *raw_cmd)
 	int pos = -1;
 }
 
-int ft_exe(t_list *command)
+int ft_exe(t_list *command, t_list *commands)
 {
 	int pid;
 	char **args = get_args(command);
@@ -64,7 +64,7 @@ int ft_exe(t_list *command)
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
 	if (is_built_in(cmd_str))
 	{
-		launch_built_in(command);
+		launch_built_in(command, commands);
 	} else
 	{
 		execve(get_path(get_word(get_cmd(command)->element)->val),
@@ -94,7 +94,7 @@ int launch_piped(t_list *command_lst)
 			close(fd[1]);
 			if (!fork()){
 				close(fd[0]);
-				ft_exe(command_lst);
+				ft_exe(command_lst, command_lst);
 			}
 		}
 		else if (command_lst->prev != NULL && command_lst->next != NULL)
@@ -106,7 +106,7 @@ int launch_piped(t_list *command_lst)
 			close(fd[1]);
 			if (!fork()){
 				close(fd[0]);
-				ft_exe(command_lst);
+				ft_exe(command_lst, command_lst);
 			}
 		}
 		else
@@ -115,7 +115,7 @@ int launch_piped(t_list *command_lst)
 			close(fd[0]);
 			dup2(std_out, 1);
 			if (!fork()){
-				ft_exe(command_lst);
+				ft_exe(command_lst, command_lst);
 			}
 		}
 		command_lst = command_lst->next;
@@ -129,52 +129,6 @@ int launch_piped(t_list *command_lst)
 	return (0);
 }
 
-//int launch_piped(t_list *command_lst)
-//{
-//	int std_in;
-//	int std_out;
-//	int fd[2];
-//	int pid;
-//	int pid1;
-//	int pid3;
-//
-//	std_in = dup(0);
-//	std_out = dup(1);
-//
-//	while (command_lst->next)
-//	{
-//		pipe(fd);
-//		pid = fork();
-//		if (!pid) /* child */
-//		{
-//			dup2(fd[0], 0);
-//			close(fd[0]);
-//			close(fd[1]);
-//			pid3 = fork();
-//			if (!pid3)
-//				ft_exe(command_lst->next);
-//			waitpid(pid3, NULL, 0);
-//		} else /* parent */
-//		{
-//			dup2(fd[1], 1);
-//			close(fd[0]);
-//			close(fd[1]);
-//			pid1 = fork();
-//			if(!pid1)
-//				ft_exe(command_lst);
-//			waitpid(pid1, NULL, 0);
-//			break;
-//		}
-//		command_lst = command_lst->next;
-//	}
-////	close(0);
-////	close(1);
-//	dup2(std_in, 0);
-//	dup2(std_out, 1);
-//	if (pid)
-//		wait(0);
-//	return (0);
-//}
 
 int launch_simple(t_list *command_lst)
 {
@@ -183,7 +137,7 @@ int launch_simple(t_list *command_lst)
 	pid = fork();
 	if (!pid)
 	{
-		ft_exe(command_lst);
+		ft_exe(command_lst, command_lst);
 	}
 	wait(0);
 	return (0);
@@ -194,7 +148,7 @@ int launch_commands(t_list **commands)
 	t_list *command_lst = *commands;
 	if (ft_lstsize(command_lst) == 1 &&
 		is_built_in(get_word(get_cmd(command_lst)->element)->val)){
-		launch_built_in(command_lst);
+		launch_built_in(command_lst, command_lst);
 	}
 	else if (ft_lstsize(command_lst) > 1)
 	{

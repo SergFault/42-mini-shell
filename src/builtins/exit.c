@@ -58,7 +58,7 @@ int	ft_atoi(const char *str)
 	return (res * sgn);
 }
 
-int	ft_exit(char **params)
+int	ft_exit(char **params, t_list *cmd_to_free)
 {
 	unsigned char	ret;
 	int		size;
@@ -82,6 +82,7 @@ int	ft_exit(char **params)
 		ret = 2;
 	}
 	printf("exit\n");
-	//free all memory
+	free_all(cmd_to_free);
+	free(params);
 	exit(ret);
 }
