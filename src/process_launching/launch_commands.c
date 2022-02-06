@@ -17,7 +17,7 @@ static int is_built_in(const char *cmd)
 
 int launch_built_in(t_list *command)
 {
-	char *cmd_str =  get_word(get_cmd(command)->element)->val;
+	char *cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", strlen("pwd")))
 		ft_pwd();
 	if (ft_strnstr(cmd_str, "env", strlen("env")))
@@ -52,40 +52,12 @@ char *get_path(char *raw_cmd)
 		printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
 		printf("%s: Command not found\n", raw_cmd);
-	exit(1);	int pos = -1;
+	exit(1);
+	int pos = -1;
 }
 
-//int launch_bin(char *raw_command, char *const args[])
-//{
-//	pid_t pid;
-//	char **cmd;
-//	char *bin_path;
-//
-//	cmd = ft_split_spaces(raw_command);
-//	if (is_built_in(cmd[0]))
-//	{
-//		launch_built_in(cmd[0], cmd);
-//	} else
-//	{
-//		pid = fork();
-//		if (pid == 0)
-//		{
-//			bin_path = get_path(cmd[0]);
-////		printf(bin_path);
-//			execve(bin_path, cmd, g_env);
-//		}
-//		if (pid == -1)
-//		{
-//			printf("Fork process error.\n");
-//			return (-1);
-//		}
-//		wait(&pid);
-//	}
-////		free(cmd);
-//	return (0);
-//}
-
-char **get_args(t_list *command){
+char **get_args(t_list *command)
+{
 
 	t_list *iter;
 	char **args;
@@ -100,10 +72,11 @@ char **get_args(t_list *command){
 			args_count++;
 		iter = iter->next;
 	}
-	args = (char **)malloc(sizeof(char *) * (args_count + 1));
+	args = (char **) malloc(sizeof(char *) * (args_count + 1));
 	iter = get_cmd(command)->element;
 	pos = -1;
-	while (iter){
+	while (iter)
+	{
 		if (get_word(iter)->t == ARG)
 			args[++pos] = get_word(iter)->val;
 		iter = iter->next;
@@ -112,70 +85,132 @@ char **get_args(t_list *command){
 	return args;
 }
 
-int ft_exe(t_list *command){
-
+int ft_exe(t_list *command)
+{
+	int pid;
 	char **args = get_args(command);
 
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
-	if (is_built_in(cmd_str)){
+	if (is_built_in(cmd_str))
+	{
 		launch_built_in(command);
-	}
-	else
+	} else
 	{
 		execve(get_path(get_word(get_cmd(command)->element)->val),
-			   args, g_env);
-		free(args);
+				   args, g_env);
 	}
-	return (0);
+	exit(0);
 }
 
-int launch_piped(t_list *command_lst){
+
+int launch_piped(t_list *command_lst)
+{
+	int cmd_count;
 	int std_in;
 	int std_out;
 	int fd[2];
-	int pid;
-	int pid1;
-
 	std_in = dup(0);
 	std_out = dup(1);
 
-	while (command_lst->next)
+	cmd_count = ft_lstsize(command_lst);
+
+	while (command_lst)
 	{
-		pipe(fd);
-		pid = fork();
-		if (!pid) /* child */
+
+		if (command_lst->prev == NULL){
+			pipe(fd);
+			dup2(fd[1], 1);
+			close(fd[1]);
+			if (!fork()){
+				close(fd[0]);
+				ft_exe(command_lst);
+			}
+		}
+		else if (command_lst->prev != NULL && command_lst->next != NULL)
 		{
 			dup2(fd[0], 0);
 			close(fd[0]);
-			close(fd[1]);
-			ft_exe(command_lst->next);
-		} else /* parent */
-		{
+			pipe(fd);
 			dup2(fd[1], 1);
-			close(fd[0]);
 			close(fd[1]);
-			pid1 = fork();
-			if (!pid1)
-			{
+			if (!fork()){
+				close(fd[0]);
 				ft_exe(command_lst);
 			}
-			wait(0);
-			break;
+		}
+		else
+		{
+			dup2(fd[0], 0);
+			close(fd[0]);
+			dup2(std_out, 1);
+			if (!fork()){
+				ft_exe(command_lst);
+			}
 		}
 		command_lst = command_lst->next;
 	}
+	while(cmd_count > 0){
+		wait(0);
+		cmd_count--;
+	}
 	dup2(std_in, 0);
 	dup2(std_out, 1);
-	if (pid)
-		wait(0);
-	return (0);
 }
 
-int launch_simple(t_list *command_lst){
+//int launch_piped(t_list *command_lst)
+//{
+//	int std_in;
+//	int std_out;
+//	int fd[2];
+//	int pid;
+//	int pid1;
+//	int pid3;
+//
+//	std_in = dup(0);
+//	std_out = dup(1);
+//
+//	while (command_lst->next)
+//	{
+//		pipe(fd);
+//		pid = fork();
+//		if (!pid) /* child */
+//		{
+//			dup2(fd[0], 0);
+//			close(fd[0]);
+//			close(fd[1]);
+//			pid3 = fork();
+//			if (!pid3)
+//				ft_exe(command_lst->next);
+//			waitpid(pid3, NULL, 0);
+//		} else /* parent */
+//		{
+//			dup2(fd[1], 1);
+//			close(fd[0]);
+//			close(fd[1]);
+//			pid1 = fork();
+//			if(!pid1)
+//				ft_exe(command_lst);
+//			waitpid(pid1, NULL, 0);
+//			break;
+//		}
+//		command_lst = command_lst->next;
+//	}
+////	close(0);
+////	close(1);
+//	dup2(std_in, 0);
+//	dup2(std_out, 1);
+//	if (pid)
+//		wait(0);
+//	return (0);
+//}
+
+int launch_simple(t_list *command_lst)
+{
 	int pid;
 
 	pid = fork();
-	if(!pid){
+	if (!pid)
+	{
 		ft_exe(command_lst);
 	}
 	wait(0);
@@ -185,7 +220,12 @@ int launch_simple(t_list *command_lst){
 int launch_commands(t_list **commands)
 {
 	t_list *command_lst = *commands;
-	if (ft_lstsize(command_lst) > 1){
+	if (ft_lstsize(command_lst) == 1 &&
+		is_built_in(get_word(get_cmd(command_lst)->element)->val)){
+		launch_built_in(command_lst);
+	}
+	else if (ft_lstsize(command_lst) > 1)
+	{
 		launch_piped(command_lst);
 	} else
 	{
