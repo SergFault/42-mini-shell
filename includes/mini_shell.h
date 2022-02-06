@@ -88,6 +88,7 @@ int		ft_exit(char **params, t_list *cmd_to_free);
 
 /* parse */
 t_list *parse_input(char *input);
+int		set_types(t_list *elements);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -95,6 +96,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 void	ft_lstclear(t_list **lst, void (*del)(void*));
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /* dao */
 t_command *get_cmd(t_list *lst);

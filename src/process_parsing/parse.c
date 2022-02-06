@@ -19,13 +19,14 @@ t_list *parse_elements(char *cmd_line)
 	t_word *word;
 
 	pos = -1;
-	words = ft_split(cmd_line, ' ');
+	words = ft_split(cmd_line, ' '); //todo make proper parsing
 	while(words[++pos]){
 		word = (t_word *) malloc(sizeof (t_word));
 		word->val = words[pos];
-		word->t = ARG;
+		word->t = ARG; //todo delete when type_parser done
 		ft_lstadd_back(&elements, ft_lstnew(word));
 	}
+	set_types(elements);
 	free(words);
 	return elements;
 }

@@ -11,7 +11,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/ft_strlcpy.c utils/consider_empty.c\
 				utils/ft_strnstr.c utils/ft_strchr.c \
 				utils/ft_strjoin.c \
-				process_parsing/parse.c \
+				process_parsing/parse.c process_parsing/type_parser.c \
 				process_launching/launch_commands.c \
 				process_launching/x_bin_checker.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \
