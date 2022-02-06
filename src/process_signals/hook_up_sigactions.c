@@ -1,7 +1,7 @@
 //
 // Created by sergey on 02.02.2022.
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 void sig_handler(int sig_no)
 {

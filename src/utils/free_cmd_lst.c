@@ -2,7 +2,7 @@
 // Created by sergey on 06.02.2022.
 //
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 void free_cmd(void* cmd){
 		free(((t_command *) cmd)->cmd_line);

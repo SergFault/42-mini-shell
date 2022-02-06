@@ -1,5 +1,5 @@
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 static int is_space(char ch)
 {

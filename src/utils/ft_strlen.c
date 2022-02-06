@@ -1,4 +1,4 @@
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 size_t		ft_strlen(const char *s)
 {

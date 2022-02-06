@@ -2,7 +2,7 @@
 // Created by sergey on 01.02.2022.
 //
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 t_list *parse_elements();
 

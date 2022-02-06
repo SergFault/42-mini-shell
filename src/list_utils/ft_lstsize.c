@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 int	ft_lstsize(t_list *lst)
 {

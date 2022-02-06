@@ -1,7 +1,7 @@
 //
 // Created by sergey on 03.02.2022.
 //
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strdup(const char *s)
 {

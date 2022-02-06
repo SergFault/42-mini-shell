@@ -3,7 +3,7 @@
 //
 
 #include <stdbool.h>
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 bool is_file_in_op(t_list *pList);
 

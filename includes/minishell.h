@@ -85,6 +85,7 @@ int		ft_cd(char *dest);
 int		ft_pwd(void);
 int		ft_env(void);
 int		ft_exit(char **params, t_list *cmd_to_free);
+int		ft_echo(char **argv);
 
 /* parse */
 t_list *parse_input(char *input);

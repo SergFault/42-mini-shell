@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {

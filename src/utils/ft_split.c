@@ -1,5 +1,5 @@
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 static int	free_fail(char **str_a, int c)
 {

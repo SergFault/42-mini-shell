@@ -2,7 +2,7 @@
 // Created by sergey on 06.02.2022.
 //
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 void free_str_arr(char ** str_arr){
 	char **temp;

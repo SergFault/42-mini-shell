@@ -2,7 +2,7 @@
 // Created by sergey on 04.02.2022.
 //
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 int	ft_isspace(char c)
 {
@@ -61,7 +61,7 @@ int	ft_atoi(const char *str)
 int	ft_exit(char **params, t_list *cmd_to_free)
 {
 	unsigned char	ret;
-	int		size;
+	int				size;
 
 	size = ft_str_arr_size(params);
 	ret = 0;
@@ -71,7 +71,6 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 		{
 			printf("exit\ntoo many args\n");
 			return (1);//error: too many arguments
-			printf("hey\n");
 		}
 		else
 			ret = ft_atoi(params[1]);

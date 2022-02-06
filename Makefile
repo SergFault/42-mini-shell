@@ -1,8 +1,8 @@
-NAME		= mini_shell
+NAME		= minishell
 CC			= clang
 FLAGS		= -g #-Wextra -Wall -Werror
 INCLUDES 	= includes
-HDR			= ${INCLUDES}/mini_shell.h
+HDR			= ${INCLUDES}/minishell.h
 SRC_DIR		= src/
 SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/ft_split.c utils/str_dup.c \
@@ -10,7 +10,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/ft_split_spaces.c utils/get_env_var.c\
 				utils/ft_strlcpy.c utils/consider_empty.c\
 				utils/ft_strnstr.c utils/ft_strchr.c \
-				utils/ft_strjoin.c \
+				utils/ft_strjoin.c utils/ft_strncmp.c \
 				process_parsing/parse.c process_parsing/type_parser.c \
 				process_launching/launch_commands.c \
 				process_launching/x_bin_checker.c \

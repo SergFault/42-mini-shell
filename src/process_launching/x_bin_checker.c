@@ -1,5 +1,5 @@
 
-# include "../../includes/mini_shell.h"
+# include "../../includes/minishell.h"
 
 static char *make_path(const char *begin, const char *end)
 {

@@ -2,15 +2,17 @@
 // Created by sergey on 01.02.2022.
 //
 
-#include "../../includes/mini_shell.h"
+#include "../../includes/minishell.h"
 
 static int is_built_in(const char *cmd)
 {
-	if (ft_strnstr(cmd, "pwd", 3))
+	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
 		return (1);
-	if (ft_strnstr(cmd, "env", 3))
+	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
 		return (1);
-	if (ft_strnstr(cmd, "exit", 4))
+	if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		return (1);
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		return (1);
 	return (0);
 }
@@ -18,12 +20,14 @@ static int is_built_in(const char *cmd)
 int launch_built_in(t_list *command, t_list *cmd_list)
 {
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
-	if (ft_strnstr(cmd_str, "pwd", strlen("pwd")))
+	if (ft_strnstr(cmd_str, "pwd", ft_strlen("pwd")))
 		ft_pwd();
-	if (ft_strnstr(cmd_str, "env", strlen("env")))
+	if (ft_strnstr(cmd_str, "env", ft_strlen("env")))
 		ft_env();
-	if (ft_strnstr(cmd_str, "exit", strlen("exit")))
+	if (ft_strnstr(cmd_str, "exit", ft_strlen("exit")))
 		ft_exit(get_args(command), cmd_list);
+	if (ft_strnstr(cmd_str, "echo", ft_strlen("echo")))
+		ft_echo(get_args(command));
 	return (0);
 }
 
