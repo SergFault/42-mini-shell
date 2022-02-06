@@ -106,5 +106,6 @@ void free_cmds(t_list **cmds);
 void free_word(void* word);
 void free_cmd(void* cmd);
 void free_str_arr(char ** str_arr);
+void free_all(t_list *cmds);
 
 #endif

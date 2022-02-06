@@ -16,7 +16,13 @@ void free_word(void* word){
 
 }
 
-
 void free_cmds(t_list **cmds){
 	ft_lstclear(cmds, free_cmd);
+}
+
+void free_all(t_list *cmds)
+{
+	rl_clear_history();
+	free_cmds(&cmds);
+	free_str_arr(g_env);
 }

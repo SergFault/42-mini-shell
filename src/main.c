@@ -41,8 +41,5 @@ int main(int argc, char **argv, char **env)
 		launch_commands(&commands);
 		free(input);
 	}
-	rl_clear_history();
-	free_cmds(&commands);
-	free_str_arr(g_env);
-	return (0);
+	free_all(commands);
 }
