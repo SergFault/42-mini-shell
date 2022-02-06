@@ -70,6 +70,7 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 		if (size > 2)
 		{
 			printf("exit\ntoo many args\n");
+			//free args
 			return (1);//error: too many arguments
 		}
 		else
