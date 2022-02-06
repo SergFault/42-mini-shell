@@ -23,7 +23,7 @@ int launch_built_in(t_list *command)
 	if (ft_strnstr(cmd_str, "env", strlen("env")))
 		ft_env();
 	if (ft_strnstr(cmd_str, "exit", strlen("exit")))
-		ft_exit(command, get_args(command));
+		ft_exit(get_args(command));
 	return (0);
 }
 

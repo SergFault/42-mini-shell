@@ -84,7 +84,7 @@ int	assemble_path(char *bin_name, char **paths, char **assembled_path);
 int		ft_cd(char *dest);
 int		ft_pwd(void);
 int		ft_env(void);
-int		ft_exit();
+int		ft_exit(char **);
 
 /* parse */
 t_list *parse_input(char *input);
