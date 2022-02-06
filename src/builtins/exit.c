@@ -77,17 +77,18 @@ int	ft_exit(char **params)
 
 	size = ft_str_size(params);
 	ret = 0;
-	if (size && ft_is_numeric(params[0]))
+	if (size > 1 && ft_is_numeric(params[1]))
 	{
-		if (ft_str_size(params) > 1)
+		if (size > 2)
 		{
-			printf("exit\n");
+			printf("exit\ntoo many args\n");
 			return (1);//error: too many arguments
+			printf("hey\n");
 		}
 		else
-			ret = ft_atoi(params[0]);
+			ret = ft_atoi(params[1]);
 	}
-	else if (size)
+	else if (size > 1)
 	{
 		//error: numeric argument required
 		ret = 2;
