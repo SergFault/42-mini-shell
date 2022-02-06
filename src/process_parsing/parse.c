@@ -26,16 +26,17 @@ t_list *parse_elements(char *cmd_line)
 		word->t = ARG;
 		ft_lstadd_back(&elements, ft_lstnew(word));
 	}
+	free(words);
 	return elements;
 }
 
 
-int   parse_2(t_list *pipe_lst){
+int   parse_2(t_list *cmd){
 
-	while(pipe_lst)
+	while(cmd)
 	{
-		get_cmd(pipe_lst)->element = parse_elements(get_cmd(pipe_lst)->cmd_line); //todo make proper parsing
-		pipe_lst = pipe_lst->next;
+		get_cmd(cmd)->element = parse_elements(get_cmd(cmd)->cmd_line); //todo make proper parsing
+		cmd = cmd->next;
 	}
 	return (0);
 }
@@ -58,7 +59,7 @@ int parse_environment(char **env){
 
 t_list *parse_input(char *input){
 	t_list *command_lst;
-	t_command *p_line;
+	t_command *cmd;
 	char **lines;
 	int pos;
 	command_lst = NULL;
@@ -66,11 +67,12 @@ t_list *parse_input(char *input){
 	pos = -1;
 	while (lines[++pos])
 	{
-		p_line = malloc(sizeof(t_command));
-		p_line->cmd_line = lines[pos];
-		p_line->element = NULL;
-		ft_lstadd_back(&command_lst, ft_lstnew(p_line));
+		cmd = malloc(sizeof(t_command));
+		cmd->cmd_line = lines[pos];
+		cmd->element = NULL;
+		ft_lstadd_back(&command_lst, ft_lstnew(cmd));
 	}
+	free(lines);
 	parse_2(command_lst); //todo make proper parsing considering quotes
 	return command_lst;
 }

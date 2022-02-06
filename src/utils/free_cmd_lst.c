@@ -7,11 +7,13 @@
 void free_cmd(void* cmd){
 	free(((t_command *)cmd)->cmd_line);
 	ft_lstclear( &((t_command *)cmd)->element, free_word);
-	free((t_command *)cmd);
+	free(cmd);
 }
 
 void free_word(void* word){
 	free(((t_word *)word)->val);
+	free(word);
+
 }
 
 

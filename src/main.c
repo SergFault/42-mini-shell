@@ -28,7 +28,9 @@ int main(int argc, char **argv, char **env)
 	{
 		input = readline(PROMPT);
 		if (!input)
+		{
 			break ;
+		}
 		if (consider_empty(input))
 		{
 			free(input);
@@ -39,6 +41,7 @@ int main(int argc, char **argv, char **env)
 		launch_commands(&commands);
 		free(input);
 	}
+	rl_clear_history();
 	free_cmds(&commands);
 	free_str_arr(g_env);
 	return (0);
