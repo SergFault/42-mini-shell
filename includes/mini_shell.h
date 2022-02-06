@@ -98,5 +98,6 @@ int		ft_lstsize(t_list *lst);
 /* dao */
 t_command *get_cmd(t_list *lst);
 t_word		*get_word(t_list *lst);
+char **get_args(t_list *command);
 
 #endif

@@ -41,8 +41,11 @@ fclean:		clean
 re:			fclean all
 
 val:
-			valgrind --leak-check=full \
+			valgrind
+				--leak-check=full \
 				--show-leak-kinds=all \
-				--track-origins=yes --verbose --log-file=valgrind-out.txt ./${NAME}
+				--track-origins=yes
+				--verbose
+				--log-file=valgrind-out.txt ./${NAME}
 
 .PHONY:		re all clean fclean val

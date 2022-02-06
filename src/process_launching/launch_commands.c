@@ -23,7 +23,7 @@ int launch_built_in(t_list *command)
 	if (ft_strnstr(cmd_str, "env", strlen("env")))
 		ft_env();
 	if (ft_strnstr(cmd_str, "exit", strlen("exit")))
-		ft_exit(NULL);
+		ft_exit(command, ft_exit(get_args(command)));
 	return (0);
 }
 
@@ -54,35 +54,6 @@ char *get_path(char *raw_cmd)
 		printf("%s: Command not found\n", raw_cmd);
 	exit(1);
 	int pos = -1;
-}
-
-char **get_args(t_list *command)
-{
-
-	t_list *iter;
-	char **args;
-	iter = get_cmd(command)->element;
-	int args_count;
-	int pos;
-
-	args_count = 0;
-	while (iter)
-	{
-		if (get_word(iter)->t == ARG)
-			args_count++;
-		iter = iter->next;
-	}
-	args = (char **) malloc(sizeof(char *) * (args_count + 1));
-	iter = get_cmd(command)->element;
-	pos = -1;
-	while (iter)
-	{
-		if (get_word(iter)->t == ARG)
-			args[++pos] = get_word(iter)->val;
-		iter = iter->next;
-	}
-	args[++pos] = NULL;
-	return args;
 }
 
 int ft_exe(t_list *command)
