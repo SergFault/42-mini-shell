@@ -66,7 +66,7 @@ int hook_signals();
 char	**ft_split(char const *s, char c);
 int		consider_empty(char *str);
 char	*ft_strdup(const char *s);
-int		char_arr_size(char **char_arr);
+int		ft_str_arr_size(char **char_arr);
 int		parse_environment(char **env);
 size_t		ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);

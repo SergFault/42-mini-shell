@@ -6,7 +6,7 @@ HDR			= ${INCLUDES}/mini_shell.h
 SRC_DIR		= src/
 SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/ft_split.c utils/str_dup.c \
-				utils/char_arr_size.c  utils/ft_strlen.c \
+				utils/str_arr_size.c  utils/ft_strlen.c \
 				utils/ft_split_spaces.c utils/get_env_var.c\
 				utils/ft_strlcpy.c utils/consider_empty.c\
 				utils/ft_strnstr.c utils/ft_strchr.c \

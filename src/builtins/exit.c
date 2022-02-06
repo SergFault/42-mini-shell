@@ -4,18 +4,6 @@
 
 #include "../../includes/mini_shell.h"
 
-int	ft_str_size(char **str)
-{
-	size_t	i;
-	
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
 int	ft_isspace(char c)
 {
 	if ((c == ' ') || ((c > 8) && (c < 14)))
@@ -75,7 +63,7 @@ int	ft_exit(char **params)
 	unsigned char	ret;
 	int		size;
 
-	size = ft_str_size(params);
+	size = ft_str_arr_size(params);
 	ret = 0;
 	if (size > 1 && ft_is_numeric(params[1]))
 	{

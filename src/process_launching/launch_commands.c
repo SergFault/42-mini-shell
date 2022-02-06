@@ -126,6 +126,7 @@ int launch_piped(t_list *command_lst)
 	}
 	dup2(std_in, 0);
 	dup2(std_out, 1);
+	return (0);
 }
 
 //int launch_piped(t_list *command_lst)
