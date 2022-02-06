@@ -20,6 +20,7 @@ int main(int argc, char **argv, char **env)
 {
 	char *input;
 	t_list *commands;
+	commands = NULL;
 
 	hook_signals();
 	parse_environment(env);
@@ -38,5 +39,7 @@ int main(int argc, char **argv, char **env)
 		launch_commands(&commands);
 		free(input);
 	}
+	free_cmds(&commands);
+	free_str_arr(g_env);
 	return (0);
 }

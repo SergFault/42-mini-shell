@@ -19,7 +19,8 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				builtins/exit.c \
 				list_utils/ft_lstadd_front.c list_utils/ft_lstadd_back.c \
 				list_utils/ft_lstnew.c list_utils/getters.c \
-				list_utils/ft_lstsize.c
+				list_utils/ft_lstsize.c list_utils/ft_lstclear.c \
+				utils/free_cmd_lst.c utils/free_str_arr.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}
 
@@ -40,12 +41,14 @@ fclean:		clean
 
 re:			fclean all
 
-val:
-			valgrind
-				--leak-check=full \
-				--show-leak-kinds=all \
-				--track-origins=yes
-				--verbose
-				--log-file=valgrind-out.txt ./${NAME}
+val:		$(NAME)
+			valgrind \
+			--suppressions=.valgrind-supression \
+			--leak-check=full \
+			--show-leak-kinds=all \
+			--track-origins=yes \
+			--verbose \
+			--log-file=valgrind-out.txt \
+			./${NAME}
 
 .PHONY:		re all clean fclean val

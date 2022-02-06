@@ -94,10 +94,17 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
+void	ft_lstclear(t_list **lst, void (*del)(void*));
 
 /* dao */
 t_command *get_cmd(t_list *lst);
 t_word		*get_word(t_list *lst);
 char **get_args(t_list *command);
+
+/* memutils */
+void free_cmds(t_list **cmds);
+void free_word(void* word);
+void free_cmd(void* cmd);
+void free_str_arr(char ** str_arr);
 
 #endif

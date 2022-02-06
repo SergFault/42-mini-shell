@@ -52,6 +52,7 @@ int parse_environment(char **env){
 		g_env[pos] = ft_strdup(env[pos]);
 		pos++;
 	}
+	g_env[pos] = NULL;
 	return (0);
 }
 
