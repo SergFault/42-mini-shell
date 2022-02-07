@@ -11,7 +11,7 @@ char *get_env_var(char **var_arr, const char *key)
 	{
 		var_val = ft_strnstr(var_arr[i], key, ft_strlen(key));
 		if (var_val)
-			return var_val;
+			return (var_val + ft_strlen(key));
 		i++;
 	}
 	return (NULL);

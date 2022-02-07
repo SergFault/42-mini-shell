@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:54 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/04 21:37:32 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/02/07 13:46:35 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_pwd(void)
 	str = get_env_var(g_env, "PWD=");
 	if (str)
 	{
-		printf("%s\n", str + 4);
+		printf("%s\n", str);
 		return (0);
 	}
 	printf("fail\n");
