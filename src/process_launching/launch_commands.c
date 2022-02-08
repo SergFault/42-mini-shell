@@ -14,6 +14,7 @@ static int is_built_in(const char *cmd)
 		return (1);
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		return (1);
+	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))                         return (1);
 	return (0);
 }
 
@@ -34,6 +35,8 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_exit(get_args(command), cmd_list);
 	if (ft_strnstr(cmd_str, "echo", ft_strlen("echo")))
 		ft_echo(get_args(command));
+	if (ft_strnstr(cmd_str, "cd", ft_strlen("cd")))
+		ft_cd(get_args(command));
 
 
 	dup2(std_fds[0], 0);
