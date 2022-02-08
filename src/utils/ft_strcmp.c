@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 23:04:40 by sergey            #+#    #+#             */
-/*   Updated: 2022/02/08 13:49:18 by Sergey           ###   ########.fr       */
+/*   Created: 2021/04/21 15:59:47 by sergey            #+#    #+#             */
+/*   Updated: 2022/02/08 14:51:25 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (lst != NULL)
-	{
-		if (del != NULL && lst->content != NULL)
-			(del)(lst->content);
-		free(lst);
-		lst = NULL;
-	}
+	size_t len;
+
+	len = ft_strlen(s1);
+	return (ft_strncmp(s1,s2, len)==0 && s2[len]==0);
 }

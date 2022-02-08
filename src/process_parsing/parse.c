@@ -75,5 +75,6 @@ t_list *parse_input(char *input){
 	}
 	free(lines);
 	parse_2(command_lst); //todo make proper parsing considering quotes
+	print_cmds(command_lst);
 	return command_lst;
 }
