@@ -102,6 +102,7 @@ int is_in_file(t_list *pList);
 int is_lim(t_list *pList);
 int is_out_file(t_list *pList);
 int is_arg(t_list *pList);
+t_word *get_word_by_type(t_list *cmd, enum type t);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -128,5 +129,9 @@ void free_all(t_list *cmds);
 /* debug */
 void print_word(t_list *word);
 void print_cmds(t_list *cmd);
+
+/* redirect */
+int setup_fd(t_list *command);
+
 
 #endif

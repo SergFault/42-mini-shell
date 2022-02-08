@@ -15,6 +15,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/error.c \
 				process_parsing/parse.c process_parsing/type_parser.c \
 				process_launching/launch_commands.c \
+				process_parsing/get_word_by_type.c \
 				process_launching/x_bin_checker.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \
 				builtins/env.c builtins/export.c builtins/unset.c \
@@ -23,6 +24,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				list_utils/ft_lstnew.c list_utils/getters.c \
 				list_utils/ft_lstsize.c list_utils/ft_lstclear.c \
 				utils/free_cmd_lst.c utils/free_str_arr.c \
+				file_utils/setup_fd.c \
 				debug/deb.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}

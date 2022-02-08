@@ -19,6 +19,12 @@ static int is_built_in(const char *cmd)
 
 int launch_built_in(t_list *command, t_list *cmd_list)
 {
+	int std_fds[2];
+
+	std_fds[0] = dup(0);
+	std_fds[1] = dup(1);
+	setup_fd(command);
+
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", ft_strlen("pwd")))
 		ft_pwd();
@@ -28,6 +34,13 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_exit(get_args(command), cmd_list);
 	if (ft_strnstr(cmd_str, "echo", ft_strlen("echo")))
 		ft_echo(get_args(command));
+
+
+	dup2(std_fds[0], 0);
+	dup2(std_fds[1], 1);
+	close(std_fds[0]);
+	close(std_fds[1]);
+
 	return (0);
 }
 
@@ -66,6 +79,7 @@ int ft_exe(t_list *command, t_list *commands)
 	char **args = get_args(command);
 
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
+	setup_fd(command);
 	if (is_built_in(cmd_str))
 	{
 		launch_built_in(command, commands);
@@ -83,6 +97,7 @@ int launch_piped(t_list *command_lst)
 	int cmd_count;
 	int std_in;
 	int std_out;
+	int fd_to_close[2];
 	int fd[2];
 	std_in = dup(0);
 	std_out = dup(1);
@@ -128,8 +143,12 @@ int launch_piped(t_list *command_lst)
 		wait(0);
 		cmd_count--;
 	}
+	fd_to_close[0] = dup(0);
+	fd_to_close[1] = dup(1);
 	dup2(std_in, 0);
 	dup2(std_out, 1);
+	close(fd_to_close[0]);
+	close(fd_to_close[1]);
 	return (0);
 }
 
