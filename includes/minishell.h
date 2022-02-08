@@ -84,7 +84,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
 
 /*builtins*/
-int		ft_cd(char *dest);
+int		ft_cd(char **argv);
 int		ft_pwd(void);
 int		ft_env(void);
 int		ft_exit(char **params, t_list *cmd_to_free);

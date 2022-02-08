@@ -12,7 +12,13 @@
 
 #include "minishell.h"
 
-int	ft_cd(char *dest)
+int	ft_cd(char **argv)
 {
-	return (0);
+	int	ret;
+
+	if (argv[1])
+		ret = chdir(argv[1]);
+	if (!ret)
+		return (0);
+	return(-1);
 }
