@@ -69,7 +69,7 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 	{
 		if (size > 2)
 		{
-			printf("exit\ntoo many args\n");
+			ft_put_err("exit\nminishell: exit: too many arguments\n");
 			//free args
 			return (1);//error: too many arguments
 		}
@@ -77,11 +77,15 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 			ret = ft_atoi(params[1]);
 	}
 	else if (size > 1)
-	{
 		//error: numeric argument required
 		ret = 2;
-	}
 	printf("exit\n");
+	if (ret == 2)
+	{
+		ft_put_err("minishell: exit: ");
+		ft_put_err(params[1]);
+		ft_put_err(": numeric argument required\n");
+	}
 	free_all(cmd_to_free);
 	free(params);
 	exit(ret);

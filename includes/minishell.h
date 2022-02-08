@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 /* readline */
 #include <stdio.h>
@@ -76,6 +77,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*get_env_var(char **var_arr, const char *key);
 char	*ft_strjoin(char const *s1, char const *s2);
+void    ft_put_err(const char *str);
 
 /* launching utils */
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
