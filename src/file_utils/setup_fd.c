@@ -14,7 +14,7 @@ int setup_redirect_write(t_list *command)
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);
-			printf("Permission denied\n"); //todo error
+			perror(strerror(errno));
 		}
 		dup2(f, 1);
 	}
@@ -32,7 +32,7 @@ int setup_redirect(t_list *command){
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);
-			printf("Permission denied\n"); //todo error
+			perror(strerror(errno));
 		}
 		dup2(f, 1);
 	}
