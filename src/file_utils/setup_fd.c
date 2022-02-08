@@ -39,9 +39,28 @@ int setup_redirect(t_list *command){
 	return (0);
 }
 
+int setup_redirect_in(t_list *command){
+	int f;
+	t_word *word;
+
+	word = get_word_by_type(command, IN_FILE);
+	if (word)
+	{
+		f = open( word->val, O_RDONLY);
+		if (f == -1)
+		{
+			f = open("/dev/null", O_WRONLY);
+			perror(strerror(errno));
+		}
+		dup2(f, 0);
+	}
+	return (0);
+}
+
 int setup_fd(t_list *command){
 	setup_redirect(command);
 	setup_redirect_write(command);
+	setup_redirect_in(command);
 	return (0);
 }
 
