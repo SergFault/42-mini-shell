@@ -14,7 +14,10 @@ int setup_redirect_write(t_list *command)
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);
-			perror(strerror(errno));
+			perror(word->val);
+			dup2(f, 1);
+			dup2(f, 0);
+			return (1);
 		}
 		dup2(f, 1);
 	}
@@ -32,7 +35,10 @@ int setup_redirect(t_list *command){
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);
-			perror(strerror(errno));
+			perror(word->val);
+			dup2(f, 1);
+			dup2(f, 0);
+			return (1);
 		}
 		dup2(f, 1);
 	}
@@ -50,7 +56,10 @@ int setup_redirect_in(t_list *command){
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);
-			perror(strerror(errno));
+			perror(word->val);
+			dup2(f, 1);
+			dup2(f, 0);
+			return (1);
 		}
 		dup2(f, 0);
 	}
@@ -58,9 +67,12 @@ int setup_redirect_in(t_list *command){
 }
 
 int setup_fd(t_list *command){
-	setup_redirect(command);
-	setup_redirect_write(command);
-	setup_redirect_in(command);
+	if (setup_redirect(command))
+		return (1);
+	if (setup_redirect_write(command))
+		return (1);
+	if (setup_redirect_in(command))
+		return (1);
 	return (0);
 }
 

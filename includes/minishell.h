@@ -79,6 +79,7 @@ char	*get_env_var(char **var_arr, const char *key);
 char	*ft_strjoin(char const *s1, char const *s2);
 void    ft_put_err(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+void	ft_putstr_fd(char *s, int fd);
 
 /* launching utils */
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);

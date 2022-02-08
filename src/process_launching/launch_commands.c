@@ -80,14 +80,15 @@ int ft_exe(t_list *command, t_list *commands)
 {
 	int pid;
 	char **args = get_args(command);
+	int std_fds[2];
 
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
-	setup_fd(command);
 	if (is_built_in(cmd_str))
 	{
 		launch_built_in(command, commands);
 	} else
 	{
+		setup_fd(command);
 		execve(get_path(get_word(get_cmd(command)->element)->val),
 				   args, g_env);
 	}
