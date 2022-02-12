@@ -66,12 +66,23 @@ char *get_path(char *raw_cmd)
 	path_env = get_env_var(g_env, "PATH=");
 	x_paths = ft_split(path_env, ':');
 	status = assemble_path(raw_cmd, x_paths, &full_path);
+	free_str_arr(x_paths);
 	if (status == BIN_SUCCEED)
 		return (full_path);
 	if (status == BIN_PERM_ERR)
-		printf("%s: Permission denied\n", raw_cmd);
+		perror(raw_cmd);//printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
-		printf("%s: Command not found\n", raw_cmd);
+	{
+		ft_put_err("minishell: ");
+		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
+		ft_put_err(": command not found\n");
+	}
+	if (status == BIN_IS_DIR)
+	{
+		ft_put_err("minishell: ");
+		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
+		ft_put_err(": is a directory\n");
+	}
 	exit(1);
 	int pos = -1;
 }
@@ -81,6 +92,7 @@ int ft_exe(t_list *command, t_list *commands)
 	int pid;
 	char **args = get_args(command);
 	int std_fds[2];
+	char	*path;
 
 	char *cmd_str = get_word(get_cmd(command)->element)->val;
 	if (is_built_in(cmd_str))
@@ -89,8 +101,13 @@ int ft_exe(t_list *command, t_list *commands)
 	} else
 	{
 		setup_fd(command);
-		execve(get_path(get_word(get_cmd(command)->element)->val),
-				   args, g_env);
+		path = get_path(get_word(get_cmd(command)->element)->val);
+		if (execve(path, args, g_env) == -1)
+		{
+			ft_put_err("minishell: ");
+			perror(path);
+		}
+		free(path);
 	}
 	exit(0);
 }
