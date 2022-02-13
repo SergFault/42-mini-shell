@@ -43,7 +43,6 @@ int here_doc_fd(char *delim){
 
 	file_name = get_random_name();
 	full_path = ft_strjoin("./temp/", file_name);
-	printf("fullpath %s\n", full_path);
 	f = open(full_path, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (f == -1)
 	{
