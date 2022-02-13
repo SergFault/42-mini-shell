@@ -25,7 +25,9 @@
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2
 # define BIN_IS_DIR 3
+#ifndef PATH_MAX
 # define PATH_MAX 1024
+#endif
 
 enum type{
 	NONE, //default set
