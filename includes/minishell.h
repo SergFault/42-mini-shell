@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 /* readline */
 #include <stdio.h>
@@ -18,14 +20,14 @@
 /* utils */
 #include <stdlib.h>
 
-/* files */
-#include <fcntl.h>
-
-
-# define PROMPT "original:"
+# define PROMPT "minishell:"
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2
+# define BIN_IS_DIR 3
+#ifndef PATH_MAX
+# define PATH_MAX 1024
+#endif
 
 enum type{
 	NONE, //default set

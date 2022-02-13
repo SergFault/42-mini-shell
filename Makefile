@@ -30,12 +30,12 @@ SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}
 
 %.o: %.c ${HDR} Makefile
-	$(CC) -c $(FLAGS) -I$(INCLUDES) $< -o $@
+	$(CC) -c $(FLAGS) -I$(INCLUDES) $< -o $@ #-I../.brew/opt/readline/include
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-				$(CC) $(FLAGS) -o $@ $^ -lreadline
+				$(CC) $(FLAGS) -o $@ $^ -lreadline #-L../.brew/opt/readline/lib
 
 clean:
 				rm -f ${OBJ}

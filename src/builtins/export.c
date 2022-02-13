@@ -6,7 +6,13 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/04 09:26:00 by eshana           ###   ########.fr       */
+/*   Updated: 2022/02/09 01:08:38 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
+int	ft_export(char **argv)
+{
+	return (0);
+}

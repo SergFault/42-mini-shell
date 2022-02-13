@@ -59,12 +59,23 @@ char *get_path(char *raw_cmd)
 	path_env = get_env_var(g_env, "PATH=");
 	x_paths = ft_split(path_env, ':');
 	status = assemble_path(raw_cmd, x_paths, &full_path);
+	free_str_arr(x_paths);
 	if (status == BIN_SUCCEED)
 		return (full_path);
 	if (status == BIN_PERM_ERR)
-		printf("%s: Permission denied\n", raw_cmd);
+		perror(raw_cmd);//printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
-		printf("%s: Command not found\n", raw_cmd);
+	{
+		ft_put_err("minishell: ");
+		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
+		ft_put_err(": command not found\n");
+	}
+	if (status == BIN_IS_DIR)
+	{
+		ft_put_err("minishell: ");
+		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
+		ft_put_err(": is a directory\n");
+	}
 	exit(1);
 }
 
