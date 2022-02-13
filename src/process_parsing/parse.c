@@ -64,6 +64,12 @@ t_list *parse_input(char *input){
 	char **lines;
 	int pos;
 	command_lst = NULL;
+
+	if (is_quotes_open(input))
+	{
+		ft_putstr_fd("Parsing error\n", 2);
+		return (NULL);
+	}
 	lines = parse_1(input); //todo make proper parsing considering quotes
 	pos = -1;
 	while (lines[++pos])

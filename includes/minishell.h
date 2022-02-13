@@ -112,6 +112,8 @@ int is_arg(t_list *pList);
 t_word *get_word_by_type(t_list *cmd, enum type t);
 int	here_doc_fd(char *delim);
 void delete_all_files();
+int is_quotes_open(char *str);
+void change_quote_flags(int q_flags[2], const char *ch);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
