@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **env)
 			continue ;
 		}
 		add_history(input);
-		commands = parse_input(input);
+		commands = parse_input(&input);
 		launch_commands(&commands);
 		delete_all_files();
 		free_cmds(&commands);

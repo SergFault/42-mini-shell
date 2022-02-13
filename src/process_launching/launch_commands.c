@@ -56,8 +56,9 @@ char *get_path(char *raw_cmd)
 	char **x_paths;
 	int status;
 
-	path_env = get_env_var(g_env, "PATH=");
+	path_env = get_env_var(g_env, "PATH");
 	x_paths = ft_split(path_env, ':');
+	free(path_env);
 	status = assemble_path(raw_cmd, x_paths, &full_path);
 	free_str_arr(x_paths);
 	if (status == BIN_SUCCEED)

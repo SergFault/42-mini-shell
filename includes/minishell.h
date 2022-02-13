@@ -82,10 +82,11 @@ char	**ft_split_spaces(char const *s);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
 char	*get_env_var(char **var_arr, const char *key);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 void    ft_put_err(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 /* launching utils */
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
@@ -98,7 +99,7 @@ int		ft_exit(char **params, t_list *cmd_to_free);
 int		ft_echo(char **argv);
 
 /* parse */
-t_list *parse_input(char *input);
+t_list *parse_input(char **input);
 int		set_types(t_list *elements);
 int is_file_in_op(t_list *pList);
 int is_here_doc(t_list *pList);
@@ -114,6 +115,8 @@ int	here_doc_fd(char *delim);
 void delete_all_files();
 int is_quotes_open(char *str);
 void change_quote_flags(int q_flags[2], const char *ch);
+char *str_insert(char *big, char *pos, char *lit);
+char  *prepare_for_split(char *str);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);

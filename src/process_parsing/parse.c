@@ -58,10 +58,11 @@ int parse_environment(char **env){
 	return (0);
 }
 
-t_list *parse_input(char *input){
+t_list *parse_input(char **input_p){
 	t_list *command_lst;
 	t_command *cmd;
 	char **lines;
+	char *input = *input_p;
 	int pos;
 	command_lst = NULL;
 
@@ -70,6 +71,8 @@ t_list *parse_input(char *input){
 		ft_putstr_fd("Parsing error\n", 2);
 		return (NULL);
 	}
+	input = prepare_for_split(input);
+	*input_p = input;
 	lines = parse_1(input); //todo make proper parsing considering quotes
 	pos = -1;
 	while (lines[++pos])
