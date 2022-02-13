@@ -18,6 +18,10 @@
 /* utils */
 #include <stdlib.h>
 
+/* files */
+#include <fcntl.h>
+
+
 # define PROMPT "original:"
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
@@ -104,6 +108,8 @@ int is_lim(t_list *pList);
 int is_out_file(t_list *pList);
 int is_arg(t_list *pList);
 t_word *get_word_by_type(t_list *cmd, enum type t);
+int	here_doc_fd(char *delim);
+void delete_all_files();
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -118,6 +124,7 @@ t_command *get_cmd(t_list *lst);
 t_word		*get_word(t_list *lst);
 char **get_args(t_list *command);
 char *get_word_str(t_list *lst);
+char *get_cmd_str(t_list *lst);
 enum type get_word_type(t_list *lst);
 
 /* memutils */
@@ -132,7 +139,9 @@ void print_word(t_list *word);
 void print_cmds(t_list *cmd);
 
 /* redirect */
-int setup_fd(t_list *command);
+int setup_fd(t_list *command, int pInt[2]);
+
+
 
 
 #endif

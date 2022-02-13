@@ -4,29 +4,28 @@
 
 #include "../../includes/minishell.h"
 
-static int is_built_in(const char *cmd)
+static int is_built_in(t_list *cmd_lst)
 {
-	if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	char *cmd_str;
+	cmd_str = get_cmd_str(cmd_lst);
+	if (!ft_strncmp(cmd_str, "pwd", ft_strlen(cmd_str)))
 		return (1);
-	if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd_str, "env", ft_strlen(cmd_str)))
 		return (1);
-	if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd_str, "exit", ft_strlen(cmd_str)))
 		return (1);
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	if (!ft_strncmp(cmd_str, "echo", ft_strlen(cmd_str)))
 		return (1);
-	if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))                         return (1);
+	if (!ft_strncmp(cmd_str, "cd", ft_strlen(cmd_str)))
+		return (1);
 	return (0);
 }
 
 int launch_built_in(t_list *command, t_list *cmd_list)
 {
-	int std_fds[2];
+	char *cmd_str;
 
-	std_fds[0] = dup(0);
-	std_fds[1] = dup(1);
-	setup_fd(command);
-
-	char *cmd_str = get_word(get_cmd(command)->element)->val;
+	cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", ft_strlen("pwd")))
 		ft_pwd();
 	if (ft_strnstr(cmd_str, "env", ft_strlen("env")))
@@ -37,12 +36,6 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_echo(get_args(command));
 	if (ft_strnstr(cmd_str, "cd", ft_strlen("cd")))
 		ft_cd(get_args(command));
-
-
-	dup2(std_fds[0], 0);
-	dup2(std_fds[1], 1);
-	close(std_fds[0]);
-	close(std_fds[1]);
 
 	return (0);
 }
@@ -73,89 +66,22 @@ char *get_path(char *raw_cmd)
 	if (status == BIN_NOT_FOUND)
 		printf("%s: Command not found\n", raw_cmd);
 	exit(1);
-	int pos = -1;
 }
 
 int ft_exe(t_list *command, t_list *commands)
 {
-	int pid;
-	char **args = get_args(command);
-	int std_fds[2];
+	char **args;
 
-	char *cmd_str = get_word(get_cmd(command)->element)->val;
-	if (is_built_in(cmd_str))
+	args = get_args(command);
+	if (is_built_in(command))
 	{
 		launch_built_in(command, commands);
 	} else
 	{
-		setup_fd(command);
 		execve(get_path(get_word(get_cmd(command)->element)->val),
 				   args, g_env);
 	}
-	exit(0);
 }
-
-
-int launch_piped(t_list *command_lst)
-{
-	int cmd_count;
-	int std_in;
-	int std_out;
-	int fd_to_close[2];
-	int fd[2];
-	std_in = dup(0);
-	std_out = dup(1);
-
-	cmd_count = ft_lstsize(command_lst);
-
-	while (command_lst)
-	{
-
-		if (command_lst->prev == NULL){
-			pipe(fd);
-			dup2(fd[1], 1);
-			close(fd[1]);
-			if (!fork()){
-				close(fd[0]);
-				ft_exe(command_lst, command_lst);
-			}
-		}
-		else if (command_lst->prev != NULL && command_lst->next != NULL)
-		{
-			dup2(fd[0], 0);
-			close(fd[0]);
-			pipe(fd);
-			dup2(fd[1], 1);
-			close(fd[1]);
-			if (!fork()){
-				close(fd[0]);
-				ft_exe(command_lst, command_lst);
-			}
-		}
-		else
-		{
-			dup2(fd[0], 0);
-			close(fd[0]);
-			dup2(std_out, 1);
-			if (!fork()){
-				ft_exe(command_lst, command_lst);
-			}
-		}
-		command_lst = command_lst->next;
-	}
-	while(cmd_count > 0){
-		wait(0);
-		cmd_count--;
-	}
-	fd_to_close[0] = dup(0);
-	fd_to_close[1] = dup(1);
-	dup2(std_in, 0);
-	dup2(std_out, 1);
-	close(fd_to_close[0]);
-	close(fd_to_close[1]);
-	return (0);
-}
-
 
 int launch_simple(t_list *command_lst)
 {
@@ -172,19 +98,81 @@ int launch_simple(t_list *command_lst)
 
 int launch_commands(t_list **commands)
 {
+	int cmd_count;
+	int std_io[2];
+	int fd_to_close[2];
+	int fd[2];
 	t_list *command_lst = *commands;
-	if (ft_lstsize(command_lst) == 1 &&
-		is_built_in(get_word(get_cmd(command_lst)->element)->val)){
+	std_io[0] = dup(0);
+	std_io[1] = dup(1);
+	cmd_count = ft_lstsize(command_lst);
+
+	if (cmd_count == 1 &&
+		is_built_in(command_lst)){
+		setup_fd(command_lst, std_io);
 		launch_built_in(command_lst, command_lst);
 	}
-	else if (ft_lstsize(command_lst) > 1)
+	else if (cmd_count == 1)
 	{
-		launch_piped(command_lst);
-	} else
-	{
+		setup_fd(command_lst, std_io);
 		launch_simple(command_lst);
 	}
+	else
+	{
+		while (command_lst)
+		{
 
+			if (command_lst->prev == NULL)
+			{
+				pipe(fd);
+				dup2(fd[1], 1);
+				close(fd[1]);
+				if (!fork())
+				{
+					close(fd[0]);
+					setup_fd(command_lst, std_io);
+					ft_exe(command_lst, command_lst);
+				}
+			} else if (command_lst->prev != NULL && command_lst->next != NULL)
+			{
+				dup2(fd[0], 0);
+				close(fd[0]);
+				pipe(fd);
+				dup2(fd[1], 1);
+				close(fd[1]);
+				if (!fork())
+				{
+					close(fd[0]);
+					setup_fd(command_lst, std_io);
+					ft_exe(command_lst, command_lst);
+					if (is_built_in(command_lst)){
+						ft_exit(0, NULL);
+					}
+				}
+			} else
+			{
+				dup2(fd[0], 0);
+				close(fd[0]);
+				dup2(std_io[1], 1);
+				if (!fork())
+				{
+					setup_fd(command_lst, std_io);
+					ft_exe(command_lst, command_lst);
+					if (is_built_in(command_lst)){
+						ft_exit(0, NULL);
+					}
+				}
+			}
+			command_lst = command_lst->next;
+		}
+		while (cmd_count > 0)
+		{
+			wait(0);
+			cmd_count--;
+		}
+	}
+	dup2(std_io[0], 0);
+	dup2(std_io[1], 1);
 	return (0);
 }
 

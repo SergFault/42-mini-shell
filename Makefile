@@ -12,7 +12,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/ft_strnstr.c utils/ft_strchr.c \
 				utils/ft_strcmp.c utils/ft_putstr_fd.c \
 				utils/ft_strjoin.c utils/ft_strncmp.c \
-				utils/error.c \
+				utils/error.c file_utils/here_doc.c \
 				process_parsing/parse.c process_parsing/type_parser.c \
 				process_launching/launch_commands.c \
 				process_parsing/get_word_by_type.c \
@@ -24,7 +24,7 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				list_utils/ft_lstnew.c list_utils/getters.c \
 				list_utils/ft_lstsize.c list_utils/ft_lstclear.c \
 				utils/free_cmd_lst.c utils/free_str_arr.c \
-				file_utils/setup_fd.c \
+				file_utils/setup_fd.c  file_utils/delete_all_files.c\
 				debug/deb.c
 SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
 OBJ			= ${SRC:.c=.o}

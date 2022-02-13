@@ -17,6 +17,10 @@ enum type get_word_type(t_list *lst){
 	return ((t_word *)(lst->content))->t ;
 }
 
+char *get_cmd_str(t_list *lst){
+	return (get_cmd(lst)->cmd_line);
+}
+
 char **get_args(t_list *command)
 {
 
