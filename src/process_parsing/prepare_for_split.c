@@ -4,8 +4,9 @@
 
 #include "minishell.h"
 
-char  *prepare_for_split(char *str)
+void  ft_substitution(char **str_p)
 {
+	char *str;
 	int pos;
 	char *var;
 	char *var_val;
@@ -13,6 +14,7 @@ char  *prepare_for_split(char *str)
 	char *result;
 	char *temp;
 
+	str = *str_p;
 	pos = 0;
 	result = NULL;
 	while(str[pos])
@@ -36,10 +38,11 @@ char  *prepare_for_split(char *str)
 			temp = NULL;
 			free_str_arr(splitted);
 			free(var_val);
+			pos = 0;
 		}
 		if (!str[pos])
 			break ;
 		pos++;
 	}
-	return str;
+	*str_p = str;
 }

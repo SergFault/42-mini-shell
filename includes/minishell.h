@@ -87,6 +87,11 @@ void    ft_put_err(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
+
+
+/* simple checks*/
+int is_delim(char i);
 
 /* launching utils */
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
@@ -116,7 +121,10 @@ void delete_all_files();
 int is_quotes_open(char *str);
 void change_quote_flags(int q_flags[2], const char *ch);
 char *str_insert(char *big, char *pos, char *lit);
-char  *prepare_for_split(char *str);
+void ft_substitution(char **str_p);
+void	ft_unquote(char **str_p);
+void	skip_arg(char *line, int *c_pos);
+void	skip_redir(char *line, int *pos);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -125,6 +133,7 @@ t_list	*ft_lstnew(void *content);
 int		ft_lstsize(t_list *lst);
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	**ft_split_pipes(char const *s);
 
 /* dao */
 t_command *get_cmd(t_list *lst);

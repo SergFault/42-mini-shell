@@ -12,10 +12,6 @@ void print_env(char **env)
 	}
 }
 
-void print_prompt(){
-
-}
-
 int main(int argc, char **argv, char **env)
 {
 	char *input;

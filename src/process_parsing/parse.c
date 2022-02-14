@@ -4,35 +4,78 @@
 
 #include "../../includes/minishell.h"
 
-t_list *parse_elements();
 
-char **parse_1(char *input){
-	return ft_split(input, '|');
-}
-
-t_list *parse_elements(char *cmd_line)
+t_word *cut_word(int s_pos, int c_pos, char *line)
 {
-	t_list *elements;
-	elements = NULL;
-	char ** words;
-	int pos;
-	t_word *word;
+	char	*word_str;
+	t_word	*word;
 
-	pos = -1;
-	words = ft_split(cmd_line, ' '); //todo make proper parsing
-	while(words[++pos]){
-		word = (t_word *) malloc(sizeof (t_word));
-		word->val = words[pos];
-		word->t = ARG; //todo delete when type_parser done
-		ft_lstadd_back(&elements, ft_lstnew(word));
+	word_str = malloc(sizeof (char) * (c_pos - s_pos + 1));
+	word = malloc(sizeof(t_list));
+	if (!word_str || !word){
+		ft_putstr_fd("Memory allocation error.\n", 2);
+		return NULL;
 	}
-	set_types(elements);
-	free(words);
-	return elements;
+	word_str[c_pos - s_pos] = '\0';
+	ft_strncpy(word_str, line + s_pos, c_pos - s_pos);
+	word->val = word_str;
+	word->t = NONE;
+	return (word);
 }
 
+t_list *get_words(char *line){
+	t_list *words_lst;
+	t_word *word;
+	int len;
+	int	s_pos;
+	int	c_pos;
 
-int   parse_2(t_list *cmd){
+	words_lst = NULL;
+	len = ft_strlen(line);
+	c_pos = 0;
+	while (c_pos < len)
+	{
+		while (c_pos < len && line[c_pos] == ' ')
+			c_pos++;
+		if (c_pos >= len)
+			break ;
+		s_pos = c_pos;
+		if (line[c_pos] == '>' || line[c_pos] == '<')
+			skip_redir(line, &c_pos);
+		else
+			skip_arg(line, &c_pos);
+		word = cut_word(s_pos, c_pos, line);
+		ft_lstadd_back(&words_lst, ft_lstnew(word));
+	}
+	return (words_lst);
+}
+
+t_list *parse_elements(char *line){
+
+	t_list	*iter;
+	t_list	*words_lst;
+
+	words_lst = get_words(line);
+	set_types(words_lst);
+	iter = words_lst;
+	while (iter)
+	{
+		ft_substitution(&(get_word(iter)->val));
+		ft_unquote(&(get_word(iter)->val));
+		iter = iter->next;
+	}
+
+	//todo debug only (print words)
+	iter = words_lst;
+	while (iter)
+	{
+		print_word(iter);
+		iter= iter->next;
+	}
+	return words_lst;
+}
+
+int   fill_words(t_list *cmd){
 
 	while(cmd)
 	{
@@ -42,28 +85,29 @@ int   parse_2(t_list *cmd){
 	return (0);
 }
 
-
-int parse_environment(char **env){
-	int count;
+t_list *map_lines_cmds(char **lines)
+{
 	int pos;
+	t_command *cmd;
+	t_list *cmd_lst;
 
-	pos = 0;
-	count = ft_str_arr_size(env);
-	g_env = (char **)malloc(sizeof(char *) * (count + 1));
-	while(env[pos]){
-		g_env[pos] = ft_strdup(env[pos]);
-		pos++;
+	cmd_lst = NULL;
+	pos = -1;
+	while (lines[++pos])
+	{
+		cmd = malloc(sizeof(t_command));
+		cmd->cmd_line = lines[pos];
+		cmd->element = NULL;
+		ft_lstadd_back(&cmd_lst, ft_lstnew(cmd));
 	}
-	g_env[pos] = NULL;
-	return (0);
+	return cmd_lst;
 }
+
 
 t_list *parse_input(char **input_p){
 	t_list *command_lst;
-	t_command *cmd;
 	char **lines;
 	char *input = *input_p;
-	int pos;
 	command_lst = NULL;
 
 	if (is_quotes_open(input))
@@ -71,19 +115,10 @@ t_list *parse_input(char **input_p){
 		ft_putstr_fd("Parsing error\n", 2);
 		return (NULL);
 	}
-	input = prepare_for_split(input);
-	*input_p = input;
-	lines = parse_1(input); //todo make proper parsing considering quotes
-	pos = -1;
-	while (lines[++pos])
-	{
-		cmd = malloc(sizeof(t_command));
-		cmd->cmd_line = lines[pos];
-		cmd->element = NULL;
-		ft_lstadd_back(&command_lst, ft_lstnew(cmd));
-	}
+	lines = ft_split_pipes(input);
+	command_lst = map_lines_cmds(lines);
 	free(lines);
-	parse_2(command_lst); //todo make proper parsing considering quotes
-//	print_cmds(command_lst);
+	fill_words(command_lst);
 	return command_lst;
 }
+

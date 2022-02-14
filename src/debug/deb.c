@@ -24,10 +24,11 @@ void print_word(t_list *word)
 		printf("	LIM\n");
 	else if (is_out_file(word))
 		printf("	OUT_FILE\n");
-	else if (is_arg(word))
+	else
 		printf("	ARG\n");
 }
 
+//todo debug only
 void print_cmds(t_list *cmd){
 	t_list *iter_word;
 
