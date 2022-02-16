@@ -7,7 +7,7 @@
 static int is_built_in(t_list *cmd_lst)
 {
 	char *cmd_str;
-	cmd_str = get_cmd_str(cmd_lst);
+	cmd_str = get_word(get_cmd(cmd_lst)->element)->val;//get_cmd_str(cmd_lst);
 	if (!ft_strncmp(cmd_str, "pwd", ft_strlen(cmd_str)))
 		return (1);
 	if (!ft_strncmp(cmd_str, "env", ft_strlen(cmd_str)))
@@ -118,7 +118,6 @@ int launch_commands(t_list **commands)
 	std_io[0] = dup(0);
 	std_io[1] = dup(1);
 	cmd_count = ft_lstsize(command_lst);
-
 	if (cmd_count == 1 &&
 		is_built_in(command_lst)){
 		setup_fd(command_lst, std_io);
