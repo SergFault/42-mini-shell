@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/19 03:51:51 by eshana           ###   ########.fr       */
+/*   Updated: 2022/02/19 05:38:41 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,69 @@ int	ft_add_key(char *name)
 	return (0);
 }
 
+char	*ft_find_min(char **tmp, int size)
+{
+	int		i;
+	int		res;
+	char 	*str;
+
+	i = 0;
+	while (tmp[i] == NULL && i < size)
+		i++;
+	res = i;
+	str = tmp[i];
+	if (!str)
+		return (NULL);
+	i++;
+	while (i < size)
+	{
+		if (tmp[i] != NULL)
+			if (ft_strncmp(tmp[i], str, ft_strlen(tmp[i])) < 0)
+			{
+				str = tmp[i];
+				res = i;
+			}
+		i++;
+	}
+	tmp[res] = NULL;
+	return (str);
+}
+
+void	ft_print_env(void)
+{
+	char	*str;
+	char 	**tmp;
+	int		size;
+	int		i;
+
+	size = ft_str_arr_size(g_env);
+	tmp = (char **)malloc(sizeof(char *) * (size + 1));
+	i = 0;
+	while (g_env[i])
+	{
+		tmp[i] = g_env[i];
+		if (!ft_value_changed(tmp[i]))
+			tmp[i] = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < size)
+	{
+		str = ft_find_min(tmp, size);
+		if (!str)
+			break ;
+		printf("declare -x ");
+		while (*str && *str != '=')
+		{
+			printf("%c", *str);
+			str++;
+		}
+		printf("%c\"%s\"\n", *str, str + 1);
+		i++;
+	}
+	free(tmp);
+}
+
 int	ft_export(char **argv)
 {
 	int	i;
@@ -116,5 +179,7 @@ int	ft_export(char **argv)
 		}
 		i++;
 	}
+	if (i == 1)
+		ft_print_env();
 	return (ret);
 }
