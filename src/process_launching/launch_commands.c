@@ -18,6 +18,8 @@ static int is_built_in(t_list *cmd_lst)
 		return (1);
 	if (!ft_strncmp(cmd_str, "cd", ft_strlen(cmd_str)))
 		return (1);
+	if (!ft_strncmp(cmd_str, "export", ft_strlen(cmd_str)))
+		return (1);
 	return (0);
 }
 
@@ -36,6 +38,8 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_echo(get_args(command));
 	if (ft_strnstr(cmd_str, "cd", ft_strlen("cd")))
 		ft_cd(get_args(command));
+	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
+		ft_export(get_args(command));
 
 	return (0);
 }
@@ -67,7 +71,6 @@ char *get_path(char *raw_cmd)
 		perror(raw_cmd);//printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
 	{
-		ft_put_err("minishell: ");
 		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
 		ft_put_err(": command not found\n");
 	}
@@ -75,7 +78,7 @@ char *get_path(char *raw_cmd)
 	{
 		ft_put_err("minishell: ");
 		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
-		ft_put_err(": is a directory\n");
+		ft_put_err(": Is a directory\n");
 	}
 	exit(1);
 }

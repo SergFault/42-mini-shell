@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:47 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/18 13:58:46 by eshana           ###   ########.fr       */
+/*   Updated: 2022/02/18 23:15:03 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ int	ft_cd(char **argv)
 	char 	*oldpwd;
 	char 	*buf;
 
+	if (ft_str_arr_size(argv) > 2)
+	{
+		ft_put_err("minishell: cd: too many arguments\n");
+		return (1);
+	}
 	if (argv[1])
 		ret = chdir(argv[1]);
 	if (!ret)
 	{
-		//rewrite PWD & OLDPWD
 		pwd = ft_get_env_addr("PWD=");
 		oldpwd = ft_strjoin("OLD", pwd);
 		buf = (char *)malloc(sizeof(char) * (PATH_MAX + 1));
@@ -72,5 +76,5 @@ int	ft_cd(char **argv)
 	}
 	ft_put_err("minishell: cd: ");
 	perror(argv[1]);
-	return(errno);
+	return(1);
 }
