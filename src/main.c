@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
+/*   Updated: 2022/02/24 23:25:39 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char **g_env;
+char	**g_env;
 
-void print_env(char **env)
+void	print_env(char **env)
 {
 	while (*env)
 	{
@@ -12,21 +23,19 @@ void print_env(char **env)
 	}
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	char *input;
-	t_list *commands;
-	commands = NULL;
+	char		*input;
+	t_list		*commands;
 
+	commands = NULL;
 	hook_signals();
 	parse_environment(env);
-	while(1)
+	while (1)
 	{
 		input = readline(PROMPT);
 		if (!input)
-		{
 			break ;
-		}
 		if (consider_empty(input))
 		{
 			free(input);
