@@ -7,7 +7,7 @@
 static int is_built_in(t_list *cmd_lst)
 {
 	char *cmd_str;
-	cmd_str = get_cmd_str(cmd_lst);
+	cmd_str = get_word(get_cmd(cmd_lst)->element)->val;//get_cmd_str(cmd_lst);
 	if (!ft_strncmp(cmd_str, "pwd", ft_strlen(cmd_str)))
 		return (1);
 	if (!ft_strncmp(cmd_str, "env", ft_strlen(cmd_str)))
@@ -17,6 +17,8 @@ static int is_built_in(t_list *cmd_lst)
 	if (!ft_strncmp(cmd_str, "echo", ft_strlen(cmd_str)))
 		return (1);
 	if (!ft_strncmp(cmd_str, "cd", ft_strlen(cmd_str)))
+		return (1);
+	if (!ft_strncmp(cmd_str, "export", ft_strlen(cmd_str)))
 		return (1);
 	return (0);
 }
@@ -36,6 +38,8 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_echo(get_args(command));
 	if (ft_strnstr(cmd_str, "cd", ft_strlen("cd")))
 		ft_cd(get_args(command));
+	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
+		ft_export(get_args(command));
 
 	return (0);
 }
@@ -67,7 +71,6 @@ char *get_path(char *raw_cmd)
 		perror(raw_cmd);//printf("%s: Permission denied\n", raw_cmd);
 	if (status == BIN_NOT_FOUND)
 	{
-		ft_put_err("minishell: ");
 		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
 		ft_put_err(": command not found\n");
 	}
@@ -75,7 +78,7 @@ char *get_path(char *raw_cmd)
 	{
 		ft_put_err("minishell: ");
 		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
-		ft_put_err(": is a directory\n");
+		ft_put_err(": Is a directory\n");
 	}
 	exit(1);
 }
@@ -118,7 +121,6 @@ int launch_commands(t_list **commands)
 	std_io[0] = dup(0);
 	std_io[1] = dup(1);
 	cmd_count = ft_lstsize(command_lst);
-
 	if (cmd_count == 1 &&
 		is_built_in(command_lst)){
 		setup_fd(command_lst, std_io);
