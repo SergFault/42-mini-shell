@@ -35,8 +35,6 @@ int	ft_echo(char **argv)
 	if (new_line)
 		printf("\n");
 	i = 0;
-	while (argv[i])
-		free(argv[i++]);
 	free(argv);
 	return (0);
 }
