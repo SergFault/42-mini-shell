@@ -3,3 +3,5 @@
 *.d
 minishell
 valgrind-out.txt
+test.sh
+test_results

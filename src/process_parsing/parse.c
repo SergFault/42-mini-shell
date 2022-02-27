@@ -65,7 +65,7 @@ t_list *parse_elements(char *line){
 	iter = words_lst;
 	while (iter)
 	{
-		print_word(iter);
+//		print_word(iter);
 		iter= iter->next;
 	}
 	return words_lst;
