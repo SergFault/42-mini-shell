@@ -4,7 +4,7 @@
 
 #include "minishell.h"
 
-static int cpy_unquote(char *src, char *dst)
+int cpy_unquote(char *src, char *dst)
 {
 	int quotes[2];
 	int count;
@@ -18,7 +18,7 @@ static int cpy_unquote(char *src, char *dst)
 	while (src[i])
 	{
 		if (((src[i] == '\'') && quotes[1]) || ((src[i] == '\"') && quotes[0]) ||
-			((src[i] != '\"') && (src[i] != '\"')))
+			((src[i] != '\"') && (src[i] != '\'')))
 		{
 			change_quote_flags(quotes, src + i);
 			dst[j] = src[i];
@@ -30,6 +30,7 @@ static int cpy_unquote(char *src, char *dst)
 			i++;
 		}
 	}
+	dst[j] = '\0';
 	return (0);
 }
 
@@ -44,7 +45,7 @@ static int count_len(char *str)
 	while (*str)
 	{
 		if (((*str == '\'') && quotes[1]) || ((*str == '\"') && quotes[0]) ||
-			((*str != '\"') && (*str != '\"')))
+			((*str != '\"') && (*str != '\'')))
 		{
 			count++;
 		}
@@ -61,8 +62,9 @@ void ft_unquote(char **str_p)
 	char *result;
 
 	s = *str_p;
-	len = count_len(s);
-	result = (char *)malloc(sizeof(len) + 1);
+//	len = count_len(s);
+	len = ft_strlen(s);
+	result = (char *)malloc(sizeof(char) * (len + 1));
 	result[len] = '\0';
 	cpy_unquote(s, result);
 	free(*str_p);

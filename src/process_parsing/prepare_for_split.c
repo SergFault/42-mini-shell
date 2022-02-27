@@ -4,7 +4,7 @@
 
 #include "minishell.h"
 
-void  ft_substitution(char **str_p)
+void ft_substitution(char **str_p)
 {
 	char *str;
 	int pos;
@@ -13,15 +13,21 @@ void  ft_substitution(char **str_p)
 	char **splitted;
 	char *result;
 	char *temp;
+	int quotes[2];
 
+	quotes[1] = 0;
+	quotes[0] = 0;
 	str = *str_p;
 	pos = 0;
 	result = NULL;
-	while(str[pos])
+	while (str[pos])
 	{
-		if (str[pos] == '$')
+		if (str[pos] == '$' && !quotes[0])
 		{
-			splitted = ft_split(str + (pos + 1), ' ');
+			if (quotes[1])
+				splitted = ft_split(str + (pos) + 1, '\"');
+			else
+				splitted = ft_split_spaces(str + (pos) + 1);
 			var = splitted[0];
 			str[pos] = '\0';
 			temp = result;
@@ -41,7 +47,8 @@ void  ft_substitution(char **str_p)
 			pos = 0;
 		}
 		if (!str[pos])
-			break ;
+			break;
+		change_quote_flags(quotes, str + pos);
 		pos++;
 	}
 	*str_p = str;

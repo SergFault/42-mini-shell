@@ -40,7 +40,14 @@ int here_doc_fd(char *delim){
 	char *file_name;
 	char *full_path;
 	char *to_free;
+	int has_quotes;
 
+	has_quotes = 0;
+	if (is_quotes(delim))
+	{
+		has_quotes = 1;
+		cpy_unquote(delim, delim);
+	}
 	file_name = get_random_name();
 	full_path = ft_strjoin("./temp/", file_name);
 	f = open(full_path, O_CREAT | O_EXCL | O_RDWR, 0644);
@@ -49,6 +56,8 @@ int here_doc_fd(char *delim){
 		printf("error"); //todo correct error handle
 	}
 	input = readline(NULL);
+	if (!has_quotes)
+		ft_substitution(&input);
 	while (input)
 	{
 		to_free = input;

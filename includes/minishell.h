@@ -126,6 +126,9 @@ void ft_substitution(char **str_p);
 void	ft_unquote(char **str_p);
 void	skip_arg(char *line, int *c_pos);
 void	skip_redir(char *line, int *pos);
+int is_quotes(const char *str);
+int cpy_unquote(char *src, char *dst);
+char	**ft_split_quotes(char const *s);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);

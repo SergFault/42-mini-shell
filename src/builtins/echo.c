@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:39 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/08 13:49:18 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/02/27 16:13:31 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	ft_echo(char **argv)
 	}
 	if (new_line)
 		printf("\n");
-	i = 0;
 	free(argv);
 	return (0);
 }

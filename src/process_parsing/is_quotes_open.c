@@ -4,13 +4,13 @@
 
 void change_quote_flags(int q_flags[2], const char *ch)
 {
-	if ((*ch == '\'') && (!q_flags[1]))
+	if ((*ch == '\'') && (!q_flags[0]))
 		q_flags[0] = 1;
-	if ((*ch == '\'') && (!q_flags[1]))
+	else if ((*ch == '\'') && (q_flags[0]))
 		q_flags[0] = 0;
-	if ((*ch == '\"') && (!q_flags[0]))
+	else if ((*ch == '\"') && (!q_flags[1]))
 		q_flags[1] = 1;
-	if ((*ch == '\"') && (!q_flags[0]))
+	else if ((*ch == '\"') && (q_flags[1]))
 		q_flags[1] = 0;
 }
 
@@ -28,4 +28,16 @@ int is_quotes_open(char *str){
 
 	}
 	return (in_quotes[0] || in_quotes[1]);
+}
+
+int is_quotes(const char *str)
+{
+
+	while (*str)
+	{
+		if (((*str) == '\'') || (*str) == '\"')
+			return (1);
+		(str++);
+	}
+	return (0);
 }
