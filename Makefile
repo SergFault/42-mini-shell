@@ -1,10 +1,9 @@
-NAME		= minishell
-CC			= clang
-FLAGS		= -g #-Wextra -Wall -Werror
-INCLUDES 	= includes
-HDR			= ${INCLUDES}/minishell.h
-SRC_DIR		= src/
-SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
+NAME = minishell
+CPP	 = gcc
+FLAGS = -g # -Wall -Wextra -Werror
+FLAGS += -MMD -MP
+INCL_DIR = includes
+SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				utils/ft_split.c utils/str_dup.c \
 				utils/str_arr_size.c  utils/ft_strlen.c utils/str_insert.c\
 				utils/ft_split_spaces.c utils/get_env_var.c\
@@ -31,34 +30,36 @@ SRC_FILES 	= main.c /process_signals/hook_up_sigactions.c \
 				utils/free_cmd_lst.c utils/free_str_arr.c \
 				file_utils/setup_fd.c  file_utils/delete_all_files.c\
 				debug/deb.c
-SRC			= $(addprefix ${SRC_DIR}, ${SRC_FILES})
-OBJ			= ${SRC:.c=.o}
 
-%.o: %.c ${HDR} Makefile
-	$(CC) -c $(FLAGS) -I$(INCLUDES) $< -o $@ #-I../.brew/opt/readline/include
+SRCS_DIR = src/
+SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+OBJS = $(SRCS:.c=.o)
 
-all:		$(NAME)
+%.o:		%.c Makefile
+						$(CPP) $(FLAGS) -I$(INCL_DIR) -c $< -o $@
 
-$(NAME):	$(OBJ)
-				$(CC) $(FLAGS) -o $@ $^ -lreadline #-L../.brew/opt/readline/lib
+all:					$(NAME)
+
+$(NAME):				$(OBJS)
+						$(CPP) $(FLAGS) $(OBJS) -o $(NAME) -lreadline
 
 clean:
-				rm -f ${OBJ}
-				rm -f ${OBJ}
+						@rm -rf $(OBJS)
+						@rm -rf $(SRCS:.c=.d)
 
-fclean:		clean
-				rm -f ${NAME}
+fclean:					clean
+						@rm -f $(NAME)
 
-re:			fclean all
+re: 					fclean all
 
-val:		$(NAME)
-			valgrind \
-			--suppressions=.valgrind-supression \
-			--leak-check=full \
-			--show-leak-kinds=all \
-			--track-origins=yes \
-			--verbose \
-			--log-file=valgrind-out.txt \
-			./${NAME}
+val:
+						valgrind --leak-check=full \
+								--show-leak-kinds=all \
+								--track-origins=yes \
+								--verbose \
+								--log-file=valgrind-out.txt \
+								./$(NAME)
 
-.PHONY:		re all clean fclean val
+-include $(SRCS:.c=.d)
+
+.PHONY: all clean fclean val re
