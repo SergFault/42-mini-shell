@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_wait_status.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 15:36:57 by sergey            #+#    #+#             */
-/*   Updated: 2022/02/28 18:33:34 by Sergey           ###   ########.fr       */
+/*   Created: 2022/02/28 19:29:28 by Sergey            #+#    #+#             */
+/*   Updated: 2022/02/28 19:34:26 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*newl;
+extern int	g_status;
 
-	newl = malloc(sizeof(t_list));
-	if (!(newl))
-		return (0);
-	newl->content = content;
-	newl->next = 0;
-	newl->prev = 0;
-	return (newl);
+void	ft_wait_status(void)
+{
+	int	stat_loc;
+
+	stat_loc = 0;
+	wait(&stat_loc);
+	g_status = WEXITSTATUS(stat_loc);
 }

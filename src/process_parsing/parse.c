@@ -108,7 +108,8 @@ t_list *parse_input(char **input_p){
 
 	if (is_quotes_open(input))
 	{
-		ft_putstr_fd("Parsing error\n", 2);
+		ft_putstr_fd(PROMPT, 2);
+		ft_putstr_fd("Parsing error: quotes\n", 2);
 		return (NULL);
 	}
 	lines = ft_split_pipes(input);

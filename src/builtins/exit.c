@@ -4,6 +4,8 @@
 
 #include "../../includes/minishell.h"
 
+extern int g_status;
+
 int	ft_isspace(char c)
 {
 	if ((c == ' ') || ((c > 8) && (c < 14)))
@@ -88,5 +90,7 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 	}
 	free_all(cmd_to_free);
 	free(params);
-	exit(ret);
+	if (ret != 0)
+		g_status = ret;
+	exit(g_status);
 }

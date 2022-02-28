@@ -95,6 +95,11 @@ int is_delim(char i);
 
 /* launching utils */
 int	assemble_path(char *bin_name, char **paths, char **assembled_path);
+void	ft_wait_status();
+int		ft_exe(t_list *command, t_list *commands);
+int		is_built_in(t_list *cmd_lst);
+void	launch_forked(t_list *command_lst, int fd[2], int std_io[2], int cmd_count);
+
 
 /*builtins*/
 int		ft_cd(char **argv);
