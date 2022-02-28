@@ -30,7 +30,7 @@ int is_file_out_append_op(t_list *word)
 	char *str_word;
 
 	str_word = get_word_str(word);
-	if (ft_strcmp(str_word, ">>"))
+	if (!ft_strcmp(str_word, ">>"))
 		return (1);
 	return (0);
 }
@@ -40,7 +40,7 @@ int is_file_out_op(t_list *word)
 	char *str_word;
 
 	str_word = get_word_str(word);
-	if (ft_strcmp(str_word, ">"))
+	if (!ft_strcmp(str_word, ">"))
 		return (1);
 	return (0);
 }
@@ -57,7 +57,7 @@ int is_here_doc(t_list *word)
 	char *str_word;
 
 	str_word = get_word_str(word);
-	if (ft_strcmp(str_word, "<<"))
+	if (!ft_strcmp(str_word, "<<"))
 		return (1);
 	return (0);
 }
@@ -67,7 +67,7 @@ int is_file_in_op(t_list *word)
 	char *str_word;
 
 	str_word = get_word_str(word);
-	if (ft_strcmp(str_word, "<"))
+	if (!ft_strcmp(str_word, "<"))
 		return (1);
 	return (0);
 }
