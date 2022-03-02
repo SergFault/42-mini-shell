@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 18:17:19 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:17:21 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_list	*parse_input(char **input_p)
 	command_lst = map_lines_cmds(lines);
 	if (have_empty_cmds(command_lst) || have_first_last_char(*input_p, '|'))
 	{
-		ft_put_err("syntax error near unexpected token \'|\'");
+		ft_put_err("syntax error near unexpected token `|\'");
 		free_cmds(&command_lst);
 		free(lines);
 		g_status = 2;

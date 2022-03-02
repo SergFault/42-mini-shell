@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 19:18:10 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/02 21:29:00 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	needs_sub(char *str, int pos)
 	return (1);
 }
 
-void	make_substitutuin(char **str, int pos, char **splitted)
+void	make_substitution(char **str, int pos, char **splitted)
 {
 	char	*var;
 	char	*temp;
@@ -29,7 +29,7 @@ void	make_substitutuin(char **str, int pos, char **splitted)
 	char	*var_val;
 
 	var = splitted[0];
-	*str[pos] = '\0';
+	(*str)[pos] = '\0';
 	var_val = get_env_var(g_env, var);
 	result = ft_strjoin(*str, var_val);
 	temp = result;
@@ -49,6 +49,7 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 		return (ft_split(str + (pos) + 1, '\"'));
 	else
 		return (ft_split_spaces(str + (pos) + 1));
+	strnc
 }
 
 void	ft_substitution(char **str_p)
@@ -67,8 +68,7 @@ void	ft_substitution(char **str_p)
 		if (str[pos] == '$' && !quotes[0] && needs_sub(str, pos))
 		{
 			splitted = resolve_split(quotes, str, pos);
-			make_substitutuin(&str, pos, splitted);
-			pos = 0;
+			make_substitution(&str, pos, splitted);
 		}
 		if (!str[pos])
 			break ;
