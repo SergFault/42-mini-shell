@@ -57,6 +57,7 @@ re: 					fclean all
 
 val:
 						valgrind --leak-check=full \
+								--suppressions=.valgrind-supression\
 								--show-leak-kinds=all \
 								--track-origins=yes \
 								--verbose \

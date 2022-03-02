@@ -6,14 +6,14 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/02/28 18:34:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/02/28 21:45:02 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 char	**g_env;
-int	g_status;
+int		g_status;
 
 void	print_env(char **env)
 {
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **env)
 		delete_all_files();
 		free_cmds(&commands);
 		free(input);
-		printf("%d\n", g_status);
+//		printf("%d\n", g_status); todo debug only
 	}
 	free_all(commands);
 }

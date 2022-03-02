@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 21:46:34 by Sergey            #+#    #+#             */
-/*   Updated: 2022/02/28 22:04:39 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/02 14:42:28 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,23 @@
 
 extern int	g_status;
 
-char	*get_path(char *raw_cmd)
+char	*get_path(char *raw_cmd, int *status)
 {
 	char	*path_env;
 	char	*full_path;
 	char	**x_paths;
-	int		status;
 
 	path_env = get_env_var(g_env, "PATH");
 	x_paths = ft_split(path_env, ':');
 	free(path_env);
-	status = assemble_path(raw_cmd, x_paths, &full_path);
+	*status = assemble_path(raw_cmd, x_paths, &full_path);
 	free_str_arr(x_paths);
-	if (status == BIN_SUCCEED)
-		return (full_path);
-	if (status == BIN_PERM_ERR)
-		perror(raw_cmd);//printf("%s: Permission denied\n", raw_cmd);
-	if (status == BIN_NOT_FOUND)
-	{
-		ft_put_err(raw_cmd);
-		g_status = 2;
-		ft_put_err(": command not found\n");
-	}
-	if (status == BIN_IS_DIR)
-	{
-		ft_put_err("minishell: ");
-		ft_put_err(raw_cmd);//printf("%s: Command not found\n", raw_cmd);
-		ft_put_err(": Is a directory\n");
-	}
-	exit(1);
+	return (full_path);
 }
 
-int launch_built_in(t_list *command, t_list *cmd_list)
+int	launch_built_in(t_list *command, t_list *cmd_list)
 {
-	char *cmd_str;
+	char	*cmd_str;
 
 	cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", ft_strlen("pwd")))
@@ -62,21 +45,56 @@ int launch_built_in(t_list *command, t_list *cmd_list)
 		ft_cd(get_args(command));
 	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
 		ft_export(get_args(command));
-
 	return (0);
 }
 
-int ft_exe(t_list *command, t_list *commands)
+void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 {
-	char **args;
+	if (status == BIN_PERM_ERR)
+	{
+		ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
+			"Permission denied");
+		free_all_but_hist(cmds_to_free);
+		exit(126);
+	}
+	else if (status == BIN_NOT_FOUND)
+	{
+		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+			"command not found");
+		free_all_but_hist(cmds_to_free);
+		exit(127);
+	}
+	else if (status == BIN_IS_DIR)
+	{
+		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+			"Is a directory");
+		free_all_but_hist(cmds_to_free);
+		exit(126);
+	}
+}
 
+int	ft_exe(t_list *command, t_list *commands)
+{
+	char	**args;
+	int		path_stat;
+	char	*path;
+
+	path_stat = 0;
 	args = get_args(command);
 	if (is_built_in(command))
 	{
 		launch_built_in(command, commands);
-	} else
+	}
+	else
 	{
-		execve(get_path(get_word(get_cmd(command)->element)->val),
-			   args, g_env);
+		path = get_path(get_word(get_cmd(command)->element)->val, &path_stat);
+		if (path_stat == BIN_PERM_ERR || path_stat == BIN_NOT_FOUND
+			|| path_stat == BIN_IS_DIR)
+		{
+			free(args);
+			free(path);
+			process_bad_path(path_stat, command, commands);
+		}
+		execve(path, args, g_env);
 	}
 }

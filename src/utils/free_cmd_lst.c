@@ -23,6 +23,12 @@ void free_cmds(t_list **cmds){
 		ft_lstclear(cmds, free_cmd);
 }
 
+void free_all_but_hist(t_list *cmds)
+{
+	free_cmds(&cmds);
+	free_str_arr(g_env);
+}
+
 void free_all(t_list *cmds)
 {
 	rl_clear_history();

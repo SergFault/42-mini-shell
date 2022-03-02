@@ -84,6 +84,8 @@ char	*ft_strchr(const char *s, int c);
 char	*get_env_var(char **var_arr, const char *key);
 char	*ft_strjoin(char *s1, char *s2);
 void    ft_put_err(const char *str);
+void	ft_put_err_cmd(const char *cmd, const char *str);
+void	ft_put_err_sh_cmd(const char *cmd, const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -158,6 +160,7 @@ void free_word(void* word);
 void free_cmd(void* cmd);
 void free_str_arr(char ** str_arr);
 void free_all(t_list *cmds);
+void free_all_but_hist(t_list *cmds);
 
 /* debug */
 void print_word(t_list *word);
