@@ -3,6 +3,8 @@
 
 #include "../../includes/minishell.h"
 
+extern int	g_status;
+
 void sig_handler(int sig_no)
 {
 	if (sig_no == SIGINT)
@@ -14,18 +16,16 @@ void sig_handler(int sig_no)
 	}
 
 	if (sig_no == SIGTERM){
-		ft_exit(0, NULL);
+		exit(g_status);
 	}
 
 	if (sig_no == SIGQUIT)
 	{
-		ft_exit(0, NULL);
+		exit(g_status);
 	}
 }
 
-int hook_signals()
+void hook_signals()
 {
 	signal(SIGINT, sig_handler);
-	return (1);
-
 }

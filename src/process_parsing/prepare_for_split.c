@@ -1,53 +1,77 @@
-//
-// Created by sergey on 13.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prepare_for_split.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/02 19:18:10 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_substitution(char **str_p)
+int	needs_sub(char *str, int pos)
 {
-	char *str;
-	int pos;
-	char *var;
-	char *var_val;
-	char **splitted;
-	char *result;
-	char *temp;
-	int quotes[2];
+	if (strlen(str) == 1)
+		return (0);
+	if (pos != 0 && is_inconsiderable(str[pos + 1]))
+		return (0);
+	return (1);
+}
+
+void	make_substitutuin(char **str, int pos, char **splitted)
+{
+	char	*var;
+	char	*temp;
+	char	*result;
+	char	*var_val;
+
+	var = splitted[0];
+	*str[pos] = '\0';
+	var_val = get_env_var(g_env, var);
+	result = ft_strjoin(*str, var_val);
+	temp = result;
+	result = ft_strjoin(result, *str + (pos + ft_strlen(var) + 1));
+	free(temp);
+	temp = *str;
+	*str = result;
+	free(temp);
+	temp = NULL;
+	free_str_arr(splitted);
+	free(var_val);
+}
+
+static char	**resolve_split(int quotes[2], char *str, int pos)
+{
+	if (quotes[1])
+		return (ft_split(str + (pos) + 1, '\"'));
+	else
+		return (ft_split_spaces(str + (pos) + 1));
+}
+
+void	ft_substitution(char **str_p)
+{
+	char	*str;
+	int		pos;
+	char	**splitted;
+	int		quotes[2];
 
 	quotes[1] = 0;
 	quotes[0] = 0;
 	str = *str_p;
 	pos = 0;
-	result = NULL;
 	while (str[pos])
 	{
-		if (str[pos] == '$' && !quotes[0])
+		if (str[pos] == '$' && !quotes[0] && needs_sub(str, pos))
 		{
-			if (quotes[1])
-				splitted = ft_split(str + (pos) + 1, '\"');
-			else
-				splitted = ft_split_spaces(str + (pos) + 1);
-			var = splitted[0];
-			str[pos] = '\0';
-			temp = result;
-			var_val = get_env_var(g_env, var);
-			result = ft_strjoin(str, var_val);
-			if (temp)
-				free(temp);
-			temp = result;
-			result = ft_strjoin(result, str + (pos + ft_strlen(var) + 1));
-			free(temp);
-			temp = str;
-			str = result;
-			free(temp);
-			temp = NULL;
-			free_str_arr(splitted);
-			free(var_val);
+			splitted = resolve_split(quotes, str, pos);
+			make_substitutuin(&str, pos, splitted);
 			pos = 0;
 		}
 		if (!str[pos])
-			break;
+			break ;
 		change_quote_flags(quotes, str + pos);
 		pos++;
 	}

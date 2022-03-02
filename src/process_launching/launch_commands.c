@@ -37,9 +37,7 @@ int	is_built_in(t_list *cmd_lst)
 int	check_bin_path(char *path)
 {
 	if (access(path, X_OK) == 0)
-	{
 		return (BIN_SUCCEED);
-	}
 	return (BIN_PERM_ERR);
 }
 

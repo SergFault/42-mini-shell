@@ -67,7 +67,7 @@ extern char **g_env;
 
 
 /* signals */
-int hook_signals();
+void	hook_signals();
 
 /* common utils */
 char	**ft_split(char const *s, char c);
@@ -137,6 +137,7 @@ int is_quotes(const char *str);
 int cpy_unquote(char *src, char *dst);
 char	**ft_split_quotes(char const *s);
 int	have_empty_cmds(t_list *commands_list);
+int		is_inconsiderable(char ch);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
