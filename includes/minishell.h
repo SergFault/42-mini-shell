@@ -90,7 +90,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
-
+int		have_first_last_char(char *string, char ch);
 
 /* simple checks*/
 int is_delim(char i);
@@ -136,6 +136,7 @@ void	skip_redir(char *line, int *pos);
 int is_quotes(const char *str);
 int cpy_unquote(char *src, char *dst);
 char	**ft_split_quotes(char const *s);
+int	have_empty_cmds(t_list *commands_list);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -165,6 +166,7 @@ void free_all_but_hist(t_list *cmds);
 /* debug */
 void print_word(t_list *word);
 void print_cmds(t_list *cmd);
+void print_str_arr(char **str_arr);
 
 /* redirect */
 int setup_fd(t_list *command, int pInt[2]);

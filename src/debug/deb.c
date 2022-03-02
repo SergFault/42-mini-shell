@@ -43,3 +43,15 @@ void print_cmds(t_list *cmd){
 	}
 }
 
+void print_str_arr(char **str_arr){
+
+	char **iter;
+
+	iter = str_arr;
+	while (*iter != NULL)
+	{
+		printf("%s\n", *iter);
+		iter++;
+	}
+}
+
