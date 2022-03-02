@@ -6,11 +6,11 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 15:27:11 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/02 19:31:42 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 char	**g_env;
 int		g_status;
@@ -54,4 +54,5 @@ int	main(int argc, char **argv, char **env)
 
 	}
 	free_all(commands);
+	return (g_status);
 }

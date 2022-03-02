@@ -6,11 +6,11 @@
 /*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 19:15:48 by sergey            #+#    #+#             */
-/*   Updated: 2022/02/28 14:23:23 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/02 19:41:02 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
