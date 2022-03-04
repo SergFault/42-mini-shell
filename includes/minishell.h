@@ -75,7 +75,7 @@ int		consider_empty(char *str);
 char	*ft_strdup(const char *s);
 int		ft_str_arr_size(char **char_arr);
 int		parse_environment(char **env);
-size_t		ft_strlen(const char *s);
+size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int 	launch_commands(t_list **commands);
 char	**ft_split_spaces(char const *s);
@@ -87,6 +87,7 @@ void    ft_put_err(const char *str);
 void	ft_put_err_cmd(const char *cmd, const char *str);
 void	ft_put_err_sh_cmd(const char *cmd, const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_keycmp(const char *s1, const char *s2);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
@@ -102,6 +103,7 @@ int	assemble_path(char *bin_name, char **paths, char **assembled_path);
 void	ft_wait_status();
 int		ft_exe(t_list *command, t_list *commands);
 int		is_built_in(t_list *cmd_lst);
+int		launch_built_in(t_list *command, t_list *cmd_list);
 void	launch_forked(t_list *command_lst, int fd[2], int std_io[2], int cmd_count);
 
 
@@ -112,6 +114,7 @@ int		ft_env(void);
 int		ft_exit(char **params, t_list *cmd_to_free);
 int		ft_echo(char **argv);
 int		ft_export(char **argv);
+int 	ft_unset(char **argv);
 
 /* parse */
 t_list *parse_input(char **input);

@@ -6,36 +6,20 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/05 01:20:59 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:47:42 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_keycmp(const char *s1, const char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] || s2[i]) && s1[i] != '=' && s2[i] != '=')
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	if (s1[i] == '=' && (s2[i] == '=' || !s2[i]) || s2[i] == '=' && (s1[i] == '=' || !s1[i]))
-		return (0);
-	return (s1[i] - s2[i]);
-}
-
-int	ft_ltrs_undersc(char c)
+static int	ft_ltrs_undersc(char c)
 {
 	if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
 		return (1);
 	return (0);
 }
 
-int	ft_valid_name(const char *name)
+static int	ft_valid_name(const char *name)
 {
 	int	i;
 
@@ -54,16 +38,6 @@ int	ft_valid_name(const char *name)
 		return (1);
 	}
 	return (0);
-}
-
-int	ft_keylen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	return (i);
 }
 
 int	ft_value_changed(char *name)

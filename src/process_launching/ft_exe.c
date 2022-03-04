@@ -45,6 +45,8 @@ int	launch_built_in(t_list *command, t_list *cmd_list)
 		ft_cd(get_args(command));
 	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
 		ft_export(get_args(command));
+	if (ft_strnstr(cmd_str, "unset", ft_strlen("unset")))
+		ft_unset(get_args(command));
 	return (0);
 }
 
