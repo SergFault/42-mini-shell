@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/04 14:24:38 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/04 15:16:12 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,10 @@ void	make_substitution(char **str, int pos, char **splitted)
 
 static char	**resolve_split(int quotes[2], char *str, int pos)
 {
-	char	**splitted1;
-	char	**splitted2;
-	char	**result;
-	char	**to_free;
-
 	if (quotes[1])
-	{
-		splitted1 = ft_split(str + (pos) + 1, '\"');
-		splitted2 = ft_split(str + (pos) + 1, '\'');
-		if (ft_strlen(splitted1[0]) < ft_strlen(splitted1[0]))
-		{
-			result = splitted1;
-			to_free = splitted2;
-		}
-		else
-		{
-			result = splitted2;
-			to_free = splitted1;
-		}
-		free_str_arr(to_free);
-		return (result);
-	}
+		return (ft_split_multiple_del(str + (pos) + 1, "\'\" \f\n\r\t\v"));
 	else
-		return (ft_split_spaces(str + (pos) + 1));
+		return (ft_split_multiple_del(str + (pos) + 1, "$ "));
 }
 
 void	ft_substitution(char **str_p)
@@ -88,6 +68,7 @@ void	ft_substitution(char **str_p)
 		{
 			splitted = resolve_split(quotes, str, pos);
 			make_substitution(&str, pos, splitted);
+			continue ;
 		}
 		if (!str[pos])
 			break ;
