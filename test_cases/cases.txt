@@ -19,3 +19,27 @@ echo """""""""",         wtf     :""
 echo """""""""",         wtf     :""
 echo '"""""""""",         wtf     :""'
 echo hello                       happy                               man
+echo $?
+export str1 2str = _3str str4=str5
+'e'"x"p'o'r't'
+"'e'"x"p'o'r't'"
+ec"ho" $str1 $str4
+'export' 'q'=e "w"=c e="h" r='o' 't'='x' "y"="p" u=r i=t
+'e'"x"p'o'r't' "t"$q's'$i='h'"e"'l'l$r
+echo ~
+echo hello sad man
+>fil$q'1' e$w"ho" s$i"r"ing f$r$u file1
+ls lskdgjdhgisdoigjiredg
+echo $?
+unset PWD; echo $PWD
+exit 1234
+cd -
+ls -la
+echo '\'
+"echo f" hello
+echo ''\''"a|"\'q'a'\a'w'
+echo \"\|\;\"\| cat -e > \q\w\e\r\t\y
+cat qwerty
+echo
+exit 9854679547698675497885947
+exit -9854679547698675497885948

@@ -51,11 +51,6 @@ echo $?
 unset PWD; echo $PWD
 ls; unset PATH; ls     ;
 echo $?
-echo $?
-export PATH=/  ; ls
-echo $?
-export PATH=/bin  ; ls
-echo $?
 exit 1234;  // чтобы вернуть PATH
 echo $PWD; unset PWD
 echo $PWD; export PWD=/ ; echo $PWD;
