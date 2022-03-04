@@ -49,7 +49,6 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 		return (ft_split(str + (pos) + 1, '\"'));
 	else
 		return (ft_split_spaces(str + (pos) + 1));
-	strnc
 }
 
 void	ft_substitution(char **str_p)

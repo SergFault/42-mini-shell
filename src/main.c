@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 19:31:42 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/03 15:16:25 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int	main(int argc, char **argv, char **env)
 	commands = NULL;
 	hook_signals();
 	parse_environment(env);
+	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
+	{
+		input = ft_strdup(argv[2]);
+		commands = parse_input(&input);
+		launch_commands(&commands);
+		delete_all_files();
+		free_cmds(&commands);
+		free(input);
+		exit(g_status);
+	}
 	while (1)
 	{
 		input = readline(PROMPT);

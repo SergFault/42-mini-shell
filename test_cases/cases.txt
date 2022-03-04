@@ -1,0 +1,12 @@
+|
+||
+| |
+ls||
+ls | |
+echo $PWD
+echo $fdsgbkldmbklfdsmklfmd
+echo str1"'str2'"
+echo str1"'$str2'"
+echo 'str1'str2"str3 $PWD str4" "str5"'$PWD' $PWD "$PWD"
+echo "hello><; world"
+echo $hfkdghldf$PWD
