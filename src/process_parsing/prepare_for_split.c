@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 21:29:00 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/04 14:24:38 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,28 @@ void	make_substitution(char **str, int pos, char **splitted)
 
 static char	**resolve_split(int quotes[2], char *str, int pos)
 {
+	char	**splitted1;
+	char	**splitted2;
+	char	**result;
+	char	**to_free;
+
 	if (quotes[1])
-		return (ft_split(str + (pos) + 1, '\"'));
+	{
+		splitted1 = ft_split(str + (pos) + 1, '\"');
+		splitted2 = ft_split(str + (pos) + 1, '\'');
+		if (ft_strlen(splitted1[0]) < ft_strlen(splitted1[0]))
+		{
+			result = splitted1;
+			to_free = splitted2;
+		}
+		else
+		{
+			result = splitted2;
+			to_free = splitted1;
+		}
+		free_str_arr(to_free);
+		return (result);
+	}
 	else
 		return (ft_split_spaces(str + (pos) + 1));
 }
