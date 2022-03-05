@@ -6,11 +6,11 @@ int parse_environment(char **env){
 
 	pos = 0;
 	count = ft_str_arr_size(env);
-	g_env = (char **)malloc(sizeof(char *) * (count + 1));
+	g_data.env = (char **)malloc(sizeof(char *) * (count + 1));
 	while(env[pos]){
-		g_env[pos] = ft_strdup(env[pos]);
+		g_data.env[pos] = ft_strdup(env[pos]);
 		pos++;
 	}
-	g_env[pos] = NULL;
+	g_data.env[pos] = NULL;
 	return (0);
 }

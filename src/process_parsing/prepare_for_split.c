@@ -30,7 +30,7 @@ void	make_substitution(char **str, int pos, char **splitted)
 
 	var = splitted[0];
 	(*str)[pos] = '\0';
-	var_val = get_env_var(g_env, var);
+	var_val = get_env_var(g_data.env, var);
 	result = ft_strjoin(*str, var_val);
 	temp = result;
 	result = ft_strjoin(result, *str + (pos + ft_strlen(var) + 1));

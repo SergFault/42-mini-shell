@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/05 01:47:42 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/05 01:53:26 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ int	ft_add_key(char *name)
 		}
 	}
 	i = 0;
-	while (g_env[i])
+	while (g_data.env[i])
 	{
-		if (!ft_keycmp(key, g_env[i]))
+		if (!ft_keycmp(key, g_data.env[i]))
 		{
 			if (ft_value_changed(name))
 			{
-				free(g_env[i]);
-				g_env[i] = ft_strdup(name);
+				free(g_data.env[i]);
+				g_data.env[i] = ft_strdup(name);
 			}
 			free(key);
 			return (0);
@@ -91,9 +91,9 @@ int	ft_add_key(char *name)
 	new_env[i + 1] = NULL;
 	new_env[i] = ft_strdup(name);
 	while (--i >= 0)
-		new_env[i] = g_env[i];
-	free(g_env);
-	g_env = new_env;
+		new_env[i] = g_data.env[i];
+	free(g_data.env);
+	g_data.env = new_env;
 	return (0);
 }
 
@@ -132,12 +132,12 @@ void	ft_print_env(void)
 	int		size;
 	int		i;
 
-	size = ft_str_arr_size(g_env);
+	size = ft_str_arr_size(g_data.env);
 	tmp = (char **)malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	while (g_env[i])
+	while (g_data.env[i])
 	{
-		tmp[i] = g_env[i];
+		tmp[i] = g_data.env[i];
 		//if (!ft_value_changed(tmp[i]))
 			//tmp[i] = NULL;
 		i++;

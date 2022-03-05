@@ -63,8 +63,15 @@ int parse(void);
 int launch_commands();
 
 /* global env */
-extern char **g_env;
+//extern char **g_data.env;
 
+typedef struct s_data
+{
+	char	**env;
+	int 	ret_val;
+}	t_data;
+
+extern t_data g_data;
 
 /* signals */
 void	hook_signals();

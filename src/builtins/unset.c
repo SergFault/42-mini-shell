@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:10 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/05 02:10:49 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/05 02:13:02 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,24 @@ static void	ft_delete_key(char *key)
 	char 	**new_env;
 
 	i = 0;
-	while (g_env[i])
+	while (g_data.env[i])
 	{
-		if (!ft_keycmp(g_env[i], key))
+		if (!ft_keycmp(g_data.env[i], key))
 		{
-			g_env[i][0] = '\0';
-			new_env = (char **)malloc(sizeof(char *) * ft_str_arr_size(g_env));
-			new_env[ft_str_arr_size(g_env) - 1] = NULL;
+			g_data.env[i][0] = '\0';
+			new_env = (char **)malloc(sizeof(char *) * ft_str_arr_size(g_data.env));
+			new_env[ft_str_arr_size(g_data.env) - 1] = NULL;
 			i = 0;
 			j = 0;
-			while (g_env[j])
+			while (g_data.env[j])
 			{
-				if (g_env[j][0])
-					new_env[i++] = g_env[j++];
+				if (g_data.env[j][0])
+					new_env[i++] = g_data.env[j++];
 				else
 					j++;
 			}
-			free(g_env);
-			g_env = new_env;
+			free(g_data.env);
+			g_data.env = new_env;
 			return ;
 		}
 		i++;

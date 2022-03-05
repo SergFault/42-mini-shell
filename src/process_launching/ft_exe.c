@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 21:46:34 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/02 14:42:28 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/05 02:03:03 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_path(char *raw_cmd, int *status)
 	char	*full_path;
 	char	**x_paths;
 
-	path_env = get_env_var(g_env, "PATH");
+	path_env = get_env_var(g_data.env, "PATH");
 	x_paths = ft_split(path_env, ':');
 	free(path_env);
 	*status = assemble_path(raw_cmd, x_paths, &full_path);
@@ -97,6 +97,6 @@ int	ft_exe(t_list *command, t_list *commands)
 			free(path);
 			process_bad_path(path_stat, command, commands);
 		}
-		execve(path, args, g_env);
+		execve(path, args, g_data.env);
 	}
 }
