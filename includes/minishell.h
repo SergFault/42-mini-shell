@@ -100,6 +100,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 int		have_first_last_char(char *string, char ch);
 char	**ft_split_multiple_del(char const *s, char *del);
+int		ft_atoi(const char *str);
 
 
 /* simple checks*/
