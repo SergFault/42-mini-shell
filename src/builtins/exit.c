@@ -4,7 +4,7 @@
 
 #include "../../includes/minishell.h"
 
-extern int g_status;
+extern t_data g_data;
 
 int	ft_isspace(char c)
 {
@@ -91,6 +91,6 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 	free_all(cmd_to_free);
 	free(params);
 	if (ret != 0)
-		g_status = ret;
-	exit(g_status);
+		g_data.ret_val = ret;
+	exit(g_data.ret_val);
 }

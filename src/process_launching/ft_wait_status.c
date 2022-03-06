@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern int	g_status;
+extern t_data 	g_data;
 
 void	ft_wait_status(void)
 {
@@ -20,5 +20,5 @@ void	ft_wait_status(void)
 
 	stat_loc = 0;
 	wait(&stat_loc);
-	g_status = WEXITSTATUS(stat_loc);
+	g_data.ret_val = WEXITSTATUS(stat_loc);
 }

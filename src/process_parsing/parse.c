@@ -6,13 +6,13 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 14:01:00 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 20:06:43 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern int	g_status;
+extern t_data 	g_data;
 
 t_list	*map_lines_cmds(char **lines)
 {
@@ -43,7 +43,7 @@ t_list	*parse_input(char **input_p)
 	if (is_quotes_open(input))
 	{
 		ft_put_err("syntax error: quotes\n");
-		g_status = 2;
+		g_data.ret_val = 2;
 		return (NULL);
 	}
 	lines = ft_split_pipes(input);
@@ -53,7 +53,7 @@ t_list	*parse_input(char **input_p)
 		ft_put_err("syntax error near unexpected token `|\'\n");
 		free_cmds(&command_lst);
 		free(lines);
-		g_status = 2;
+		g_data.ret_val = 2;
 		return (NULL);
 	}
 	free(lines);

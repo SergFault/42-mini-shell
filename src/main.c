@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/05 12:31:53 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/06 20:05:57 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_data	g_data;
 //char	**g_data.env;
-int		g_status;
 
 void	print_env(char **env)
 {
@@ -30,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	t_list		*commands;
 
-	g_status = 0;
+	g_data.ret_val = 0;
 	commands = NULL;
 	hook_signals();
 	parse_environment(env);
@@ -42,7 +41,7 @@ int	main(int argc, char **argv, char **env)
 		delete_all_files();
 		free_cmds(&commands);
 		free(input);
-		exit(g_status);
+		exit(g_data.ret_val);
 	}
 	while (1)
 	{
@@ -65,5 +64,5 @@ int	main(int argc, char **argv, char **env)
 
 	}
 	free_all(commands);
-	return (g_status);
+	return (g_data.ret_val);
 }

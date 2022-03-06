@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern int	g_status;
+extern t_data 	g_data;
 
 void	sig_handler(int sig_no)
 {
@@ -24,9 +24,9 @@ void	sig_handler(int sig_no)
 		rl_redisplay();
 	}
 	else if (sig_no == SIGTERM)
-		exit(g_status);
+		exit(g_data.ret_val);
 	else if (sig_no == SIGQUIT)
-		exit(g_status);
+		exit(g_data.ret_val);
 }
 
 void	hook_signals(void)

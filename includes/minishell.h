@@ -101,6 +101,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n);
 int		have_first_last_char(char *string, char ch);
 char	**ft_split_multiple_del(char const *s, char *del);
 int		ft_atoi(const char *str);
+char			*ft_itoa(int n);
 
 
 /* simple checks*/
@@ -151,6 +152,7 @@ int cpy_unquote(char *src, char *dst);
 char	**ft_split_quotes(char const *s);
 int	have_empty_cmds(t_list *commands_list);
 int		is_inconsiderable(char ch);
+int	fill_words(t_list *cmd);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
