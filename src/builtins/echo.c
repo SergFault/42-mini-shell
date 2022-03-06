@@ -53,6 +53,6 @@ int	ft_echo(char **argv)
 	}
 	if (new_line)
 		printf("\n");
-	free(argv);
+	//free(argv);
 	return (0);
 }

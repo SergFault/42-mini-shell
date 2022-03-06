@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 21:46:34 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 23:17:14 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/06 23:23:35 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,26 @@ int	launch_built_in(t_list *command, t_list *cmd_list)
 {
 	char	*cmd_str;
 	int		ret_val;
+	char	**argv;
 
 	ret_val = 0;
+	argv = get_args(command);
 	cmd_str = get_word(get_cmd(command)->element)->val;
 	if (ft_strnstr(cmd_str, "pwd", ft_strlen("pwd")))
 		ret_val = ft_pwd();
 	if (ft_strnstr(cmd_str, "env", ft_strlen("env")))
 		ret_val = ft_env();
 	if (ft_strnstr(cmd_str, "exit", ft_strlen("exit")))
-		ret_val = ft_exit(get_args(command), cmd_list);
+		ret_val = ft_exit(argv, cmd_list);
 	if (ft_strnstr(cmd_str, "echo", ft_strlen("echo")))
-		ret_val = ft_echo(get_args(command));
+		ret_val = ft_echo(argv);
 	if (ft_strnstr(cmd_str, "cd", ft_strlen("cd")))
-		ret_val = ft_cd(get_args(command));
+		ret_val = ft_cd(argv);
 	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
-		ret_val = ft_export(get_args(command));
+		ret_val = ft_export(argv);
 	if (ft_strnstr(cmd_str, "unset", ft_strlen("unset")))
-		ret_val = ft_unset(get_args(command));
+		ret_val = ft_unset(argv);
+	free(argv);
 	return (ret_val);
 }
 

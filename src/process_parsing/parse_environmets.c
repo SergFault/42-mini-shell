@@ -1,26 +1,19 @@
 #include "minishell.h"
 
-size_t	ft_count_digits(int n)
-{
-	if (n < 10 && n > -10)
-		return (1);
-	else
-		return (1 + ft_count_digits(n / 10));
-}
-
-
 char	**ft_new_shlvl(char **env)
 {
 	char	**var;
 	char	*shlevel;
 	char	*newlevel;
 
-	var = (char **)malloc(sizeof(char *) * 3);
-	var[2] = NULL;
+	var = (char **)malloc(sizeof(char *) * 5);
+	var[4] = NULL;
 	var[0] = ft_strdup("export");
 	shlevel = get_env_var(env, "SHLVL");
 	newlevel = ft_itoa(ft_atoi(shlevel) + 1);
 	var[1] = ft_strjoin("SHLVL=", newlevel);
+	var[2] = ft_strdup("SHELL=minishell");
+	var[3] = ft_strdup("OLDPWD");
 	free(shlevel);
 	free(newlevel);
 	return (var);

@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:47 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/24 23:29:27 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 23:45:45 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,21 @@ void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 		{
 			free(g_data.env[i]);
 			g_data.env[i] = pwd;
+			pwd = NULL;
 		}
-		if (!ft_strncmp(g_data.env[i], "OLDPWD=", ft_strlen("OLDPWD=")))
+		if (!ft_strncmp(g_data.env[i], "OLDPWD=", ft_strlen("OLDPWD=")) ||
+			!ft_strcmp(g_data.env[i], "OLDPWD"))
 		{
 			free(g_data.env[i]);
 			g_data.env[i] = oldpwd;
+			oldpwd = NULL;
 		}
 		i++;
 	}
+	if (pwd)
+		free(pwd);
+	if (oldpwd)
+		free(oldpwd);
 }
 
 int	ft_cd(char **argv)

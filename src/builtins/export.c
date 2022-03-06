@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/06 22:29:24 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/06 23:37:07 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ int	ft_add_key(char *name)
 	}
 	free(key);
 	new_env = (char **)malloc(sizeof(char *) * (i + 2));
-	new_env[i + 1] = NULL;
 	new_env[i] = ft_strdup(name);
+	new_env[i + 1] = NULL;
 	while (--i >= 0)
 		new_env[i] = g_data.env[i];
+
 	free(g_data.env);
 	g_data.env = new_env;
 	return (0);
