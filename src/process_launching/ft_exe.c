@@ -45,6 +45,8 @@ int	launch_built_in(t_list *command, t_list *cmd_list)
 		ft_cd(get_args(command));
 	if (ft_strnstr(cmd_str, "export", ft_strlen("export")))
 		ft_export(get_args(command));
+	if (ft_strnstr(cmd_str, "unset", ft_strlen("unset")))
+		ft_unset(get_args(command));
 	return (0);
 }
 
@@ -60,7 +62,7 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	else if (status == BIN_NOT_FOUND)
 	{
 		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
-			"command not found\n");
+			"command not found");
 		free_all_but_hist(cmds_to_free);
 		exit(127);
 	}
@@ -97,4 +99,5 @@ int	ft_exe(t_list *command, t_list *commands)
 		}
 		execve(path, args, g_data.env);
 	}
+	return (0);
 }

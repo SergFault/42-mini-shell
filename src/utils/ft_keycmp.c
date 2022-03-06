@@ -23,7 +23,7 @@ int	ft_keycmp(const char *s1, const char *s2)
 			return (s1[i] - s2[i]);
 		i++;
 	}
-	if (s1[i] == '=' && !s2[i] || s2[i] == '=' && !s1[i])
+	if ((s1[i] == '=' && !s2[i]) || (s2[i] == '=' && !s1[i]))
 		return (0);
 	return (s1[i] - s2[i]);
 }

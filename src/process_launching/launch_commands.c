@@ -19,19 +19,19 @@ int	is_built_in(t_list *cmd_lst)
 	char	*cmd_str;
 
 	cmd_str = get_word(get_cmd(cmd_lst)->element)->val;
-	if (!ft_strncmp(cmd_str, "pwd", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "pwd"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "env", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "env"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "exit", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "exit"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "echo", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "echo"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "cd", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "cd"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "export", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "export"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "unset", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "unset"))
 		return (1);
 	return (0);
 }
