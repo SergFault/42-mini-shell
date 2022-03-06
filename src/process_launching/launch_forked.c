@@ -24,7 +24,7 @@ static void	pipe_first(t_list *command_lst, int fd[2], int std_io[2])
 		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
 		{
-			ft_exit(0, NULL);
+			exit(g_data.ret_val);
 		}
 	}
 }
@@ -43,7 +43,7 @@ static void	pipe_mid(t_list *command_lst, int fd[2], int std_io[2])
 		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
 		{
-			ft_exit(0, NULL);
+			exit(g_data.ret_val);
 		}
 	}
 }
@@ -59,7 +59,7 @@ static void	pipe_last(t_list *command_lst, int fd[2], int std_io[2])
 		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
 		{
-			ft_exit(0, NULL);
+			exit(g_data.ret_val);
 		}
 	}
 }
