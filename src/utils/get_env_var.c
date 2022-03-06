@@ -1,12 +1,12 @@
 
 #include "../../includes/minishell.h"
 
-char *get_env_var(char **var_arr, const char *key)
+char *get_env_var(char **var_arr, char *key)
 {
-	int i;
-	char *var_val;
-	char *full_key;
-	int key_size;
+	int		i;
+	char	*var_val;
+	char	*full_key;
+	size_t	key_size;
 
 	full_key = ft_strjoin(key, "=");
 	i = 0;
@@ -14,7 +14,7 @@ char *get_env_var(char **var_arr, const char *key)
 	{
 		var_val = ft_strnstr(var_arr[i], full_key, ft_strlen(full_key));
 		if (var_val){
-			key_size = strlen(full_key);
+			key_size = ft_strlen(full_key);
 			free(full_key);
 			return (ft_strdup(var_val + key_size));
 		}

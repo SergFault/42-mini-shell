@@ -62,7 +62,7 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	else if (status == BIN_NOT_FOUND)
 	{
 		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
-			"command not found\n");
+			"command not found");
 		free_all_but_hist(cmds_to_free);
 		exit(127);
 	}

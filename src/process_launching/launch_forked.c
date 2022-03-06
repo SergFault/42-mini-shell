@@ -22,6 +22,10 @@ static void	pipe_first(t_list *command_lst, int fd[2], int std_io[2])
 		close(fd[0]);
 		setup_fd(command_lst, std_io);
 		ft_exe(command_lst, command_lst);
+		if (is_built_in(command_lst))
+		{
+			ft_exit(0, NULL);
+		}
 	}
 }
 

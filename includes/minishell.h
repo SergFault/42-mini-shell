@@ -88,7 +88,7 @@ int 	launch_commands(t_list **commands);
 char	**ft_split_spaces(char const *s);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
-char	*get_env_var(char **var_arr, const char *key);
+char	*get_env_var(char **var_arr, char *key);
 char	*ft_strjoin(char *s1, char *s2);
 void    ft_put_err(const char *str);
 void	ft_put_err_cmd(const char *cmd, const char *str);
@@ -151,6 +151,7 @@ int cpy_unquote(char *src, char *dst);
 char	**ft_split_quotes(char const *s);
 int	have_empty_cmds(t_list *commands_list);
 int		is_inconsiderable(char ch);
+int	fill_words(t_list *cmd);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);
