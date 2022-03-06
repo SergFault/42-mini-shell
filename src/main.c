@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 20:05:57 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 22:52:28 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **env)
 		delete_all_files();
 		free_cmds(&commands);
 		free(input);
-		//printf("%d\n", g_status); // todo debug only
+		//printf("%d\n", g_data.ret_val); // todo debug only
 
 	}
 	free_all(commands);

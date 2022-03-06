@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/06 22:06:17 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 22:29:24 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_ltrs_undersc(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+	if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
 		return (1);
 	return (0);
 }
@@ -28,7 +28,7 @@ static int	ft_valid_name(const char *name)
 	{
 		while (name[i] && name[i] != '=')
 		{
-			if (ft_ltrs_undersc(name[i]) || (name[i] >= '0' && name[i] <= '9'))
+			if (ft_ltrs_undersc(name[i]) || name[i] >= '0' && name[i] <= '9')
 			{
 				i++;
 				continue ;
@@ -189,5 +189,6 @@ int	ft_export(char **argv)
 	}
 	if (i == 1)
 		ft_print_env();
+	//free(argv);
 	return (ret);
 }

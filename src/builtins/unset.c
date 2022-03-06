@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:10 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/06 14:01:00 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 22:09:58 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_ltrs_undersc(char c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
+	if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
 		return (1);
 	return (0);
 }
@@ -28,7 +28,7 @@ static int	ft_valid_name(const char *name)
 	{
 		while (name[i])
 		{
-			if (ft_ltrs_undersc(name[i]) || (name[i] >= '0' && name[i] <= '9'))
+			if (ft_ltrs_undersc(name[i]) || name[i] >= '0' && name[i] <= '9')
 			{
 				i++;
 				continue ;
@@ -83,13 +83,12 @@ int	ft_unset(char **argv)
 		if (ft_valid_name(argv[i]))
 		{
 			ft_delete_key(argv[i]);
-		}
-		else
+		} else
 		{
 			ret = 1;
-			ft_put_err_simple("minishell: unset: `");
-			ft_put_err_simple(argv[i]);
-			ft_put_err_simple("': not a valid identifier\n");
+			ft_put_err("minishell: unset: `");
+			ft_put_err(argv[i]);
+			ft_put_err("': not a valid identifier\n");
 		}
 		i++;
 	}
