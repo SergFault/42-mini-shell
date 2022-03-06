@@ -138,6 +138,7 @@ int is_lim(t_list *pList);
 int is_out_file(t_list *pList);
 int is_arg(t_list *pList);
 t_word *get_word_by_type(t_list *cmd, enum type t);
+char *get_first_arg_word_str_ref(t_list *cmd);
 int	here_doc_fd(char *delim);
 void delete_all_files();
 int is_quotes_open(char *str);
@@ -153,6 +154,7 @@ char	**ft_split_quotes(char const *s);
 int	have_empty_cmds(t_list *commands_list);
 int		is_inconsiderable(char ch);
 int	fill_words(t_list *cmd);
+void	ft_put_err_simple(const char *str);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);

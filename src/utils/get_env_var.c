@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-char *get_env_var(char **var_arr, const char *key)
+char	*get_env_var(char **var_arr, char *key)
 {
 	int i;
 	char *var_val;

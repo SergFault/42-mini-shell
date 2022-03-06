@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 14:25:48 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 19:11:50 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 	if (quotes[1])
 		return (ft_split_multiple_del(str + (pos) + 1, "\'\" \f\n\r\t\v"));
 	else
-		return (ft_split_multiple_del(str + (pos) + 1, "$ "));
+		return (ft_split_multiple_del(str + (pos) + 1, "$ \'\" \f\n\r\t\v"));
 }
 
 void	ft_substitution(char **str_p)

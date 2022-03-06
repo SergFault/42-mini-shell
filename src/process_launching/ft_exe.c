@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 21:46:34 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 19:56:50 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 20:34:45 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	}
 	else if (status == BIN_NOT_FOUND)
 	{
-		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+		ft_put_err_sh_cmd(get_first_arg_word_str_ref(command),
 			"command not found");
 		free_all_but_hist(cmds_to_free);
 		exit(127);
 	}
 	else if (status == BIN_IS_DIR)
 	{
-		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+		ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
 			"Is a directory\n");
 		free_all_but_hist(cmds_to_free);
 		exit(126);

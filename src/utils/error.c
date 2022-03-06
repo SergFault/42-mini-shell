@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	ft_put_err_simple(const char *str)
+{
+	write(2, str, ft_strlen(str));
+}
+
 void	ft_put_err(const char *str)
 {
 	write(2, "minishell: ", ft_strlen("minishell: "));
