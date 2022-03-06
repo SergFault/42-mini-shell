@@ -18,11 +18,11 @@ char	*ft_get_env_addr(const char *key)
 	int		res;
 
 	i = 0;
-	while (g_env[i])
+	while (g_data.env[i])
 	{
-		res = ft_strncmp(g_env[i], key, ft_strlen(key));
+		res = ft_strncmp(g_data.env[i], key, ft_strlen(key));
 		if (!res)
-			return (g_env[i]);
+			return (g_data.env[i]);
 		i++;
 	}
 	return (NULL);
@@ -34,17 +34,17 @@ void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 	int		i;
 
 	i = 0;
-	while (g_env[i])
+	while (g_data.env[i])
 	{
-		if (!ft_strncmp(g_env[i], "PWD=", ft_strlen("PWD=")))
+		if (!ft_strncmp(g_data.env[i], "PWD=", ft_strlen("PWD=")))
 		{
-			free(g_env[i]);
-			g_env[i] = pwd;
+			free(g_data.env[i]);
+			g_data.env[i] = pwd;
 		}
-		if (!ft_strncmp(g_env[i], "OLDPWD=", ft_strlen("OLDPWD=")))
+		if (!ft_strncmp(g_data.env[i], "OLDPWD=", ft_strlen("OLDPWD=")))
 		{
-			free(g_env[i]);
-			g_env[i] = oldpwd;
+			free(g_data.env[i]);
+			g_data.env[i] = oldpwd;
 		}
 		i++;
 	}

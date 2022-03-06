@@ -6,11 +6,30 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:39 by eshana            #+#    #+#             */
-/*   Updated: 2022/02/28 18:33:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/06 14:01:00 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_arg_is_flag(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	else
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == 'n')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
+}
 
 int	ft_echo(char **argv)
 {
@@ -21,10 +40,10 @@ int	ft_echo(char **argv)
 	new_line = 1;
 	i = 1;
 	size = ft_str_arr_size(argv);
-	if (size >= 2 && !ft_strncmp(argv[1], "-n", ft_strlen(argv[1])))
+	while (argv[i] && ft_arg_is_flag(argv[i]))
 	{
+		i++;
 		new_line = 0;
-		i = 2;
 	}
 	while (argv[i])
 	{

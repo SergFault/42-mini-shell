@@ -31,6 +31,8 @@ int	is_built_in(t_list *cmd_lst)
 		return (1);
 	if (!ft_strncmp(cmd_str, "export", ft_strlen(cmd_str)))
 		return (1);
+	if (!ft_strncmp(cmd_str, "unset", ft_strlen(cmd_str)))
+		return (1);
 	return (0);
 }
 

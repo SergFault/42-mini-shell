@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/04 15:16:12 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/04 23:52:04 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	make_substitution(char **str, int pos, char **splitted)
 
 	var = splitted[0];
 	(*str)[pos] = '\0';
-	var_val = get_env_var(g_env, var);
+	var_val = get_env_var(g_data.env, var);
 	result = ft_strjoin(*str, var_val);
 	temp = result;
 	result = ft_strjoin(result, *str + (pos + ft_strlen(var) + 1));

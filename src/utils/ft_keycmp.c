@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_keycmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sergey <sergey@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 15:36:57 by sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 14:01:00 by Sergey           ###   ########.fr       */
+/*   Created: 2022/03/05 01:40:04 by eshana            #+#    #+#             */
+/*   Updated: 2022/03/05 01:40:04 by eshana           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ft_lstnew(void *content)
+int	ft_keycmp(const char *s1, const char *s2)
 {
-	t_list	*newl;
+	size_t	i;
 
-	newl = malloc(sizeof(t_list));
-	if (!(newl))
+	i = 0;
+	while ((s1[i] || s2[i]) && s1[i] != '=' && s2[i] != '=')
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	if (s1[i] == '=' && !s2[i] || s2[i] == '=' && !s1[i])
 		return (0);
-	newl->content = content;
-	newl->next = 0;
-	newl->prev = 0;
-	return (newl);
+	return (s1[i] - s2[i]);
 }

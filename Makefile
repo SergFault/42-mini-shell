@@ -9,7 +9,7 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				utils/ft_split_spaces.c utils/get_env_var.c\
 				utils/ft_strlcpy.c utils/consider_empty.c\
 				utils/ft_strnstr.c utils/ft_strchr.c utils/ft_substr.c\
-				utils/ft_strcmp.c \
+				utils/ft_strcmp.c utils/ft_keycmp.c \
 				utils/ft_putstr_fd.c \
 				utils/ft_split_multiple_del.c \
 				utils/have_first_last_char.c \
