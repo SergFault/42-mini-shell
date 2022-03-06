@@ -16,7 +16,6 @@ void	ft_put_err(const char *str)
 {
 	write(2, "minishell: ", ft_strlen("minishell: "));
 	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
 }
 
 void	ft_put_err_cmd(const char *cmd, const char *str)

@@ -53,21 +53,21 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	if (status == BIN_PERM_ERR)
 	{
 		ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
-			"Permission denied");
+			"Permission denied\n");
 		free_all_but_hist(cmds_to_free);
 		exit(126);
 	}
 	else if (status == BIN_NOT_FOUND)
 	{
 		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
-			"command not found");
+			"command not found\n");
 		free_all_but_hist(cmds_to_free);
 		exit(127);
 	}
 	else if (status == BIN_IS_DIR)
 	{
 		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
-			"Is a directory");
+			"Is a directory\n");
 		free_all_but_hist(cmds_to_free);
 		exit(126);
 	}

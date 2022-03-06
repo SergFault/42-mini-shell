@@ -42,7 +42,7 @@ t_list	*parse_input(char **input_p)
 	command_lst = NULL;
 	if (is_quotes_open(input))
 	{
-		ft_put_err("syntax error: quotes");
+		ft_put_err("syntax error: quotes\n");
 		g_status = 2;
 		return (NULL);
 	}
@@ -50,7 +50,7 @@ t_list	*parse_input(char **input_p)
 	command_lst = map_lines_cmds(lines);
 	if (have_empty_cmds(command_lst) || have_first_last_char(*input_p, '|'))
 	{
-		ft_put_err("syntax error near unexpected token `|\'");
+		ft_put_err("syntax error near unexpected token `|\'\n");
 		free_cmds(&command_lst);
 		free(lines);
 		g_status = 2;
