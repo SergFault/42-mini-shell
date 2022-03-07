@@ -1,12 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_env_var.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 22:34:42 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 22:50:20 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
+
+static char	*get_result(char *full_key, char *var_val)
+{
+	int	key_size;
+
+	key_size = strlen(full_key);
+	free(full_key);
+	return (ft_strdup(var_val + key_size));
+}
 
 char	*get_env_var(char **var_arr, char *key)
 {
-	int i;
-	char *var_val;
-	char *full_key;
-	int key_size;
+	int		i;
+	char	*var_val;
+	char	*full_key;
+	int		key_size;
 
 	if (ft_strncmp(key, "?", 2) == 0)
 	{
@@ -21,11 +41,7 @@ char	*get_env_var(char **var_arr, char *key)
 		{
 			var_val = ft_strnstr(var_arr[i], full_key, ft_strlen(full_key));
 			if (var_val)
-			{
-				key_size = strlen(full_key);
-				free(full_key);
-				return (ft_strdup(var_val + key_size));
-			}
+				return (get_result(full_key, var_val));
 			i++;
 		}
 		free(full_key);

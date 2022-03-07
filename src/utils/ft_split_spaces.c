@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_spaces.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 22:29:16 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 22:30:14 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-static int is_space(char ch)
+static int	is_space(char ch)
 {
 	if (ch == ' ' || ch == '\f' || ch == '\n'
 		|| ch == '\r' || ch == '\t' || ch == '\v')
-		return 1;
+		return (1);
 	else
-		return 0;
+		return (0);
 }
 
 static int	free_fail(char **str_a, int c)
@@ -30,11 +41,12 @@ static size_t	ft_datasnaps(const char *str)
 	c = 0;
 	while (*str)
 	{
-		while(*str && is_space(*str))
+		while (*str && is_space(*str))
 			str++;
-		if (*str){
+		if (*str)
+		{
 			c++;
-			while(*str && !is_space(*str))
+			while (*str && !is_space(*str))
 				str++;
 		}
 	}

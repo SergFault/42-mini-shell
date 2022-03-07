@@ -1,8 +1,20 @@
-#include "../../includes/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 22:32:44 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 22:32:44 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t		ft_strlen(const char *s)
+#include "minishell.h"
+
+size_t	ft_strlen(const char *s)
 {
-	size_t		i;
+	size_t	i;
 
 	i = -1;
 	while (*(s + ++i))

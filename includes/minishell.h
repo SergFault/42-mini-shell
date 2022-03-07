@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 20:04:11 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 23:03:25 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 /* utils */
 # include <stdlib.h>
 # include <dirent.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # define PROMPT "minishell:"
 # define BIN_SUCCEED 0
@@ -145,7 +145,6 @@ int			ft_valid_name(const char *name);
 int			ft_value_changed(char *name);
 void		cut_key(char *key);
 int			change_val(char *name, char *key, int *i);
-
 
 /* parse */
 t_list		*parse_input(char **input);

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_multiple_del.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 21:56:38 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 21:56:46 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	is_char_in_str(char *str, char ch)
 {
-	while(*str)
+	while (*str)
 	{
 		if (ch == *str)
 			return (1);

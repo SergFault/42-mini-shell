@@ -1,16 +1,26 @@
-//
-// Created by sergey on 06.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_cmd_lst.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 21:53:24 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 21:54:09 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-void free_cmd(void* cmd){
-		free(((t_command *) cmd)->cmd_line);
-		ft_lstclear(&((t_command *) cmd)->element, free_word);
-		free(cmd);
+void	free_cmd(void *cmd)
+{
+	free(((t_command *) cmd)->cmd_line);
+	ft_lstclear(&((t_command *) cmd)->element, free_word);
+	free(cmd);
 }
 
-void free_word(void* word){
+void	free_word(void *word)
+{
 	if (word)
 	{
 		free(((t_word *) word)->val);
@@ -18,18 +28,19 @@ void free_word(void* word){
 	}
 }
 
-void free_cmds(t_list **cmds){
+void	free_cmds(t_list **cmds)
+{
 	if (cmds)
 		ft_lstclear(cmds, free_cmd);
 }
 
-void free_all_but_hist(t_list *cmds)
+void	free_all_but_hist(t_list *cmds)
 {
 	free_cmds(&cmds);
 	free_str_arr(g_data.env);
 }
 
-void free_all(t_list *cmds)
+void	free_all(t_list *cmds)
 {
 	rl_clear_history();
 	free_cmds(&cmds);

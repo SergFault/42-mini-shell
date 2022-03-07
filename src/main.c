@@ -6,16 +6,15 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 23:02:34 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_data	g_data;
-//char	**g_data.env;
 
-void	print_env(char **env)
+static void	print_env(char **env)
 {
 	while (*env)
 	{
@@ -24,25 +23,36 @@ void	print_env(char **env)
 	}
 }
 
+static void	arg_shot(char *arg_cmd)
+{
+	char	*input;
+	t_list	*commands;
+
+	input = ft_strdup(arg_cmd);
+	commands = parse_input(&input);
+	launch_commands(&commands);
+	delete_all_files();
+	free_cmds(&commands);
+	free(input);
+	exit(g_data.ret_val);
+}
+
+static void	init(t_list **commands, char **env)
+{
+	g_data.ret_val = 0;
+	*commands = NULL;
+	hook_signals();
+	parse_environment(env);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		*input;
 	t_list		*commands;
 
-	g_data.ret_val = 0;
-	commands = NULL;
-	hook_signals();
-	parse_environment(env);
+	init(&commands, env);
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	{
-		input = ft_strdup(argv[2]);
-		commands = parse_input(&input);
-		launch_commands(&commands);
-		delete_all_files();
-		free_cmds(&commands);
-		free(input);
-		exit(g_data.ret_val);
-	}
+		arg_shot(argv[2]);
 	while (1)
 	{
 		input = readline(PROMPT);
@@ -55,13 +65,10 @@ int	main(int argc, char **argv, char **env)
 		}
 		add_history(input);
 		commands = parse_input(&input);
-
 		launch_commands(&commands);
 		delete_all_files();
 		free_cmds(&commands);
 		free(input);
-		//printf("%d\n", g_status); // todo debug only
-
 	}
 	free_all(commands);
 	return (g_data.ret_val);

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-extern t_data 	g_data;
+extern t_data	g_data;
 
 void	sig_handler(int sig_no)
 {
