@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:46:12 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 22:09:58 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:19:09 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	pipe_first(t_list *command_lst, int fd[2], int std_io[2])
 {
-	int	ret_val;
-
 	pipe(fd);
 	dup2(fd[1], 1);
 	close(fd[1]);
@@ -23,16 +21,16 @@ static void	pipe_first(t_list *command_lst, int fd[2], int std_io[2])
 	{
 		close(fd[0]);
 		setup_fd(command_lst, std_io);
-		ret_val = ft_exe(command_lst, command_lst);
+		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
-			exit(ret_val);
+		{
+			exit(g_data.ret_val);
+		}
 	}
 }
 
-static void	pipe_mid(t_list *command_lst, int fd[2], int std_io[2])
+static void	pipe_mid(t_list *command_lst, int *fd, int std_io[2])
 {
-	int	ret_val;
-
 	dup2(fd[0], 0);
 	close(fd[0]);
 	pipe(fd);
@@ -42,26 +40,30 @@ static void	pipe_mid(t_list *command_lst, int fd[2], int std_io[2])
 	{
 		close(fd[0]);
 		setup_fd(command_lst, std_io);
-		ret_val = ft_exe(command_lst, command_lst);
+		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
-			exit(ret_val);
+		{
+			exit(g_data.ret_val);
+		}
 	}
 }
 
-static void	pipe_last(t_list *command_lst, int fd[2], int std_io[2])
+static void	pipe_last(t_list *command_lst, int *fd, int std_io[2])
 {
-	int	ret_val;
-
 	dup2(fd[0], 0);
 	close(fd[0]);
 	dup2(std_io[1], 1);
 	if (!fork())
 	{
 		setup_fd(command_lst, std_io);
-		ret_val = ft_exe(command_lst, command_lst);
+		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
-			exit(ret_val);
+		{
+			exit(g_data.ret_val);
+		}
 	}
+	close(0);
+	close(1);
 }
 
 void	launch_forked(t_list *command_lst, int fd[2], int std_io[2],

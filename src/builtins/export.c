@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/06 23:37:07 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_ltrs_undersc(char c)
 {
-	if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_')
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_')
 		return (1);
 	return (0);
 }
@@ -28,7 +28,7 @@ static int	ft_valid_name(const char *name)
 	{
 		while (name[i] && name[i] != '=')
 		{
-			if (ft_ltrs_undersc(name[i]) || name[i] >= '0' && name[i] <= '9')
+			if (ft_ltrs_undersc(name[i]) || (name[i] >= '0' && name[i] <= '9'))
 			{
 				i++;
 				continue ;
@@ -88,11 +88,10 @@ int	ft_add_key(char *name)
 	}
 	free(key);
 	new_env = (char **)malloc(sizeof(char *) * (i + 2));
-	new_env[i] = ft_strdup(name);
 	new_env[i + 1] = NULL;
+	new_env[i] = ft_strdup(name);
 	while (--i >= 0)
 		new_env[i] = g_data.env[i];
-
 	free(g_data.env);
 	g_data.env = new_env;
 	return (0);
@@ -190,6 +189,5 @@ int	ft_export(char **argv)
 	}
 	if (i == 1)
 		ft_print_env();
-	//free(argv);
 	return (ret);
 }

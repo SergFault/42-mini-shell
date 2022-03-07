@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:46:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 22:09:58 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ int	is_built_in(t_list *cmd_lst)
 	char	*cmd_str;
 
 	cmd_str = get_word(get_cmd(cmd_lst)->element)->val;
-	if (!ft_strncmp(cmd_str, "pwd", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "pwd"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "env", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "env"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "exit", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "exit"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "echo", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "echo"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "cd", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "cd"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "export", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "export"))
 		return (1);
-	if (!ft_strncmp(cmd_str, "unset", ft_strlen(cmd_str)))
+	if (!ft_strcmp(cmd_str, "unset"))
 		return (1);
 	return (0);
 }
@@ -68,7 +68,7 @@ int	launch_commands(t_list **commands)
 	if (cmd_count == 1 && is_built_in(command_lst))
 	{
 		setup_fd(command_lst, std_io);
-		g_data.ret_val = launch_built_in(command_lst, command_lst);
+		launch_built_in(command_lst, command_lst);
 	}
 	else if (cmd_count == 1)
 	{
