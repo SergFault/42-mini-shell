@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/07 19:06:46 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 23:10:58 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,29 @@ char	*ft_find_min(char **tmp, int size)
 	return (str);
 }
 
+void	prnt(char *str)
+{
+	while (*str)
+	{
+		printf("%c", *str);
+		if (*str == '=')
+		{
+			printf("\"%s\"", str + 1);
+			break ;
+		}
+		str++;
+	}
+}
+
+void fill_env_arr(char **tmp, int *i)
+{
+	while (g_data.env[*i])
+	{
+		tmp[*i] = g_data.env[*i];
+		(*i)++;
+	}
+}
+
 void	ft_print_env(void)
 {
 	char	*str;
@@ -74,11 +97,7 @@ void	ft_print_env(void)
 	size = ft_str_arr_size(g_data.env);
 	tmp = (char **)malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	while (g_data.env[i])
-	{
-		tmp[i] = g_data.env[i];
-		i++;
-	}
+	fill_env_arr(tmp, &i);
 	i = 0;
 	while (i < size)
 	{
@@ -87,15 +106,7 @@ void	ft_print_env(void)
 			break ;
 		printf("declare -x ");
 		while (*str)
-		{
-			printf("%c", *str);
-			if (*str == '=')
-			{
-				printf("\"%s\"", str + 1);
-				break ;
-			}
-			str++;
-		}
+			prnt(str);
 		printf("\n");
 		i++;
 	}
