@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:12:36 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 21:44:56 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,16 @@ void	make_substitution(char **str, int pos, char **splitted)
 
 static char	**resolve_split(int quotes[2], char *str, int pos)
 {
+	char	**ret_val;
+
 	if (!quotes[0] && *(str + pos + 1) == '?')
 	{
-		char **ret_val = (char **) malloc(sizeof(char *) * 2);
+		ret_val = (char **)malloc(sizeof(char *) * 2);
+		if (ret_val == 0)
+			ft_free_exit_err(2);
 		ret_val[0] = ft_strdup("?");
 		ret_val[1] = NULL;
-		return ret_val;
+		return (ret_val);
 	}
 	if (quotes[1])
 		return (ft_split_multiple_del(str + (pos) + 1, "\'\" \f\n\r\t\v"));

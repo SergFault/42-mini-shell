@@ -6,13 +6,13 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 15:01:42 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 18:11:18 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_data 	g_data;
+extern t_data	g_data;
 
 t_list	*map_lines_cmds(char **lines)
 {

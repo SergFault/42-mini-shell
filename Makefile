@@ -17,7 +17,9 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				utils/have_first_last_char.c \
 				utils/ft_strjoin.c utils/ft_strncmp.c utils/ft_strncpy.c\
 				utils/error.c file_utils/here_doc.c utils/ft_split_pipes.c\
-				process_parsing/parse.c process_parsing/type_parser.c  \
+				process_parsing/parse.c \
+				process_parsing/type_parser.c  \
+				process_parsing/type_parser_helper.c \
 				process_parsing/ft_unquote.c process_parsing/checkers.c\
 				process_parsing/is_quotes_open.c \
 				process_parsing/parse_skippers.c \

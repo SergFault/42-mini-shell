@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_environmets.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 21:40:33 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 21:40:43 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	**ft_new_shlvl(char **env)
@@ -19,7 +31,7 @@ char	**ft_new_shlvl(char **env)
 	return (var);
 }
 
-int parse_environment(char **env)
+int	parse_environment(char **env)
 {
 	int		count;
 	int		pos;
@@ -29,7 +41,7 @@ int parse_environment(char **env)
 	count = ft_str_arr_size(env);
 	g_data.env = (char **)malloc(sizeof(char *) * (count + 1));
 	var = ft_new_shlvl(env);
-	while(env[pos])
+	while (env[pos])
 	{
 		g_data.env[pos] = ft_strdup(env[pos]);
 		pos++;

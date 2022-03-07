@@ -1,15 +1,22 @@
-//
-// Created by sergey on 14.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unquote.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 21:35:57 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 21:38:35 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-int cpy_unquote(char *src, char *dst)
+int	cpy_unquote(char *src, char *dst)
 {
-	int quotes[2];
-	int count;
-	int i;
-	int j;
+	int	quotes[2];
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -17,52 +24,47 @@ int cpy_unquote(char *src, char *dst)
 	quotes[0] = 0;
 	while (src[i])
 	{
-		if (((src[i] == '\'') && quotes[1]) || ((src[i] == '\"') && quotes[0]) ||
-			((src[i] != '\"') && (src[i] != '\'')))
+		if (((src[i] == '\'') && quotes[1]) || ((src[i] == '\"') && quotes[0])
+			|| ((src[i] != '\"') && (src[i] != '\'')))
 		{
 			change_quote_flags(quotes, src + i);
 			dst[j] = src[i];
 			i++;
 			j++;
-		}else
-		{
-			change_quote_flags(quotes, src + i);
-			i++;
 		}
+		else
+			change_quote_flags(quotes, src + i++);
 	}
 	dst[j] = '\0';
 	return (0);
 }
 
-static int count_len(char *str)
+static int	count_len(char *str)
 {
-	int quotes[2];
-	int count;
+	int	quotes[2];
+	int	count;
 
 	count = 0;
 	quotes[1] = 0;
 	quotes[0] = 0;
 	while (*str)
 	{
-		if (((*str == '\'') && quotes[1]) || ((*str == '\"') && quotes[0]) ||
-			((*str != '\"') && (*str != '\'')))
-		{
+		if (((*str == '\'') && quotes[1]) || ((*str == '\"') && quotes[0])
+			|| ((*str != '\"') && (*str != '\'')))
 			count++;
-		}
 		change_quote_flags(quotes, str);
 		str++;
 	}
 	return (count);
 }
 
-void ft_unquote(char **str_p)
+void	ft_unquote(char **str_p)
 {
-	int len;
-	char *s;
-	char *result;
+	int		len;
+	char	*s;
+	char	*result;
 
 	s = *str_p;
-//	len = count_len(s);
 	len = ft_strlen(s);
 	result = (char *)malloc(sizeof(char) * (len + 1));
 	result[len] = '\0';

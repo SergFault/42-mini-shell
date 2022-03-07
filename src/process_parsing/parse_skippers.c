@@ -1,9 +1,18 @@
-//
-// Created by sergey on 14.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_skippers.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 21:41:18 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 21:41:18 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-void skip_arg(char *line, int *c_pos)
+void	skip_arg(char *line, int *c_pos)
 {
 	int	quotes[2];
 
@@ -18,9 +27,9 @@ void skip_arg(char *line, int *c_pos)
 	}
 }
 
-void skip_redir(char *line, int *pos)
+void	skip_redir(char *line, int *pos)
 {
-	char skip_ch;
+	char	skip_ch;
 
 	skip_ch = line[*pos];
 	while (line[*pos] && line[*pos] == skip_ch)
