@@ -6,13 +6,13 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:29:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 12:54:49 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_data 	g_data;
+extern t_data	g_data;
 
 void	ft_wait_status(void)
 {
