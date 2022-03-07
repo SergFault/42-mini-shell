@@ -1,46 +1,80 @@
-//
-// Created by sergey on 08.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 19:25:03 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 20:03:02 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-char *get_random_name()
+static void	process_err(char *str_err)
 {
-	int c;
-	int f;
-	char *name;
-	int number;
+	ft_putstr_fd(str_err, 2);
+	ft_free_exit_err(2);
+}
 
+char	*get_random_name(void)
+{
+	int		c;
+	int		f;
+	char	*name;
+	int		number;
+
+	number = 0;
 	c = 9;
 	name = (char *)malloc(sizeof(char) * c);
-	if (!name){
-		printf("error"); //todo correct error handle
-		return (NULL);
-	}
+	if (!name)
+		process_err("fatal: memory allocation error");
 	f = open("/dev/random", O_RDONLY);
 	if (f == -1)
-	{
-		printf("error"); //todo correct error handle
-		return (NULL);
-	}
+		process_err("fatal: resource access error");
 	name[--c] = '\0';
-	while(--c >= 0){
+	while (--c >= 0)
+	{
 		read(f, &number, 1);
 		if (number < 0)
 			number = number * (-1);
 		name[c] = (char)('a' + (number % 26));
 	}
-	return name;
+	return (name);
 }
 
-int here_doc_fd(char *delim){
-	int f;
-	char *input;
-	char *ptr;
-	char *file_name;
-	char *full_path;
-	char *to_free;
-	int has_quotes;
+void	here_read(char *delim, int has_quotes, int f)
+{
+	char	*input;
+	char	*to_free;
+	char	*ptr;
+
+	input = readline(NULL);
+	if (!has_quotes)
+		ft_substitution(&input);
+	while (input)
+	{
+		if (ft_strcmp(delim, input) == 0)
+		{
+			free(input);
+			break ;
+		}
+		to_free = input;
+		input = ft_strjoin(input, "\n");
+		free(to_free);
+		ft_putstr_fd(input, f);
+		free(input);
+		input = readline(NULL);
+	}
+}
+
+int	here_doc_fd(char *delim)
+{
+	int		f;
+	char	*file_name;
+	char	*full_path;
+	int		has_quotes;
 
 	has_quotes = 0;
 	if (is_quotes(delim))
@@ -50,34 +84,15 @@ int here_doc_fd(char *delim){
 	}
 	file_name = get_random_name();
 	full_path = ft_strjoin("./temp/", file_name);
+	free(file_name);
 	f = open(full_path, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (f == -1)
-	{
-		printf("error"); //todo correct error handle
-	}
-	input = readline(NULL);
-	if (!has_quotes)
-		ft_substitution(&input);
-	while (input)
-	{
-		to_free = input;
-		input = ft_strjoin(input, "\n");
-		free(to_free);
-		ptr = ft_strnstr(input, delim, strlen(input));
-		if (ptr)
-		{
-			while (input != ptr)
-			{
-				write(f, input, 1);
-				input++;
-			}
-			break ;
-		}
-		ft_putstr_fd(input, f);
-		input = readline(NULL);
-	}
+		process_err("fatal: resource access error");
+	here_read(delim, has_quotes, f);
 	close(f);
 	f = open(full_path, O_RDONLY);
+	if (f == -1)
+		process_err("fatal: resource access error");
 	free(full_path);
 	return (f);
 }

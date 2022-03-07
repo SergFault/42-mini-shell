@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_all_files.c                                 :+:      :+:    :+:   */
+/*   mem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 19:21:04 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 19:23:37 by Sergey           ###   ########.fr       */
+/*   Created: 2022/03/07 19:33:48 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 19:34:06 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	delete_all_files(void)
+void ft_free_exit_err(int status)
 {
-	struct dirent	*dp;
-	char			*path;
-	DIR				*dir;
-
-	dir = opendir("./temp");
-	if (!dir)
-		return ;
-	dp = readdir(dir);
-	while (dp != NULL)
-	{
-		path = ft_strjoin("./temp/", dp->d_name);
-		unlink(path);
-		free(path);
-		dp = readdir(dir);
-	}
-	closedir(dir);
+	rl_clear_history();
+	free_str_arr(g_data.env);
+	exit(status);
 }

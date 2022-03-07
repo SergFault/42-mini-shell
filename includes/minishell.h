@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 19:14:40 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 19:45:46 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 
 /* utils */
 # include <stdlib.h>
+# include <dirent.h>
+#include <fcntl.h>
 
 # define PROMPT "minishell:"
 # define BIN_SUCCEED 0
@@ -116,6 +118,7 @@ int			ft_atoi(const char *str);
 char		*ft_itoa(int n);
 int			have_here_doc_cmds(t_list *commands_list);
 int			have_lim_here_doc(t_list *commands_list);
+void		ft_free_exit_err(int status);
 
 /* simple checks*/
 int			is_delim(char i);
@@ -201,11 +204,6 @@ void		free_cmd(void *cmd);
 void		free_str_arr(char **str_arr);
 void		free_all(t_list *cmds);
 void		free_all_but_hist(t_list *cmds);
-
-/* debug */
-void		print_word(t_list *word);
-void		print_cmds(t_list *cmd);
-void		print_str_arr(char **str_arr);
 
 /* redirect */
 int			setup_fd(t_list *command, int pInt[2]);
