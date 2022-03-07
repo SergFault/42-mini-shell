@@ -16,7 +16,7 @@ int	ft_pwd(void)
 {
 	char	*str;
 	char	*buf;
-	
+
 	buf = (char *)malloc(sizeof(char) * (PATH_MAX + 1));
 	if (!buf)
 	{

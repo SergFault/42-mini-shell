@@ -1,10 +1,18 @@
-//
-// Created by sergey on 04.02.2022.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 18:49:51 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/07 18:53:41 by Sergey           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-extern t_data g_data;
+extern t_data	g_data;
 
 int	ft_isspace(char c)
 {
@@ -60,6 +68,13 @@ int	ft_atoi(const char *str)
 	return (res * sgn);
 }
 
+static void	numeric_err(char *param)
+{
+	ft_put_err("minishell: exit: ");
+	ft_put_err(param);
+	ft_put_err(": numeric argument required\n");
+}
+
 int	ft_exit(char **params, t_list *cmd_to_free)
 {
 	unsigned char	ret;
@@ -72,22 +87,16 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 		if (size > 2)
 		{
 			ft_put_err("exit\nminishell: exit: too many arguments\n");
-			//free args
-			return (1);//error: too many arguments
+			return (1);
 		}
 		else
 			ret = ft_atoi(params[1]);
 	}
 	else if (size > 1)
-		//error: numeric argument required
 		ret = 2;
 	printf("exit\n");
 	if (ret == 2)
-	{
-		ft_put_err("minishell: exit: ");
-		ft_put_err(params[1]);
-		ft_put_err(": numeric argument required\n");
-	}
+		numeric_err(params[0]);
 	free_all(cmd_to_free);
 	free(params);
 	if (ret != 0)

@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:25:47 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 18:48:59 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 			g_data.env[i] = pwd;
 			pwd = NULL;
 		}
-		if (!ft_strncmp(g_data.env[i], "OLDPWD=", ft_strlen("OLDPWD=")) ||
-			!ft_strcmp(g_data.env[i], "OLDPWD"))
+		if (!ft_strncmp(g_data.env[i], "OLDPWD=", ft_strlen("OLDPWD="))
+			|| !ft_strcmp(g_data.env[i], "OLDPWD"))
 		{
 			free(g_data.env[i]);
 			g_data.env[i] = oldpwd;
@@ -61,8 +61,8 @@ int	ft_cd(char **argv)
 {
 	int		ret;
 	char	*pwd;
-	char 	*oldpwd;
-	char 	*buf;
+	char	*oldpwd;
+	char	*buf;
 
 	if (ft_str_arr_size(argv) > 2)
 	{
@@ -83,5 +83,5 @@ int	ft_cd(char **argv)
 	}
 	ft_put_err("minishell: cd: ");
 	perror(argv[1]);
-	return(1);
+	return (1);
 }

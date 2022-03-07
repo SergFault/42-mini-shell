@@ -4,7 +4,7 @@
 
 #include "minishell.h"
 
-t_word *get_word_by_type(t_list *cmd, enum type t){
+t_word *get_word_by_type(t_list *cmd, enum e_type t){
 	t_command *command;
 	t_list *word_lst;
 

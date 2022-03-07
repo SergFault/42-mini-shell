@@ -13,7 +13,7 @@ char *get_word_str(t_list *lst){
 	return ((t_word *)(lst->content))->val ;
 }
 
-enum type get_word_type(t_list *lst){
+enum e_type get_word_type(t_list *lst){
 	return ((t_word *)(lst->content))->t ;
 }
 
