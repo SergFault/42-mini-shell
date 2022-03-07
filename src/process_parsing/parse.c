@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:01:42 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,13 @@ t_list	*parse_input(char **input_p)
 	}
 	lines = ft_split_pipes(input);
 	command_lst = map_lines_cmds(lines);
-	if (have_empty_cmds(command_lst) || have_first_last_char(*input_p, '|'))
+	free(lines);
+	fill_words(command_lst);
+	if (validate(command_lst, input) == 0)
 	{
-		ft_put_err("syntax error near unexpected token `|\'\n");
 		free_cmds(&command_lst);
-		free(lines);
 		g_data.ret_val = 2;
 		return (NULL);
 	}
-	free(lines);
-	fill_words(command_lst);
 	return (command_lst);
 }

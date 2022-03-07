@@ -102,6 +102,8 @@ int		have_first_last_char(char *string, char ch);
 char	**ft_split_multiple_del(char const *s, char *del);
 int		ft_atoi(const char *str);
 char			*ft_itoa(int n);
+int	have_here_doc_cmds(t_list *commands_list);
+int	have_lim_here_doc(t_list *commands_list);
 
 
 /* simple checks*/
@@ -155,6 +157,7 @@ int	have_empty_cmds(t_list *commands_list);
 int		is_inconsiderable(char ch);
 int	fill_words(t_list *cmd);
 void	ft_put_err_simple(const char *str);
+int	validate(t_list *command_lst, char *input_p);
 
 /* list utils */
 void	ft_lstadd_back(t_list **lst, t_list *new);

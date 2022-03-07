@@ -27,6 +27,7 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				process_launching/launch_forked.c \
 				process_launching/ft_wait_status.c \
 				process_launching/ft_exe.c \
+				process_parsing/validation.c \
 				process_parsing/get_word_by_type.c \
 				process_launching/x_bin_checker.c \
 				builtins/cd.c builtins/echo.c builtins/pwd.c \

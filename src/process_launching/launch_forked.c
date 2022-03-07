@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:46:12 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 14:19:09 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:20:16 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void	pipe_last(t_list *command_lst, int *fd, int std_io[2])
 			exit(g_data.ret_val);
 		}
 	}
-	close(0);
-	close(1);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 }
 
 void	launch_forked(t_list *command_lst, int fd[2], int std_io[2],
