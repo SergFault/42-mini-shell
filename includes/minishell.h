@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 19:45:46 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/07 20:04:11 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,6 @@ t_command	*get_cmd(t_list *lst);
 t_word		*get_word(t_list *lst);
 char		**get_args(t_list *command);
 char		*get_word_str(t_list *lst);
-char		*get_cmd_str(t_list *lst);
 enum e_type	get_word_type(t_list *lst);
 
 /* memutils */
