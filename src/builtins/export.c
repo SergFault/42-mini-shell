@@ -122,9 +122,9 @@ int	ft_export(char **argv)
 		else
 		{
 			ret = 1;
-			ft_put_err("minishell: export: `");
-			ft_put_err(argv[i]);
-			ft_put_err("': not a valid identifier\n");
+			ft_put_err_simple("minishell: export: `");
+			ft_put_err_simple(argv[i]);
+			ft_put_err_simple("': not a valid identifier\n");
 		}
 		i++;
 	}
