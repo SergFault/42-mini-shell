@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:25:03 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 20:03:02 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 21:19:37 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ char	*get_random_name(void)
 	if (f == -1)
 		process_err("fatal: resource access error");
 	name[--c] = '\0';
-	while (--c >= 0)
+	while (--c > 0)
 	{
 		read(f, &number, 1);
 		if (number < 0)
 			number = number * (-1);
 		name[c] = (char)('a' + (number % 26));
 	}
+	name[0] = '.';
 	return (name);
 }
 
@@ -83,16 +84,15 @@ int	here_doc_fd(char *delim)
 		cpy_unquote(delim, delim);
 	}
 	file_name = get_random_name();
-	full_path = ft_strjoin("./temp/", file_name);
-	free(file_name);
-	f = open(full_path, O_CREAT | O_EXCL | O_RDWR, 0644);
+	f = open(file_name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (f == -1)
 		process_err("fatal: resource access error");
 	here_read(delim, has_quotes, f);
 	close(f);
-	f = open(full_path, O_RDONLY);
+	f = open(file_name, O_RDONLY);
 	if (f == -1)
 		process_err("fatal: resource access error");
-	free(full_path);
+	unlink(file_name);
+	free(file_name);
 	return (f);
 }
