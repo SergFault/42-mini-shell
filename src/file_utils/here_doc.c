@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:25:03 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 21:19:37 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:27:49 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	here_read(char *delim, int has_quotes, int f)
 {
 	char	*input;
 	char	*to_free;
-	char	*ptr;
 
 	input = readline(NULL);
 	if (!has_quotes)
@@ -74,7 +73,6 @@ int	here_doc_fd(char *delim)
 {
 	int		f;
 	char	*file_name;
-	char	*full_path;
 	int		has_quotes;
 
 	has_quotes = 0;

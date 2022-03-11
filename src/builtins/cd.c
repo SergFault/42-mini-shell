@@ -30,7 +30,6 @@ char	*ft_get_env_addr(const char *key)
 
 void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 {
-	char	*tmp;
 	int		i;
 
 	i = 0;

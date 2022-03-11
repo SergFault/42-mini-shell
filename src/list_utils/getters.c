@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:08:23 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 20:12:19 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:14:00 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,34 @@
 
 t_command	*get_cmd(t_list *lst)
 {
-	return (lst->content);
+	if (lst)
+		return (lst->content);
+	else
+		return (NULL);
 }
 
 t_word	*get_word(t_list *lst)
 {
-	return (lst->content);
+	if (lst)
+		return (lst->content);
+	else
+		return (NULL);
 }
 
 char	*get_word_str(t_list *lst)
 {
-	return (((t_word *)(lst->content))->val);
+	if (lst)
+		return (((t_word *)(lst->content))->val);
+	else
+		return (NULL);
 }
 
 enum e_type	get_word_type(t_list *lst)
 {
-	return (((t_word *)(lst->content))->t);
+	if (lst)
+		return (((t_word *)(lst->content))->t);
+	else
+		return (NONE);
 }
 
 char	**get_args(t_list *command)

@@ -31,7 +31,6 @@ static void	ft_new_env(char **new_env)
 static void	ft_delete_key(char *key)
 {
 	int		i;
-	int		j;
 	char	**new_env;
 
 	i = 0;

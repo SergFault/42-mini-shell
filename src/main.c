@@ -6,22 +6,13 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 20:58:06 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:27:39 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_data	g_data;
-
-static void	print_env(char **env)
-{
-	while (*env)
-	{
-		printf("%s", *env++);
-		printf("\n");
-	}
-}
 
 static void	arg_shot(char *arg_cmd)
 {

@@ -39,25 +39,6 @@ int	cpy_unquote(char *src, char *dst)
 	return (0);
 }
 
-static int	count_len(char *str)
-{
-	int	quotes[2];
-	int	count;
-
-	count = 0;
-	quotes[1] = 0;
-	quotes[0] = 0;
-	while (*str)
-	{
-		if (((*str == '\'') && quotes[1]) || ((*str == '\"') && quotes[0])
-			|| ((*str != '\"') && (*str != '\'')))
-			count++;
-		change_quote_flags(quotes, str);
-		str++;
-	}
-	return (count);
-}
-
 void	ft_unquote(char **str_p)
 {
 	int		len;

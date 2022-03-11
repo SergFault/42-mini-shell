@@ -1,6 +1,6 @@
 NAME = minishell
 CPP	 = gcc
-FLAGS = -g # -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 FLAGS += -MMD -MP
 INCL_DIR = includes
 SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
@@ -21,7 +21,9 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				process_parsing/parse.c \
 				process_parsing/type_parser.c  \
 				process_parsing/type_parser_helper.c \
-				process_parsing/ft_unquote.c process_parsing/checkers.c\
+				process_parsing/ft_unquote.c \
+				process_parsing/checkers.c \
+				process_parsing/checkers_2.c \
 				process_parsing/is_quotes_open.c \
 				process_parsing/parse_skippers.c \
 				process_parsing/words.c \
@@ -47,7 +49,6 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				list_utils/ft_lstsize.c list_utils/ft_lstclear.c \
 				utils/free_cmd_lst.c utils/free_str_arr.c \
 				file_utils/setup_fd.c  file_utils/delete_all_files.c
-
 
 SRCS_DIR = src/
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))

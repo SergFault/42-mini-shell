@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 18:11:18 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:31:49 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_list	*parse_input(char **input_p)
 	command_lst = map_lines_cmds(lines);
 	free(lines);
 	fill_words(command_lst);
-	if (validate(command_lst, input) == 0)
+	if (!validate_in(input) || !validate_wrds(command_lst))
 	{
 		free_cmds(&command_lst);
 		g_data.ret_val = 2;

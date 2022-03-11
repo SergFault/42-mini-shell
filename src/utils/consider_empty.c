@@ -23,9 +23,6 @@ int	is_inconsiderable(char ch)
 
 int	consider_empty(char *str)
 {
-	int	is_empty;
-
-	is_empty = 1;
 	while (*str)
 	{
 		if (!is_inconsiderable(*str))

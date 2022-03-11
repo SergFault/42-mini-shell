@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 20:50:24 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 22:20:34 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,21 @@ int			ft_keycmp(const char *s1, const char *s2);
 void		ft_putstr_fd(char *s, int fd);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
-int			have_first_last_char(char *string, char ch);
 char		**ft_split_multiple_del(char const *s, char *del);
 int			ft_atoi(const char *str);
 char		*ft_itoa(int n);
-int			have_here_doc_cmds(t_list *commands_list);
-int			have_lim_here_doc(t_list *commands_list);
 void		ft_free_exit_err(int status);
 int			ft_is_digit(char ch);
 
 /* simple checks*/
 int			is_delim(char i);
+int			have_file_in_op(t_list *commands_list);
+int			have_first_last_char(char *string, char ch);
+int			have_here_doc_cmds(t_list *commands_list);
+int			have_lim_here_doc(t_list *commands_list);
+int			have_file_in(t_list *commands_list);
+int			have_any_out_redir_op(t_list *commands_list);
+int			have_file_out(t_list *commands_list);
 
 /* launching utils */
 int			assemble_path(char *bin_name, char **paths, char **assembled_path);
@@ -177,12 +181,12 @@ void		skip_redir(char *line, int *pos);
 int			is_quotes(const char *str);
 int			cpy_unquote(char *src, char *dst);
 char		**ft_split_quotes(char const *s);
-int			have_empty_cmds(t_list *commands_list);
 int			is_inconsiderable(char ch);
 int			fill_words(t_list *cmd);
 void		ft_put_err_simple(const char *str);
-int			validate(t_list *command_lst, char *input_p);
+int			validate_in(char *input);
 int			parse(void);
+int			validate_wrds(t_list *l_cmds);
 
 /* list utils */
 void		ft_lstadd_back(t_list **lst, t_list *new);
