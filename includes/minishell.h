@@ -34,7 +34,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 
-# define PROMPT "minishell:"
+# define PROMPT "minishell$ "
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2
@@ -90,6 +90,7 @@ int			launch_commands(t_list **commands);
 
 /* signals */
 void		hook_signals(void);
+void		hook_signals_fork(void);
 
 /* common utils */
 char		**ft_split(char const *s, char c);

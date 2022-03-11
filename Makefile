@@ -54,12 +54,12 @@ SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS = $(SRCS:.c=.o)
 
 %.o:		%.c Makefile
-						$(CPP) $(FLAGS) -I$(INCL_DIR) -c $< -o $@ #-I../.brew/opt/readline/include
+						$(CPP) $(FLAGS) -I$(INCL_DIR) -c $< -o $@ -I../.brew/opt/readline/include
 
 all:					$(NAME)
 
 $(NAME):				$(OBJS)
-						$(CPP) $(FLAGS) $(OBJS) -o $(NAME) -lreadline #-L../.brew/opt/readline/lib
+						$(CPP) $(FLAGS) $(OBJS) -o $(NAME) -lreadline -L../.brew/opt/readline/lib
 
 clean:
 						@rm -rf $(OBJS)

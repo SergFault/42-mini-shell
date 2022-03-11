@@ -20,5 +20,8 @@ void	ft_wait_status(void)
 
 	stat_loc = 0;
 	wait(&stat_loc);
+	printf("%d\n", stat_loc);
 	g_data.ret_val = WEXITSTATUS(stat_loc);
+	printf("%d\n", g_data.ret_val);
+	printf("wait\n");///////
 }

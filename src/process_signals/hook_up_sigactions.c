@@ -16,9 +16,10 @@ extern t_data	g_data;
 
 void	sig_handler(int sig_no)
 {
+	g_data.ret_val = 1;
 	if (sig_no == SIGINT)
 	{
-		printf("\n");
+		write(0, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -29,7 +30,26 @@ void	sig_handler(int sig_no)
 		exit(g_data.ret_val);
 }
 
+void	sig_handler_fork(int sig_no)
+{
+	g_data.ret_val = sig_no + 128;
+	if (sig_no == SIGINT)
+		exit(g_data.ret_val);
+	else if (sig_no == SIGTERM)
+		exit(g_data.ret_val);
+	else if (sig_no == SIGQUIT)
+		exit(g_data.ret_val);
+	exit(g_data.ret_val);
+}
+
 void	hook_signals(void)
 {
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	hook_signals_fork(void)
+{
+	signal(SIGINT, sig_handler_fork);
+	signal(SIGQUIT, SIG_DFL);
 }

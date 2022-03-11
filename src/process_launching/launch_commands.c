@@ -49,7 +49,10 @@ int	launch_simple(t_list *command_lst)
 
 	pid = fork();
 	if (!pid)
+	{
+		hook_signals_fork();
 		ft_exe(command_lst, command_lst);
+	}
 	ft_wait_status();
 	return (0);
 }

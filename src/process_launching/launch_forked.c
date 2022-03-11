@@ -19,6 +19,7 @@ static void	pipe_first(t_list *command_lst, int fd[2], int std_io[2])
 	close(fd[1]);
 	if (!fork())
 	{
+		hook_signals_fork();
 		close(fd[0]);
 		setup_fd(command_lst, std_io);
 		ft_exe(command_lst, command_lst);
@@ -38,6 +39,7 @@ static void	pipe_mid(t_list *command_lst, int *fd, int std_io[2])
 	close(fd[1]);
 	if (!fork())
 	{
+		hook_signals_fork();
 		close(fd[0]);
 		setup_fd(command_lst, std_io);
 		ft_exe(command_lst, command_lst);
@@ -55,6 +57,7 @@ static void	pipe_last(t_list *command_lst, int *fd, int std_io[2])
 	dup2(std_io[1], 1);
 	if (!fork())
 	{
+		hook_signals_fork();
 		setup_fd(command_lst, std_io);
 		ft_exe(command_lst, command_lst);
 		if (is_built_in(command_lst))
