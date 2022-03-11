@@ -6,7 +6,7 @@
 /*   By: eshana <eshana@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 09:26:00 by eshana            #+#    #+#             */
-/*   Updated: 2022/03/11 14:53:08 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 21:02:30 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ int	ft_export(char **argv)
 		else
 		{
 			ret = 1;
-			ft_put_err_simple("minishell: export: `");
-			ft_put_err_simple(argv[i]);
-			ft_put_err_simple("': not a valid identifier\n");
+			ft_put_err("minishell: export: `");
+			ft_put_err(argv[i]);
+			ft_put_err("': not a valid identifier\n");
 		}
 		i++;
 	}
