@@ -119,6 +119,7 @@ char		*ft_itoa(int n);
 int			have_here_doc_cmds(t_list *commands_list);
 int			have_lim_here_doc(t_list *commands_list);
 void		ft_free_exit_err(int status);
+int			ft_is_digit(char ch);
 
 /* simple checks*/
 int			is_delim(char i);

@@ -13,6 +13,7 @@ SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \
 				utils/ft_putstr_fd.c \
 				utils/ft_itoa.c \
 				utils/mem_utils.c \
+				utils/ft_is_digit.c \
 				utils/ft_split_multiple_del.c \
 				utils/have_first_last_char.c \
 				utils/ft_strjoin.c utils/ft_strncmp.c utils/ft_strncpy.c\

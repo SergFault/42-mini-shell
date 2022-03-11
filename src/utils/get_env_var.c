@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 22:34:42 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 22:50:20 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 14:50:11 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_env_var(char **var_arr, char *key)
 	int		i;
 	char	*var_val;
 	char	*full_key;
-	int		key_size;
 
 	if (ft_strncmp(key, "?", 2) == 0)
 	{

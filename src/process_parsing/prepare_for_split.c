@@ -56,6 +56,15 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 		ret_val[1] = NULL;
 		return (ret_val);
 	}
+	if (!quotes[0] && ft_is_digit(*(str + pos + 1)))
+	{
+		ret_val = (char **)malloc(sizeof(char *) * 2);
+		if (ret_val == 0)
+			ft_free_exit_err(2);
+		ret_val[0] = ft_strdup("1");
+		ret_val[1] = NULL;
+		return (ret_val);
+	}
 	if (quotes[1])
 		return (ft_split_multiple_del(str + (pos) + 1, "\'\" \f\n\r\t\v"));
 	else
