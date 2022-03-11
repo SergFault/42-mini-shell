@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:46:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:47:03 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ int	launch_simple(t_list *command_lst)
 	int	pid;
 
 	pid = fork();
+
 	if (!pid)
+	{
+		reset_signals();
 		ft_exe(command_lst, command_lst);
+	}
 	ft_wait_status();
 	return (0);
 }

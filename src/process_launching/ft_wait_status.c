@@ -18,7 +18,11 @@ void	ft_wait_status(void)
 {
 	int	stat_loc;
 
+	signal(SIGINT, sig_handler2);
 	stat_loc = 0;
 	wait(&stat_loc);
 	g_data.ret_val = WEXITSTATUS(stat_loc);
+	signal(SIGINT, sig_handler);
+
+
 }

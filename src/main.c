@@ -41,7 +41,6 @@ static void	init(t_list **commands, char **env)
 {
 	g_data.ret_val = 0;
 	*commands = NULL;
-	hook_signals();
 	parse_environment(env);
 }
 
@@ -55,6 +54,7 @@ int	main(int argc, char **argv, char **env)
 		arg_shot(argv[2]);
 	while (1)
 	{
+		hook_signals();
 		input = readline(PROMPT);
 		if (!input)
 			break ;

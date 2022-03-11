@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 23:03:25 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:41:32 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ int			launch_commands(t_list **commands);
 
 /* signals */
 void		hook_signals(void);
+void		hook_signals_child(void);
+void		reset_signals(void);
+void		sig_handler2(int sig_no);
+void		sig_handler(int sig_no);
 
 /* common utils */
 char		**ft_split(char const *s, char c);
@@ -120,6 +124,7 @@ int			have_here_doc_cmds(t_list *commands_list);
 int			have_lim_here_doc(t_list *commands_list);
 void		ft_free_exit_err(int status);
 int			ft_is_digit(char ch);
+
 
 /* simple checks*/
 int			is_delim(char i);
