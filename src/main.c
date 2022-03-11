@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 23:24:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 23:02:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:58:06 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ static void	init(t_list **commands, char **env)
 	parse_environment(env);
 }
 
+static void	ft_read_line(char **input)
+{
+	hook_signals();
+	*input = readline(PROMPT);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		*input;
@@ -54,8 +60,7 @@ int	main(int argc, char **argv, char **env)
 		arg_shot(argv[2]);
 	while (1)
 	{
-		hook_signals();
-		input = readline(PROMPT);
+		ft_read_line(&input);
 		if (!input)
 			break ;
 		if (consider_empty(input))

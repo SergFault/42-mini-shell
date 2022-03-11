@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 19:29:28 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 12:54:49 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:54:23 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,4 @@ void	ft_wait_status(void)
 	wait(&stat_loc);
 	g_data.ret_val = WEXITSTATUS(stat_loc);
 	signal(SIGINT, sig_handler);
-
-
 }

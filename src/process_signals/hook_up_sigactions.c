@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:38:42 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 20:45:46 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/11 20:50:24 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	sig_handler2(int sig_no)
 	else if (sig_no == SIGTERM)
 		exit(130);
 }
-
 
 void	sig_handler(int sig_no)
 {
