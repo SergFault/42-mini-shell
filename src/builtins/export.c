@@ -44,10 +44,9 @@ char	*ft_find_min(char **tmp, int size)
 	while (tmp[i] == NULL && i < size)
 		i++;
 	res = i;
-	str = tmp[i];
+	str = tmp[i++];
 	if (!str)
 		return (NULL);
-	i++;
 	while (i < size)
 	{
 		if (tmp[i] != NULL)
@@ -78,15 +77,6 @@ void	prnt(char *str)
 	}
 }
 
-void fill_env_arr(char **tmp, int *i)
-{
-	while (g_data.env[*i])
-	{
-		tmp[*i] = g_data.env[*i];
-		(*i)++;
-	}
-}
-
 void	ft_print_env(void)
 {
 	char	*str;
@@ -97,18 +87,21 @@ void	ft_print_env(void)
 	size = ft_str_arr_size(g_data.env);
 	tmp = (char **)malloc(sizeof(char *) * (size + 1));
 	i = 0;
-	fill_env_arr(tmp, &i);
+	while (g_data.env[i])
+	{
+		tmp[i] = g_data.env[i];
+		i++;
+	}
+	tmp[i] = g_data.env[i];
 	i = 0;
-	while (i < size)
+	while (i++ < size)
 	{
 		str = ft_find_min(tmp, size);
 		if (!str)
 			break ;
 		printf("declare -x ");
-		while (*str)
-			prnt(str);
+		prnt(str);
 		printf("\n");
-		i++;
 	}
 	free(tmp);
 }

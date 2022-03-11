@@ -12,6 +12,22 @@
 
 #include "minishell.h"
 
+static void	ft_new_env(char **new_env)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (g_data.env[j])
+	{
+		if (g_data.env[j][0])
+			new_env[i++] = g_data.env[j++];
+		else
+			j++;
+	}
+}
+
 static void	ft_delete_key(char *key)
 {
 	int		i;
@@ -27,15 +43,7 @@ static void	ft_delete_key(char *key)
 			new_env = (char **)malloc(sizeof(char *)
 					* ft_str_arr_size(g_data.env));
 			new_env[ft_str_arr_size(g_data.env) - 1] = NULL;
-			i = 0;
-			j = 0;
-			while (g_data.env[j])
-			{
-				if (g_data.env[j][0])
-					new_env[i++] = g_data.env[j++];
-				else
-					j++;
-			}
+			ft_new_env(new_env);
 			free(g_data.env);
 			g_data.env = new_env;
 			return ;
