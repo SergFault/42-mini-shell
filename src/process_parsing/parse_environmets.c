@@ -17,18 +17,36 @@ char	**ft_new_shlvl(char **env)
 	char	**var;
 	char	*shlevel;
 	char	*newlevel;
+	char	*buf;
 
-	var = (char **)malloc(sizeof(char *) * 5);
-	var[4] = NULL;
+	var = (char **)malloc(sizeof(char *) * 6);
+	var[5] = NULL;
 	var[0] = ft_strdup("export");
 	shlevel = get_env_var(env, "SHLVL");
 	newlevel = ft_itoa(ft_atoi(shlevel) + 1);
 	var[1] = ft_strjoin("SHLVL=", newlevel);
 	var[2] = ft_strdup("SHELL=minishell");
 	var[3] = ft_strdup("OLDPWD");
+	buf = (char *) malloc(sizeof(char) * (PATH_MAX + 1));
+	var[4] = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
+	free(buf);
 	free(shlevel);
 	free(newlevel);
 	return (var);
+}
+
+char	**ft_unset_pwd(void)
+{
+	char	**argv;
+
+	argv = (char **)malloc(sizeof(char *) * 3);
+	if (argv)
+	{
+		argv[2] = NULL;
+		argv[0] = ft_strdup("PWD");
+		argv[1] = ft_strdup("OLDPWD");
+	}
+	return (argv);
 }
 
 int	parse_environment(char **env)
@@ -40,17 +58,17 @@ int	parse_environment(char **env)
 	pos = 0;
 	count = ft_str_arr_size(env);
 	g_data.env = (char **)malloc(sizeof(char *) * (count + 1));
-	var = ft_new_shlvl(env);
 	while (env[pos])
 	{
 		g_data.env[pos] = ft_strdup(env[pos]);
 		pos++;
 	}
 	g_data.env[pos] = NULL;
+	var = ft_unset_pwd();
+	ft_unset(var);
+	free_str_arr(var);
+	var = ft_new_shlvl(env);
 	ft_export(var);
-	pos = 0;
-	while (var[pos])
-		free(var[pos++]);
-	free(var);
+	free_str_arr(var);
 	return (0);
 }
