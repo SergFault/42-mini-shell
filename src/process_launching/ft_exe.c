@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 21:46:34 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/06 23:23:35 by eshana           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:08:36 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,38 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	}
 }
 
+static void	process_path(t_list *command, char **args, t_list *commands)
+{
+	char	*path;
+	int		path_stat;
+
+	path = get_path(get_word_by_type(command, ARG)->val, &path_stat);
+	if (path_stat == BIN_PERM_ERR || path_stat == BIN_NOT_FOUND
+		|| path_stat == BIN_IS_DIR)
+	{
+		free(args);
+		free(path);
+		process_bad_path(path_stat, command, commands);
+	}
+	execve(path, args, g_data.env);
+}
+
 int	ft_exe(t_list *command, t_list *commands)
 {
 	char	**args;
-	int		path_stat;
-	char	*path;
 
-	path_stat = 0;
 	args = get_args(command);
 	if (is_built_in(command))
-	{
 		return (launch_built_in(command, commands));
+	if (args[0] == NULL)
+	{
+		free(args);
+		free_all_but_hist(commands);
+		exit(0);
 	}
 	else
 	{
-		path = get_path(get_word(get_cmd(command)->element)->val, &path_stat);
-		if (path_stat == BIN_PERM_ERR || path_stat == BIN_NOT_FOUND
-			|| path_stat == BIN_IS_DIR)
-		{
-			free(args);
-			free(path);
-			process_bad_path(path_stat, command, commands);
-		}
-		execve(path, args, g_data.env);
+		process_path(command, args, commands);
 	}
 	return (0);
 }

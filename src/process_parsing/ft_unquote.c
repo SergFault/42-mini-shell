@@ -41,7 +41,7 @@ int	cpy_unquote(char *src, char *dst)
 
 void	ft_unquote(char **str_p)
 {
-	int		len;
+	size_t	len;
 	char	*s;
 	char	*result;
 

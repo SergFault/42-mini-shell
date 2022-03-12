@@ -140,6 +140,7 @@ int			is_built_in(t_list *cmd_lst);
 int			launch_built_in(t_list *command, t_list *cmd_list);
 void		launch_forked(t_list *command_lst, int fd[2], int std_io[2],
 				int cmd_count);
+char		*get_path(char *raw_cmd, int *status);
 
 /*builtins*/
 int			ft_cd(char **argv);

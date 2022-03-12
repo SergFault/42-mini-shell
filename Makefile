@@ -71,7 +71,7 @@ fclean:					clean
 
 re: 					fclean all
 
-val:
+val:					all
 						valgrind --leak-check=full \
 								--suppressions=.valgrind-supression\
 								--show-leak-kinds=all \
