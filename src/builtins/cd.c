@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*ft_get_env_addr(const char *key)
+static char	*ft_get_env_addr(const char *key)
 {
 	int		i;
 	int		res;
@@ -21,21 +21,23 @@ char	*ft_get_env_addr(const char *key)
 	while (g_data.env[i])
 	{
 		res = ft_strncmp(g_data.env[i], key, ft_strlen(key));
-		if (!res)
+		if (!res && (g_data.env[i][ft_strlen(key)] == '='
+			|| g_data.env[i][ft_strlen(key)] == '\0'))
 			return (g_data.env[i]);
 		i++;
 	}
 	return (NULL);
 }
 
-void	ft_rewrite_pwd(char *pwd, char *oldpwd)
+static void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 {
 	int		i;
 
 	i = 0;
 	while (g_data.env[i])
 	{
-		if (!ft_strncmp(g_data.env[i], "PWD=", ft_strlen("PWD=")))
+		if (!ft_strncmp(g_data.env[i], "PWD=", ft_strlen("PWD="))
+			|| !ft_strcmp(g_data.env[i], "PWD"))
 		{
 			free(g_data.env[i]);
 			g_data.env[i] = pwd;
@@ -56,31 +58,50 @@ void	ft_rewrite_pwd(char *pwd, char *oldpwd)
 		free(oldpwd);
 }
 
+static void	ft_free_resources(char **argv, char *dir)
+{
+	if (!argv[1])
+		free(dir);
+}
+
+static int	ft_process_chdir(char **argv, char *dir)
+{
+	char	*buf;
+	char	*pwd;
+	char	*oldpwd;
+
+	pwd = ft_get_env_addr("PWD");
+	oldpwd = ft_strjoin("OLD", pwd);
+	buf = (char *) malloc(sizeof(char) * (PATH_MAX + 1));
+	pwd = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
+	free(buf);
+	ft_rewrite_pwd(pwd, oldpwd);
+	ft_free_resources(argv, dir);
+	return (0);
+}
+
 int	ft_cd(char **argv)
 {
 	int		ret;
-	char	*pwd;
-	char	*oldpwd;
-	char	*buf;
+	char	*dir;
 
-	if (ft_str_arr_size(argv) > 2)
+	dir = argv[1];
+	if (!dir)
 	{
-		ft_put_err("minishell: cd: too many arguments\n");
+		dir = ft_get_env_addr("HOME");
+		if (dir)
+			dir = get_env_var(g_data.env, "HOME");
+	}
+	if (dir)
+	{
+		ret = chdir(dir);
+		if (!ret || !ft_strlen(dir))
+			return (ft_process_chdir(argv, dir));
+		ft_put_err_simple("minishell: cd: ");
+		perror(dir);
+		ft_free_resources(argv, dir);
 		return (1);
 	}
-	if (argv[1])
-		ret = chdir(argv[1]);
-	if (!ret)
-	{
-		pwd = ft_get_env_addr("PWD=");
-		oldpwd = ft_strjoin("OLD", pwd);
-		buf = (char *)malloc(sizeof(char) * (PATH_MAX + 1));
-		pwd = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
-		free(buf);
-		ft_rewrite_pwd(pwd, oldpwd);
-		return (0);
-	}
-	ft_put_err("minishell: cd: ");
-	perror(argv[1]);
+	ft_put_err_simple("minishell: cd: HOME not set\n");
 	return (1);
 }

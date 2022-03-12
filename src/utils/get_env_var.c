@@ -16,7 +16,7 @@ static char	*get_result(char *full_key, char *var_val)
 {
 	int	key_size;
 
-	key_size = strlen(full_key);
+	key_size = ft_strlen(full_key);
 	free(full_key);
 	return (ft_strdup(var_val + key_size));
 }
