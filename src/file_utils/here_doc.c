@@ -50,7 +50,7 @@ void	here_read(char *delim, int has_quotes, int f)
 	char	*input;
 	char	*to_free;
 
-	input = readline(NULL);
+	input = readline("> ");
 	if (!has_quotes)
 		ft_substitution(&input);
 	while (input)
@@ -65,7 +65,7 @@ void	here_read(char *delim, int has_quotes, int f)
 		free(to_free);
 		ft_putstr_fd(input, f);
 		free(input);
-		input = readline(NULL);
+		input = readline("> ");
 	}
 }
 
