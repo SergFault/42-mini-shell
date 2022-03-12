@@ -71,7 +71,7 @@ int	launch_commands(t_list **commands)
 	if (cmd_count == 1 && is_built_in(command_lst))
 	{
 		setup_fd(command_lst, std_io);
-		launch_built_in(command_lst, command_lst);
+		g_data.ret_val = launch_built_in(command_lst, command_lst);
 	}
 	else if (cmd_count == 1)
 	{

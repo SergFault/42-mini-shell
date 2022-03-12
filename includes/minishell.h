@@ -34,7 +34,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 
-# define PROMPT "minishell:"
+# define PROMPT "minishell$ "
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2

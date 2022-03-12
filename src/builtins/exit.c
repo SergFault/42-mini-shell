@@ -70,36 +70,36 @@ int	ft_atoi(const char *str)
 
 static void	numeric_err(char *param)
 {
-	ft_put_err("minishell: exit: ");
-	ft_put_err(param);
-	ft_put_err(": numeric argument required\n");
+	ft_put_err_simple("minishell: exit: ");
+	ft_put_err_simple(param);
+	ft_put_err_simple(": numeric argument required\n");
 }
 
 int	ft_exit(char **params, t_list *cmd_to_free)
 {
-	unsigned char	ret;
 	int				size;
 
 	size = ft_str_arr_size(params);
-	ret = 0;
-	if (size > 1 && ft_is_numeric(params[1]))
+	printf("exit\n");
+	if (size > 1)
 	{
-		if (size > 2)
+		if (size > 2 && ft_is_numeric(params[1]))
 		{
-			ft_put_err("exit\nminishell: exit: too many arguments\n");
+			ft_put_err_simple("minishell: exit: too many arguments\n");
 			return (1);
 		}
+		else if (ft_is_numeric(params[1]))
+			g_data.ret_val = ft_atoi(params[1]);
 		else
-			ret = ft_atoi(params[1]);
+		{
+			g_data.ret_val = 255;
+			numeric_err(params[1]);
+		}
+		free_all(cmd_to_free);
+		free(params);
+		exit(g_data.ret_val);
 	}
-	else if (size > 1)
-		ret = 2;
-	printf("exit\n");
-	if (ret == 2)
-		numeric_err(params[0]);
 	free_all(cmd_to_free);
 	free(params);
-	if (ret != 0)
-		g_data.ret_val = ret;
 	exit(g_data.ret_val);
 }
