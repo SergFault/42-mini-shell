@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 22:20:34 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 13:10:51 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include <dirent.h>
 # include <fcntl.h>
 
-# define PROMPT "minishell$ "
+# define PROMPT "minishell:"
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2

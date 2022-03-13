@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 21:57:07 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 22:28:25 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 13:24:08 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,16 @@ static size_t	ft_datasnaps(const char *str, char del)
 
 	quotes[0] = 0;
 	quotes[1] = 0;
-	c = 0;
+	c = 1;
 	while (*str)
 	{
 		if (*str == del && !(quotes[0] || quotes[1]))
 		{
-			while (*str == del && *str && !(quotes[0] || quotes[1]))
-				change_quote_flags(quotes, str++);
+			c++;
+			change_quote_flags(quotes, str++);
 		}
 		else
 		{
-			c++;
 			while ((*str != del || (quotes[0] || quotes[1])) && *str)
 				change_quote_flags(quotes, str++);
 		}
@@ -72,7 +71,7 @@ static int	ft_parse(char **str, const char *src, char del, size_t d_snaps)
 	while (str_n < d_snaps)
 	{
 		size = 0;
-		while (*src == del && !(quotes[0] || quotes[1]))
+		if (*src == del && !(quotes[0] || quotes[1]))
 			src++;
 		skip_body(del, &src, quotes, &size);
 		str[str_n] = (char *)malloc(sizeof(char) * (size + 1));
