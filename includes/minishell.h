@@ -96,6 +96,7 @@ void		hook_signals_child(void);
 void		reset_signals(void);
 void		sig_handler2(int sig_no);
 void		sig_handler(int sig_no);
+void		reset_signals_heredoc(void);
 
 /* common utils */
 char		**ft_split(char const *s, char c);

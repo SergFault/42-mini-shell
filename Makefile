@@ -1,6 +1,6 @@
 NAME = minishell
 CPP	 = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 FLAGS += -MMD -MP
 INCL_DIR = includes
 SRCS_FILES 	= main.c process_signals/hook_up_sigactions.c \

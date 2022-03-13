@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:25:03 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 22:27:49 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 22:38:18 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,30 @@ char	*get_random_name(void)
 		name[c] = (char)('a' + (number % 26));
 	}
 	name[0] = '.';
+	name[1] = 't';
+	name[2] = 'm';
 	return (name);
 }
+int handle_eof(char *input, int f, char *f_name)
+{
+	if (!input)
+	{
+		close(f);
+		open(f_name, O_TRUNC);
+		ft_put_err("bash: warning: here-document at line 1 delimited by end-of-file\n");
+		return (1);
+	}
+	return (0);
+}
 
-void	here_read(char *delim, int has_quotes, int f)
+void	here_read(char *delim, int has_quotes, int f, char *f_name)
 {
 	char	*input;
 	char	*to_free;
 
 	input = readline("> ");
+	if (handle_eof(input, f, f_name))
+		return ;
 	if (!has_quotes)
 		ft_substitution(&input);
 	while (input)
@@ -66,8 +81,17 @@ void	here_read(char *delim, int has_quotes, int f)
 		ft_putstr_fd(input, f);
 		free(input);
 		input = readline("> ");
+		if (handle_eof(input, f, f_name))
+			return ;
 	}
 }
+
+//void handler(int sig)
+//{
+//	(void) sig;
+//	close(1);
+//	close(0);
+//}
 
 int	here_doc_fd(char *delim)
 {
@@ -75,6 +99,7 @@ int	here_doc_fd(char *delim)
 	char	*file_name;
 	int		has_quotes;
 
+//	signal(SIGINT, handler);
 	has_quotes = 0;
 	if (is_quotes(delim))
 	{
@@ -85,7 +110,7 @@ int	here_doc_fd(char *delim)
 	f = open(file_name, O_CREAT | O_EXCL | O_RDWR, 0644);
 	if (f == -1)
 		process_err("fatal: resource access error");
-	here_read(delim, has_quotes, f);
+	here_read(delim, has_quotes, f, file_name);
 	close(f);
 	f = open(file_name, O_RDONLY);
 	if (f == -1)

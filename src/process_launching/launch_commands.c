@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:46:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 20:50:24 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 02:22:43 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_bin_path(char *path)
 	return (BIN_PERM_ERR);
 }
 
-int	launch_simple(t_list *command_lst)
+int	launch_simple(t_list *command_lst, int *std_io)
 {
 	int	pid;
 
@@ -51,8 +51,15 @@ int	launch_simple(t_list *command_lst)
 	if (!pid)
 	{
 		reset_signals();
+		setup_fd(command_lst, std_io);
 		ft_exe(command_lst, command_lst);
+		if (is_built_in(command_lst))
+		{
+			exit(g_data.ret_val);
+		}
 	}
+	close(0);
+	close(1);
 	ft_wait_status();
 	return (0);
 }
@@ -68,19 +75,20 @@ int	launch_commands(t_list **commands)
 	std_io[0] = dup(0);
 	std_io[1] = dup(1);
 	cmd_count = ft_lstsize(command_lst);
-	if (cmd_count == 1 && is_built_in(command_lst))
+	if (cmd_count == 1 && is_built_in(command_lst) && !have_here_doc_cmds(command_lst))
 	{
 		setup_fd(command_lst, std_io);
 		g_data.ret_val = launch_built_in(command_lst, command_lst);
 	}
 	else if (cmd_count == 1)
 	{
-		setup_fd(command_lst, std_io);
-		launch_simple(command_lst);
+		launch_simple(command_lst, std_io);
 	}
 	else
 		launch_forked(command_lst, fd, std_io, cmd_count);
 	dup2(std_io[0], 0);
 	dup2(std_io[1], 1);
+	close(std_io[0]);
+	close(std_io[1]);
 	return (0);
 }
