@@ -21,6 +21,10 @@ void	ft_wait_status(void)
 	signal(SIGINT, sig_handler2);
 	stat_loc = 0;
 	wait(&stat_loc);
-	g_data.ret_val = WEXITSTATUS(stat_loc);
+	g_data.ret_val = stat_loc;
+	if (WIFEXITED(g_data.ret_val))
+		g_data.ret_val = WEXITSTATUS(g_data.ret_val);
+	else if (WIFSIGNALED(g_data.ret_val))
+		g_data.ret_val = 128 + WTERMSIG(g_data.ret_val);
 	signal(SIGINT, sig_handler);
 }
