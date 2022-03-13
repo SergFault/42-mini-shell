@@ -50,8 +50,7 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 	if (!quotes[0] && *(str + pos + 1) == '?')
 	{
 		ret_val = (char **)malloc(sizeof(char *) * 2);
-		if (ret_val == 0)
-			ft_free_exit_err(2);
+		fatal_err_if(ret_val == NULL, NULL);
 		ret_val[0] = ft_strdup("?");
 		ret_val[1] = NULL;
 		return (ret_val);
@@ -59,8 +58,7 @@ static char	**resolve_split(int quotes[2], char *str, int pos)
 	if (!quotes[0] && ft_is_digit(*(str + pos + 1)))
 	{
 		ret_val = (char **)malloc(sizeof(char *) * 2);
-		if (ret_val == 0)
-			ft_free_exit_err(2);
+		fatal_err_if(ret_val == NULL, NULL);
 		ret_val[0] = ft_strdup("1");
 		ret_val[1] = NULL;
 		return (ret_val);

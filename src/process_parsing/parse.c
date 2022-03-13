@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:14:20 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/11 22:31:49 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 13:41:04 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_list	*map_lines_cmds(char **lines)
 	while (lines[++pos])
 	{
 		cmd = malloc(sizeof(t_command));
+		fatal_err_if(cmd == 0, cmd_lst);
 		cmd->cmd_line = lines[pos];
 		cmd->element = NULL;
 		ft_lstadd_back(&cmd_lst, ft_lstnew(cmd));

@@ -12,19 +12,6 @@
 
 #include "minishell.h"
 
-static int	free_fail(char **str_a, int c)
-{
-	int	counter;
-
-	counter = 0;
-	while (counter < c)
-	{
-		free(str_a[c]);
-		counter++;
-	}
-	return (0);
-}
-
 static size_t	ft_datasnaps(const char *str, char del)
 {
 	size_t	c;
@@ -62,8 +49,7 @@ static int	ft_parse(char **str, const char *src, char del, size_t d_snaps)
 			size++;
 		}
 		str[str_n] = (char *)malloc(sizeof(char) * (size + 1));
-		if (!(str[str_n]))
-			return (free_fail(str, str_n));
+		fatal_err_if(!str[str_n], NULL);
 		src -= size;
 		ft_strlcpy(str[str_n], src, size + 1);
 		src += size;
@@ -81,8 +67,7 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	data_snaps = ft_datasnaps(s, c);
 	ret = (char **)malloc(sizeof(char *) * (data_snaps + 1));
-	if (!(ret))
-		return (NULL);
+	fatal_err_if(!ret, NULL);
 	ft_parse(ret, s, c, data_snaps);
 	ret[data_snaps] = NULL;
 	return (ret);

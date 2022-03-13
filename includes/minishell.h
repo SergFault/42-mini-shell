@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/13 13:10:51 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 13:41:04 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ void		free_cmd(void *cmd);
 void		free_str_arr(char **str_arr);
 void		free_all(t_list *cmds);
 void		free_all_but_hist(t_list *cmds);
+void		fatal_err_if(int bool, t_list *cmds_to_free);
 
 /* redirect */
 int			setup_fd(t_list *command, int pInt[2]);

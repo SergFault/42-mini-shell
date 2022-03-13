@@ -25,6 +25,7 @@ int	ft_add_key(char *name)
 		return (0);
 	free(key);
 	new_env = (char **)malloc(sizeof(char *) * (i + 2));
+	fatal_err_if(new_env == 0, NULL);
 	new_env[i + 1] = NULL;
 	new_env[i] = ft_strdup(name);
 	while (--i >= 0)
@@ -86,6 +87,7 @@ void	ft_print_env(void)
 
 	size = ft_str_arr_size(g_data.env);
 	tmp = (char **)malloc(sizeof(char *) * (size + 1));
+	fatal_err_if(tmp == 0, NULL);
 	i = 0;
 	while (g_data.env[i])
 	{

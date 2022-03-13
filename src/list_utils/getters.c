@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:08:23 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/12 13:49:08 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/12 14:06:36 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	**get_args(t_list *command)
 		iter = iter->next;
 	}
 	args = (char **) malloc(sizeof(char *) * (args_count + 1));
+	fatal_err_if(args == 0, NULL);
 	iter = get_cmd(command)->element;
 	pos = -1;
 	while (iter)

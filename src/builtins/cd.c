@@ -73,6 +73,7 @@ static int	ft_process_chdir(char **argv, char *dir)
 	pwd = ft_get_env_addr("PWD");
 	oldpwd = ft_strjoin("OLD", pwd);
 	buf = (char *) malloc(sizeof(char) * (PATH_MAX + 1));
+	fatal_err_if(buf == 0, NULL);
 	pwd = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
 	free(buf);
 	ft_rewrite_pwd(pwd, oldpwd);

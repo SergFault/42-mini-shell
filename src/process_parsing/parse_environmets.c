@@ -28,6 +28,7 @@ char	**ft_new_shlvl(char **env)
 	var[2] = ft_strdup("SHELL=minishell");
 	var[3] = ft_strdup("OLDPWD");
 	buf = (char *) malloc(sizeof(char) * (PATH_MAX + 1));
+	fatal_err_if(buf == 0, NULL);
 	var[4] = ft_strjoin("PWD=", getcwd(buf, PATH_MAX));
 	free(buf);
 	free(shlevel);
@@ -40,6 +41,7 @@ char	**ft_unset_pwd(void)
 	char	**argv;
 
 	argv = (char **)malloc(sizeof(char *) * 3);
+	fatal_err_if(argv == 0, NULL);
 	if (argv)
 	{
 		argv[2] = NULL;
@@ -58,6 +60,7 @@ int	parse_environment(char **env)
 	pos = 0;
 	count = ft_str_arr_size(env);
 	g_data.env = (char **)malloc(sizeof(char *) * (count + 1));
+	fatal_err_if(g_data.env == NULL, NULL);
 	while (env[pos])
 	{
 		g_data.env[pos] = ft_strdup(env[pos]);

@@ -6,24 +6,11 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 21:57:07 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/13 13:24:08 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/13 13:25:08 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	free_fail(char **str_a, int c)
-{
-	int	counter;
-
-	counter = 0;
-	while (counter < c)
-	{
-		free(str_a[c]);
-		counter++;
-	}
-	return (0);
-}
 
 static size_t	ft_datasnaps(const char *str, char del)
 {
@@ -75,8 +62,7 @@ static int	ft_parse(char **str, const char *src, char del, size_t d_snaps)
 			src++;
 		skip_body(del, &src, quotes, &size);
 		str[str_n] = (char *)malloc(sizeof(char) * (size + 1));
-		if (!(str[str_n]))
-			return (free_fail(str, str_n));
+		fatal_err_if(!str[str_n], NULL);
 		src -= size;
 		ft_strlcpy(str[str_n], src, size + 1);
 		src += size;
@@ -94,8 +80,7 @@ char	**ft_split_pipes(char const *s)
 		return (NULL);
 	data_snaps = ft_datasnaps(s, '|');
 	ret = (char **)malloc(sizeof(char *) * (data_snaps + 1));
-	if (!(ret))
-		return (NULL);
+	fatal_err_if(!ret, NULL);
 	ft_parse(ret, s, '|', data_snaps);
 	ret[data_snaps] = NULL;
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 21:35:57 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 21:38:35 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/12 13:39:13 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_unquote(char **str_p)
 	s = *str_p;
 	len = ft_strlen(s);
 	result = (char *)malloc(sizeof(char) * (len + 1));
+	fatal_err_if(result == 0, NULL);
 	result[len] = '\0';
 	cpy_unquote(s, result);
 	free(*str_p);

@@ -19,11 +19,7 @@ t_word	*cut_word(int s_pos, int c_pos, char *line)
 
 	word_str = malloc(sizeof (char) * (c_pos - s_pos + 1));
 	word = malloc(sizeof(t_list));
-	if (!word_str || !word)
-	{
-		ft_putstr_fd("Memory allocation error.\n", 2);
-		return (NULL);
-	}
+	fatal_err_if((!word_str || !word), NULL);
 	word_str[c_pos - s_pos] = '\0';
 	ft_strncpy(word_str, line + s_pos, c_pos - s_pos);
 	word->val = word_str;

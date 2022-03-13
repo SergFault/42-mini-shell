@@ -41,6 +41,7 @@ static void	ft_delete_key(char *key)
 			g_data.env[i][0] = '\0';
 			new_env = (char **)malloc(sizeof(char *)
 					* ft_str_arr_size(g_data.env));
+			fatal_err_if(new_env == 0, NULL);
 			new_env[ft_str_arr_size(g_data.env) - 1] = NULL;
 			ft_new_env(new_env);
 			free(g_data.env);
