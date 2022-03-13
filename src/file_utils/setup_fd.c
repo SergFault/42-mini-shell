@@ -96,13 +96,9 @@ int	setup_here_doc(t_list *command, int std_io[2])
 
 int	setup_fd(t_list *command, int std_io[2])
 {
-	if (setup_redirect(command))
-		return (1);
-	if (setup_redirect_append(command))
-		return (1);
-	if (setup_redirect_in(command))
-		return (1);
-	if (setup_here_doc(command, std_io))
-		return (1);
+	setup_redirect(command);
+	setup_redirect_append(command);
+	setup_redirect_in(command);
+	setup_here_doc(command, std_io);
 	return (0);
 }
