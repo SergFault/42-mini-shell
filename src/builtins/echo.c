@@ -45,11 +45,12 @@ int	ft_echo(char **argv)
 	}
 	while (argv[i])
 	{
-		printf("%s", argv[i++]);
+		ft_putstr_fd(argv[i], 1);
+		i++;
 		if (argv[i])
-			printf(" ");
+			ft_putstr_fd(" ", 1);
 	}
 	if (new_line)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 	return (0);
 }

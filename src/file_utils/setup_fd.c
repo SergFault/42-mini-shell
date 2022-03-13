@@ -42,7 +42,7 @@ int	setup_redirect(t_list *command)
 	word = get_word_by_type(command, OUT_FILE);
 	if (word)
 	{
-		f = open(word->val, O_WRONLY | O_CREAT, 0664);
+		f = open(word->val, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 		if (f == -1)
 		{
 			f = open("/dev/null", O_WRONLY);

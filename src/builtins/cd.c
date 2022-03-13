@@ -90,8 +90,10 @@ int	ft_cd(char **argv)
 	if (!dir)
 	{
 		dir = ft_get_env_addr("HOME");
-		if (dir)
+		if (dir && dir[4] == '=')
 			dir = get_env_var(g_data.env, "HOME");
+		else
+			dir = NULL;
 	}
 	if (dir)
 	{
