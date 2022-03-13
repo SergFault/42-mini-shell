@@ -60,7 +60,7 @@ char	**get_args(t_list *command)
 		iter = iter->next;
 	}
 	args = (char **) malloc(sizeof(char *) * (args_count + 1));
-	fatal_err_if(args == 0, NULL);
+	fatal_err_if(args == NULL, NULL);
 	iter = get_cmd(command)->element;
 	pos = -1;
 	while (iter)

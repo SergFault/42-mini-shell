@@ -25,11 +25,20 @@ static char	*make_path(char *begin, char *end)
 
 static int	check_file_exists(char *path)
 {
+	char	*var;
+
+	var = get_env_var(g_data.env, "PATH");
 	if (access(path, F_OK) == 0)
 	{
 		return (BIN_SUCCEED);
 	}
-	return (BIN_NOT_FOUND);
+	if (ft_strlen(var))
+	{
+		free(var);
+		return (BIN_NOT_FOUND);
+	}
+	free(var);
+	return (FILE_NOT_FOUND);
 }
 
 static int	check_file_perms(char *path)
@@ -42,6 +51,8 @@ static int	check_file_perms(char *path)
 		return (BIN_IS_DIR);
 	if (access(path, X_OK) == 0)
 		return (BIN_SUCCEED);
+	if (access(path, F_OK) != 0)
+		return (FILE_NOT_FOUND);
 	return (BIN_PERM_ERR);
 }
 
@@ -84,10 +95,6 @@ int	assemble_path(char *bin_name, char **paths, char **assembled_path)
 		}
 	}
 	if (found == 0 && check == 0)
-		return (BIN_NOT_FOUND);
-	if (check_file_perms(*assembled_path) == BIN_SUCCEED)
-		return (BIN_SUCCEED);
-	if (check_file_perms(*assembled_path) == BIN_IS_DIR)
-		return (BIN_IS_DIR);
-	return (BIN_PERM_ERR);
+		return (check_file_exists(*assembled_path));
+	return (check_file_perms(*assembled_path));
 }

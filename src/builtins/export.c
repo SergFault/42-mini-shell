@@ -66,6 +66,7 @@ char	*ft_find_min(char **tmp, int size)
 
 void	prnt(char *str)
 {
+	printf("declare -x ");
 	while (*str)
 	{
 		printf("%c", *str);
@@ -76,6 +77,7 @@ void	prnt(char *str)
 		}
 		str++;
 	}
+	printf("\n");
 }
 
 void	ft_print_env(void)
@@ -101,9 +103,7 @@ void	ft_print_env(void)
 		str = ft_find_min(tmp, size);
 		if (!str)
 			break ;
-		printf("declare -x ");
 		prnt(str);
-		printf("\n");
 	}
 	free(tmp);
 }

@@ -21,7 +21,10 @@ char	*get_path(char *raw_cmd, int *status)
 	char	**x_paths;
 
 	path_env = get_env_var(g_data.env, "PATH");
-	x_paths = ft_split(path_env, ':');
+	if (!ft_strlen(path_env))
+		x_paths = ft_split("./", ':');
+	else
+		x_paths = ft_split(path_env, ':');
 	free(path_env);
 	*status = assemble_path(raw_cmd, x_paths, &full_path);
 	free_str_arr(x_paths);
@@ -66,18 +69,22 @@ void	process_bad_path(int status, t_list *command, t_list *cmds_to_free)
 	}
 	else if (status == BIN_NOT_FOUND)
 	{
-		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+		ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
 			"command not found");
 		free_all_but_hist(cmds_to_free);
 		exit(127);
 	}
 	else if (status == BIN_IS_DIR)
 	{
-		ft_put_err_cmd(get_word(get_cmd(command)->element)->val,
+		ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
 			"Is a directory");
 		free_all_but_hist(cmds_to_free);
 		exit(126);
 	}
+	ft_put_err_sh_cmd(get_word(get_cmd(command)->element)->val,
+		"No such file or directory");
+	free_all_but_hist(cmds_to_free);
+	exit(127);
 }
 
 static void	process_path(t_list *command, char **args, t_list *commands)
@@ -87,7 +94,7 @@ static void	process_path(t_list *command, char **args, t_list *commands)
 
 	path = get_path(get_word_by_type(command, ARG)->val, &path_stat);
 	if (path_stat == BIN_PERM_ERR || path_stat == BIN_NOT_FOUND
-		|| path_stat == BIN_IS_DIR)
+		|| path_stat == BIN_IS_DIR || path_stat == FILE_NOT_FOUND)
 	{
 		free(args);
 		free(path);

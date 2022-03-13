@@ -34,11 +34,12 @@
 # include <dirent.h>
 # include <fcntl.h>
 
-# define PROMPT "minishell:"
+# define PROMPT "minishell$ "
 # define BIN_SUCCEED 0
 # define BIN_PERM_ERR 1
 # define BIN_NOT_FOUND 2
 # define BIN_IS_DIR 3
+# define FILE_NOT_FOUND 4
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
