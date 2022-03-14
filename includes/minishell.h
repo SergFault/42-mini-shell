@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:25:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/13 13:41:04 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 16:47:02 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@
 # define BIN_NOT_FOUND 2
 # define BIN_IS_DIR 3
 # define FILE_NOT_FOUND 4
+# define EXPECTED 0
+# define UNEXPECTED_LEFT 1
+# define UNEXPECTED_RIGHT 2
+# define UNEXPECTED_DBL_RIGHT 3
+# define UNEXPECTED_DBL_LEFT 4
+# define UNEXPECTED_NEWLINE 5
+# define UNEXPECTED_PIPE 6
 
 # ifndef PATH_MAX
 #  define PATH_MAX 1024
@@ -56,7 +63,8 @@ enum e_type{
 	IN_FILE,
 	LIM,
 	OUT_FILE,
-	FILE_OUT_APPEND
+	FILE_OUT_APPEND,
+	INVALID_TOKEN
 };
 
 typedef struct s_list
@@ -124,6 +132,7 @@ int			ft_atoi(const char *str);
 char		*ft_itoa(int n);
 void		ft_free_exit_err(int status);
 int			ft_is_digit(char ch);
+int			ft_str_cons_only_chars(char *str, char *str_ch);
 
 /* simple checks*/
 int			is_delim(char i);
@@ -191,6 +200,10 @@ void		ft_put_err_simple(const char *str);
 int			validate_in(char *input);
 int			parse(void);
 int			validate_wrds(t_list *l_cmds);
+int			catch_unexpected(t_list *cmd, t_list **un_token);
+t_list		*heredoc_without_delim(t_list *commands_list);
+t_list		*get_invalid_token(t_list *commands_list);
+t_list		*file_op_without_file(t_list *commands_list);
 
 /* list utils */
 void		ft_lstadd_back(t_list **lst, t_list *new);

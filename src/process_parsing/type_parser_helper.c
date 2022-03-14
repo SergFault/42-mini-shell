@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 21:48:21 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 21:50:05 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 15:40:50 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_out_file(t_list *word)
 {
+	if (ft_str_cons_only_chars(((t_word *)(word->content))->val, "<>"))
+		return (0);
 	if ((word->prev) && (get_word_type(word->prev) == FILE_OUT_OP))
 		return (1);
 	return (0);
@@ -21,6 +23,8 @@ int	is_out_file(t_list *word)
 
 int	is_lim(t_list *word)
 {
+	if (ft_str_cons_only_chars(((t_word *)(word->content))->val, "<>"))
+		return (0);
 	if ((word->prev) && (get_word_type(word->prev) == HERE_DOC_OP))
 		return (1);
 	return (0);
@@ -28,6 +32,8 @@ int	is_lim(t_list *word)
 
 int	is_in_file(t_list *word)
 {
+	if (ft_str_cons_only_chars(((t_word *)(word->content))->val, "<>"))
+		return (0);
 	if ((word->prev) && (get_word_type(word->prev) == FILE_IN_OP))
 		return (1);
 	return (0);

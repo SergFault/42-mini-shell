@@ -29,9 +29,6 @@ void	skip_arg(char *line, int *c_pos)
 
 void	skip_redir(char *line, int *pos)
 {
-	char	skip_ch;
-
-	skip_ch = line[*pos];
-	while (line[*pos] && line[*pos] == skip_ch)
+	while (line[*pos] && (line[*pos] == '<' || line[*pos] == '>'))
 		(*pos)++;
 }

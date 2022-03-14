@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:46:56 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/14 02:22:43 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 17:34:55 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,14 @@ int	launch_commands(t_list **commands)
 	std_io[0] = dup(0);
 	std_io[1] = dup(1);
 	cmd_count = ft_lstsize(command_lst);
-	if (cmd_count == 1 && is_built_in(command_lst) && !have_here_doc_cmds(command_lst))
+	if (cmd_count == 1 && is_built_in(command_lst)
+		&& !have_here_doc_cmds(command_lst))
 	{
 		setup_fd(command_lst, std_io);
 		g_data.ret_val = launch_built_in(command_lst, command_lst);
 	}
 	else if (cmd_count == 1)
-	{
 		launch_simple(command_lst, std_io);
-	}
 	else
 		launch_forked(command_lst, fd, std_io, cmd_count);
 	dup2(std_io[0], 0);

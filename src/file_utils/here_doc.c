@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:25:03 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/13 22:38:18 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 17:31:01 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ char	*get_random_name(void)
 	name[2] = 'm';
 	return (name);
 }
-int handle_eof(char *input, int f, char *f_name)
+
+int	handle_eof(char *input, int f, char *f_name)
 {
 	if (!input)
 	{
 		close(f);
 		open(f_name, O_TRUNC);
-		ft_put_err("bash: warning: here-document at line 1 delimited by end-of-file\n");
+		ft_put_err("bash: warning: here-document "
+			"at line 1 delimited by end-of-file\n");
 		return (1);
 	}
 	return (0);
@@ -63,6 +65,7 @@ void	here_read(char *delim, int has_quotes, int f, char *f_name)
 	char	*input;
 	char	*to_free;
 
+	printf("%s\n", delim);
 	input = readline("> ");
 	if (handle_eof(input, f, f_name))
 		return ;
@@ -86,20 +89,12 @@ void	here_read(char *delim, int has_quotes, int f, char *f_name)
 	}
 }
 
-//void handler(int sig)
-//{
-//	(void) sig;
-//	close(1);
-//	close(0);
-//}
-
 int	here_doc_fd(char *delim)
 {
 	int		f;
 	char	*file_name;
 	int		has_quotes;
 
-//	signal(SIGINT, handler);
 	has_quotes = 0;
 	if (is_quotes(delim))
 	{

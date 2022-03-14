@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd_lst.c                                     :+:      :+:    :+:   */
+/*   contains_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 21:53:24 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/13 13:41:04 by Sergey           ###   ########.fr       */
+/*   Created: 2022/03/14 15:32:51 by Sergey            #+#    #+#             */
+/*   Updated: 2022/03/14 16:42:08 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(void *cmd)
+int	ft_str_cons_only_chars(char *str, char *str_ch)
 {
-	free(((t_command *) cmd)->cmd_line);
-	ft_lstclear(&((t_command *) cmd)->element, free_word);
-	free(cmd);
-}
+	int	i;
 
-void	free_word(void *word)
-{
-	if (word)
+	while (*str)
 	{
-		free(((t_word *) word)->val);
-		free(word);
+		i = 0;
+		while (1)
+		{
+			if (str_ch[i] == *str)
+				break ;
+			if (str_ch[i] == '\0')
+				return (0);
+			i++;
+		}
+		str++;
 	}
-}
-
-void	free_cmds(t_list **cmds)
-{
-	if (cmds)
-		ft_lstclear(cmds, free_cmd);
+	return (1);
 }
