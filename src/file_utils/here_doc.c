@@ -65,7 +65,6 @@ void	here_read(char *delim, int has_quotes, int f, char *f_name)
 	char	*input;
 	char	*to_free;
 
-	printf("%s\n", delim);
 	input = readline("> ");
 	if (handle_eof(input, f, f_name))
 		return ;

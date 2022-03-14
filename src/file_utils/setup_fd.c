@@ -83,9 +83,7 @@ int	setup_here_doc(t_list *command, int std_io[2])
 	int		f;
 	t_word	*word;
 
-	//printf("{%s}\n", get_word(command)->val);//debug
 	word = get_word_by_type(command, HERE_DOC_OP);
-	//printf("(%s)\n", get_word_by_type(command, LIM)->val);//debug
 	if (word)
 	{
 		dup2(std_io[0], 0);
