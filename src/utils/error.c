@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-void	ft_put_err_simple(const char *str)
+int	ft_put_err_simple(const char *str)
 {
 	write(2, str, ft_strlen(str));
+	return (1);
 }
 
 void	ft_put_err(const char *str)

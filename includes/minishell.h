@@ -197,7 +197,7 @@ int			cpy_unquote(char *src, char *dst);
 char		**ft_split_quotes(char const *s);
 int			is_inconsiderable(char ch);
 int			fill_words(t_list *cmd);
-void		ft_put_err_simple(const char *str);
+int			ft_put_err_simple(const char *str);
 int			validate_in(char *input);
 int			parse(void);
 int			validate_wrds(t_list *l_cmds);

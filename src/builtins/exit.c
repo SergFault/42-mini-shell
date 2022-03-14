@@ -89,7 +89,7 @@ int	ft_exit(char **params, t_list *cmd_to_free)
 			return (1);
 		}
 		else if (ft_is_numeric(params[1]))
-			g_data.ret_val = ft_atoi(params[1]);
+			g_data.ret_val = ft_atoi(params[1]) % 256;
 		else
 		{
 			g_data.ret_val = 255;
