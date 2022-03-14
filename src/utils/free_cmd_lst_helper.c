@@ -12,24 +12,28 @@
 
 #include "minishell.h"
 
-void	free_cmd(void *cmd)
+void	free_all_but_hist(t_list *cmds)
 {
-	free(((t_command *) cmd)->cmd_line);
-	ft_lstclear(&((t_command *) cmd)->element, free_word);
-	free(cmd);
+	free_cmds(&cmds);
+	free_str_arr(g_data.env);
 }
 
-void	free_word(void *word)
+void	free_all(t_list *cmds)
 {
-	if (word)
+	rl_clear_history();
+	free_cmds(&cmds);
+	free_str_arr(g_data.env);
+}
+
+void	fatal_err_if(int bool, t_list *cmds)
+{
+	if (bool)
 	{
-		free(((t_word *) word)->val);
-		free(word);
+		ft_put_err("Fatal error.\n");
+		rl_clear_history();
+		if (cmds)
+			free_cmds(&cmds);
+		free_str_arr(g_data.env);
+		exit(2);
 	}
-}
-
-void	free_cmds(t_list **cmds)
-{
-	if (cmds)
-		ft_lstclear(cmds, free_cmd);
 }

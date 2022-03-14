@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 14:37:26 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/12 14:17:38 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 17:40:48 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,23 @@ static int	consider_cmd_fatal_empty(t_list *cmd)
 	return (0);
 }
 
+void	print_unexpected_token(t_list *unexpected)
+{
+	const char	*token;
+
+	if (!unexpected)
+		token = "newline";
+	else
+		token = (((t_word *)(unexpected->content))->val);
+	ft_put_err("syntax error near unexpected token `");
+	ft_put_err_simple(token);
+	ft_put_err_simple("'\n");
+}
+
 int	validate_wrds(t_list *l_cmds)
 {
+	t_list	*unexpected_token;
+
 	while (l_cmds)
 	{
 		if (consider_cmd_fatal_empty(l_cmds))
@@ -42,11 +57,9 @@ int	validate_wrds(t_list *l_cmds)
 			ft_put_err("syntax error near unexpected token `|\'\n");
 			return (0);
 		}
-		if ((have_here_doc_cmds(l_cmds) && !have_lim_here_doc(l_cmds))
-			|| (have_file_in_op(l_cmds) && !have_file_in(l_cmds))
-			|| (have_any_out_redir_op(l_cmds) && !have_file_out(l_cmds)))
+		if (catch_unexpected(l_cmds, &unexpected_token))
 		{
-			ft_put_err("syntax error near unexpected token `newline\'\n");
+			print_unexpected_token(unexpected_token);
 			return (0);
 		}
 		l_cmds = l_cmds->next;
