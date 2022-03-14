@@ -6,7 +6,7 @@
 /*   By: Sergey <mrserjy@gmail.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:03:39 by Sergey            #+#    #+#             */
-/*   Updated: 2022/03/07 20:06:19 by Sergey           ###   ########.fr       */
+/*   Updated: 2022/03/14 19:47:10 by Sergey           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,19 @@ int	setup_redirect_in(t_list *command)
 int	setup_here_doc(t_list *command, int std_io[2])
 {
 	int		f;
+	int		save_fd;
 	t_word	*word;
 
 	word = get_word_by_type(command, HERE_DOC_OP);
 	if (word)
 	{
 		dup2(std_io[0], 0);
+		save_fd = dup(1);
+		dup2(std_io[1], 1);
 		f = here_doc_fd(get_word_by_type(command, LIM)->val);
 		dup2(f, 0);
+		dup2(save_fd, 1);
+		close(save_fd);
 		return (1);
 	}
 	return (0);
