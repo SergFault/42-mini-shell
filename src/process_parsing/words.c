@@ -65,8 +65,11 @@ t_list	*parse_words(char *line)
 	iter = words_lst;
 	while (iter)
 	{
-		ft_substitution(&(get_word(iter)->val));
-		ft_unquote(&(get_word(iter)->val));
+		if (get_word(iter)->t != LIM)
+		{
+			ft_substitution(&(get_word(iter)->val));
+			ft_unquote(&(get_word(iter)->val));
+		}
 		iter = iter->next;
 	}
 	return (words_lst);

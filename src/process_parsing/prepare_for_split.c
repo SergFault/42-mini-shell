@@ -95,3 +95,29 @@ void	ft_substitution(char **str_p)
 	}
 	*str_p = str;
 }
+
+void	ft_substitution_heredoc(char **str_p)
+{
+	char	*str;
+	int		pos;
+	char	**splitted;
+	int		quotes[2];
+
+	quotes[1] = 0;
+	quotes[0] = 0;
+	str = *str_p;
+	pos = 0;
+	while (str[pos])
+	{
+		if (str[pos] == '$' && needs_sub(str, pos))
+		{
+			splitted = resolve_split(quotes, str, pos);
+			make_substitution(&str, pos, splitted);
+			continue ;
+		}
+		if (!str[pos])
+			break ;
+		pos++;
+	}
+	*str_p = str;
+}

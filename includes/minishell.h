@@ -179,6 +179,7 @@ int			is_quotes_open(char *str);
 void		change_quote_flags(int q_flags[2], const char *ch);
 char		*str_insert(char *big, char *pos, char *lit);
 void		ft_substitution(char **str_p);
+void		ft_substitution_heredoc(char **str_p);
 void		ft_unquote(char **str_p);
 void		skip_arg(char *line, int *c_pos);
 void		skip_redir(char *line, int *pos);

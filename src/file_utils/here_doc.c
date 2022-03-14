@@ -67,7 +67,7 @@ void	here_read(char *delim, int has_quotes, int f, char *f_name)
 	if (handle_eof(input, f, f_name))
 		return ;
 	if (!has_quotes)
-		ft_substitution(&input);
+		ft_substitution_heredoc(&input);
 	while (input)
 	{
 		if (ft_strcmp(delim, input) == 0)
@@ -99,7 +99,6 @@ int	here_doc_fd(char *delim)
 	char	*file_name;
 	int		has_quotes;
 
-//	signal(SIGINT, handler);
 	has_quotes = 0;
 	if (is_quotes(delim))
 	{
